@@ -23,6 +23,9 @@ module.exports = {
         'sm': '700px',
         'md': '769px',
       },
+      transitionProperty: {
+        'width' : 'width',
+      },
     },
   },
   variants: {
