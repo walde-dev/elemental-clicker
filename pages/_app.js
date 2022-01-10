@@ -24,17 +24,23 @@ function MyApp({ Component, pageProps }) {
   useInterval(() => {
     tick();
   }, 1000);
- 
+
 
 
 
   return (
-    <div
-      className='flex flex-col font-roboto font-light lg:px-32 md:px-16 py-7 bg-main-background-blue w-screen max-w-full max-h-full h-full min-h-screen'
-      onClick={() =>
-        click()
-      }>
+    <div className='flex flex-col font-roboto font-light lg:px-32 md:px-16 py-7 bg-main-background-blue w-screen max-w-full max-h-full h-full min-h-screen'>
       <Header coins={coins} coinsPerSecond={coinsPerSecond} coinsPerClick={coinsPerClick} />
+
+      {/* Playable Area */}
+      <div
+        className='w-full h-screen'
+        onClick={() => click()}
+      >
+
+      </div>
+
+
     </div>
   );
 }
