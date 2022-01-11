@@ -9,9 +9,11 @@ import SideBarPanel from "./components/SideBarPanels/SideBarPanel";
 
 function MyApp({ Component, pageProps }) {
 
-  const [coins, setCoins] = useState(999999)
+  const [coins, setCoins] = useState(0)
   const [coinsPerSecond, setCoinsPerSecond] = useState(0);
   const [coinsPerClick, setCoinsPerClick] = useState(1);
+
+  const [mana, setMana] = useState(0);
 
   const [isSideBarOpen, setIsSideBarOpen] = useState(false);
   const [currentPanel, setCurrentPanel] = useState();
@@ -35,7 +37,7 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <div className='flex flex-col font-roboto font-light lg:px-32 md:px-16 py-7 bg-main-background-blue w-screen max-w-full h-screen'>
-      <Header coins={coins} coinsPerSecond={coinsPerSecond} coinsPerClick={coinsPerClick} />
+      <Header coins={coins} coinsPerSecond={coinsPerSecond} coinsPerClick={coinsPerClick} mana={mana}/>
 
       <div className='flex flex-row mt-7 h-full'>
         <div className='flex flex-row '>

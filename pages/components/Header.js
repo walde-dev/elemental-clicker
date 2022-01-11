@@ -17,7 +17,7 @@ import { abbreviateNumber } from './Logic/logic'
 
 export default function Header(props) {
 
-    let formatter = Intl.NumberFormat('en', {notation: 'compact'})
+    let formatter = Intl.NumberFormat('en', { notation: 'compact' })
 
     /* Mock Data */
     const [coinAmount, setCoinAmount] = useState(3000)
@@ -37,14 +37,14 @@ export default function Header(props) {
                     <div className='flex flex-row space-x-1.5'>
                         <Clock className='self-center w-7 h-7' />
                         <div className='self-center '>
-                            {props.coinsPerSecond}
+                            {abbreviateNumber(props.coinsPerSecond)}
                         </div>
                     </div>
 
                     <div className='flex flex-row space-x-1.5'>
                         <Finger className='self-center w-7 h-7' />
                         <div className='self-center'>
-                            {props.coinsPerClick}
+                            {abbreviateNumber(props.coinsPerClick)}
                         </div>
                     </div>
                 </div>
@@ -53,7 +53,7 @@ export default function Header(props) {
                     <div className='flex flex-row self-center space-x-1.5'>
                         <Mana className='self-center w-7 h-7' />
                         <div className='self-center'>
-                            {coinAmount}
+                            {abbreviateNumber(props.mana)}
                         </div>
                     </div>
 
