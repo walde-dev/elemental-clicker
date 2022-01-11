@@ -27,14 +27,14 @@ export default function Header(props) {
                 <div className='flex sm:flex-row flex-col justify-center sm:space-x-5 space-y-1'>
                     <div className='flex flex-row space-x-1.5'>
                         <Coins className='self-center sm:w-10 sm:h-10 w-7 h-7' />
-                        <div className='self-center'>
+                        <div className='self-center '>
                             {props.coins}
                         </div>
                     </div>
 
                     <div className='flex flex-row space-x-1.5'>
                         <Clock className='self-center w-7 h-7' />
-                        <div className='self-center'>
+                        <div className='self-center '>
                             {props.coinsPerSecond}
                         </div>
                     </div>

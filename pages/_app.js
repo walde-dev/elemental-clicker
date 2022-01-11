@@ -14,6 +14,7 @@ function MyApp({ Component, pageProps }) {
   const [coinsPerClick, setCoinsPerClick] = useState(1);
 
   const [isSideBarOpen, setIsSideBarOpen] = useState(false);
+  const [currentPanel, setCurrentPanel] = useState();
 
 
   function click() {
@@ -41,10 +42,12 @@ function MyApp({ Component, pageProps }) {
           <SideBar
             isSideBarOpen={isSideBarOpen}
             setIsSideBarOpen={setIsSideBarOpen}
+            setCurrentPanel={setCurrentPanel}
           />
             <SideBarPanel
               isSideBarOpen={isSideBarOpen}
               setIsSideBarOpen={setIsSideBarOpen}
+              currentPanel={currentPanel}
             />
 
         </div>
