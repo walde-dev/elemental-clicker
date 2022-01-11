@@ -11,11 +11,13 @@ import { CogIcon, InformationCircleIcon, UserIcon, UsersIcon } from '@heroicons/
 
 
 import TopMenuButton from './Buttons/TopMenuButton'
-import Logic from './Logic/logic'
+import { abbreviateNumber } from './Logic/logic'
 
 
 
 export default function Header(props) {
+
+    let formatter = Intl.NumberFormat('en', {notation: 'compact'})
 
     /* Mock Data */
     const [coinAmount, setCoinAmount] = useState(3000)
@@ -28,7 +30,7 @@ export default function Header(props) {
                     <div className='flex flex-row space-x-1.5'>
                         <Coins className='self-center sm:w-10 sm:h-10 w-7 h-7' />
                         <div className='self-center '>
-                            {props.coins}
+                            {abbreviateNumber(props.coins)}
                         </div>
                     </div>
 

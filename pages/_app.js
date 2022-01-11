@@ -9,7 +9,7 @@ import SideBarPanel from "./components/SideBarPanels/SideBarPanel";
 
 function MyApp({ Component, pageProps }) {
 
-  const [coins, setCoins] = useState(0)
+  const [coins, setCoins] = useState(999999)
   const [coinsPerSecond, setCoinsPerSecond] = useState(0);
   const [coinsPerClick, setCoinsPerClick] = useState(1);
 
