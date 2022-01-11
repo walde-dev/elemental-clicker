@@ -29,13 +29,17 @@ export const playerSlice = createSlice({
         tick: (state) => {
             state.coins += state.coinsPerSecond;
         },
-        incrementByAmount: (state, action) => {
-            state.value += action.payload
+        updateCoinsPerSecond: (state, action) => {
+            console.log('PENIS')
+            state.coinsPerSecond = action.payload;
+        },
+        setCoins: (state, action) => {
+            state.coins = action.payload;
         },
     },
 })
 
 // Action creators are generated for each case reducer function
-export const { click, tick, incrementByAmount } = playerSlice.actions
+export const { click, tick, updateCoinsPerSecond, setCoins } = playerSlice.actions
 
 export default playerSlice.reducer
