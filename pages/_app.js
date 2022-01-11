@@ -5,6 +5,7 @@ import useInterval from "./components/Logic/Hooks/useInterval";
 import SideBar from "./components/SideBar";
 import SideBarPanel from "./components/SideBarPanels/SideBarPanel";
 import MainMenu from "./components/MainMenu";
+import main from "./data/main";
 
 
 
@@ -18,6 +19,8 @@ function MyApp({ Component, pageProps }) {
 
   const [isSideBarOpen, setIsSideBarOpen] = useState(false);
   const [currentPanel, setCurrentPanel] = useState();
+
+  const buildings = main();
 
 
   function click() {
@@ -64,7 +67,9 @@ function MyApp({ Component, pageProps }) {
         </div>
 
         <div className='flex flex-row w-5/12 max-w-md mt-7 absolute md:right-16 right-0 h-[80vh]'>
-          <MainMenu />
+          <MainMenu 
+            buildings={buildings}
+          />
         </div>
 
       </div>
