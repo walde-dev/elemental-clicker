@@ -5,7 +5,7 @@ import useInterval from "./components/Logic/Hooks/useInterval";
 import SideBar from "./components/SideBar";
 import SideBarPanel from "./components/SideBarPanels/SideBarPanel";
 import MainMenu from "./components/MainMenu";
-import main from "./data/main";
+import main, { initializeBuildings } from "./data/main";
 
 
 
@@ -20,7 +20,7 @@ function MyApp({ Component, pageProps }) {
   const [isSideBarOpen, setIsSideBarOpen] = useState(false);
   const [currentPanel, setCurrentPanel] = useState();
 
-  const buildings = main();
+  const buildings = initializeBuildings();
 
 
   function click() {

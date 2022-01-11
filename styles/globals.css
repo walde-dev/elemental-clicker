@@ -9,7 +9,7 @@
 @layer components {
 
     .building-icon {
-        @apply w-10 h-10
+        @apply w-8 h-8
     }
 
 }

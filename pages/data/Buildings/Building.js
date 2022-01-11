@@ -1,3 +1,6 @@
+import { abbreviateNumber } from "../../components/Logic/logic";
+
+
 export default class Building {
 
     constructor(name, icon, initialCost, amount, isUnlocked, baseProduction, productionMultiplier) {
@@ -11,7 +14,11 @@ export default class Building {
     }
 
     get production() {
-        return this.baseProduction*this.productionMultiplier*this.amount;
+        return (abbreviateNumber(this.baseProduction*this.productionMultiplier*this.amount))+'/s';
+    }
+
+    get cost(){
+        return abbreviateNumber(this.initialCost * Math.pow(1.15, this.amount));
     }
 
 
