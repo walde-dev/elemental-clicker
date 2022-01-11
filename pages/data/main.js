@@ -1,11 +1,21 @@
 import { FaWarehouse } from "react-icons/fa";
 import { GiBlacksmith, GiCastle, GiChurch, GiEgyptianTemple, GiGoldMine, GiWindmill } from "react-icons/gi";
 import Building from "./Buildings/Building";
+import Player from "./Player/Player";
+
+
 
 export default function main(props) {
 
 
 
+}
+
+export function initializePlayer(){
+
+
+    const MainPlayer = new Player( 0, 0, 1, 1000, 1, [0, 0, 0, 0, 0, 0, 0]);
+    return MainPlayer;
 }
 
 export function initializeBuildings() {

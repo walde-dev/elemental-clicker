@@ -1,47 +1,38 @@
 import Header from "./components/Header";
 import "../styles/globals.css"
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import useInterval from "./components/Logic/Hooks/useInterval";
 import SideBar from "./components/SideBar";
 import SideBarPanel from "./components/SideBarPanels/SideBarPanel";
 import MainMenu from "./components/MainMenu";
-import main, { initializeBuildings } from "./data/main";
+import main, { initializeBuildings, initializePlayer } from "./data/main";
 
 
 
 function MyApp({ Component, pageProps }) {
 
-  const [coins, setCoins] = useState(0)
-  const [coinsPerSecond, setCoinsPerSecond] = useState(0);
-  const [coinsPerClick, setCoinsPerClick] = useState(1);
-
-  const [mana, setMana] = useState(0);
 
   const [isSideBarOpen, setIsSideBarOpen] = useState(false);
   const [currentPanel, setCurrentPanel] = useState();
 
+  const player = initializePlayer();
   const buildings = initializeBuildings();
 
-
-  function click() {
-    setCoins(coins + coinsPerClick);
-  }
-
-  function tick() {
-    console.log('TICK')
-    setCoins(coins + coinsPerSecond);
-  }
+  const [coins, setCoins] = useState(player.coins);
 
   useInterval(() => {
-    tick();
+    player.tick();
   }, 1000);
 
-
+  useEffect(() => {
+    console.log('USEEFFECT')
+    setCoins(player.coins);
+  }, [player.coins])
 
 
   return (
     <div className='flex flex-col font-roboto font-light md:px-16 py-7 bg-main-background-blue w-screen max-w-full h-screen'>
-      <Header coins={coins} coinsPerSecond={coinsPerSecond} coinsPerClick={coinsPerClick} mana={mana} />
+      <Header coins={coins} player={player} />
 
       <div className='flex flex-row h-full'>
         <div className='flex flex-row mt-7 absolute md:left-16 left-0 h-[80vh]'>
@@ -61,13 +52,12 @@ function MyApp({ Component, pageProps }) {
         {/* Playable Area */}
         <div
           className='w-full h-full'
-          onClick={() => click()}
+          onClick={() => player.click()}
         >
-
         </div>
 
         <div className='flex flex-row w-5/12 max-w-md mt-7 absolute md:right-16 right-0 h-[80vh]'>
-          <MainMenu 
+          <MainMenu
             buildings={buildings}
           />
         </div>

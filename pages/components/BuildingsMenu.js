@@ -1,5 +1,7 @@
 import { CgSandClock } from "react-icons/cg";
 import { RiCoinFill } from "react-icons/ri";
+import { abbreviateNumber } from "../components/Logic/logic";
+
 
 export default function BuildingsMenu(props) {
 
@@ -33,7 +35,7 @@ export default function BuildingsMenu(props) {
                                                 <CgSandClock className='w-6 h-6' />
                                             </div>
                                             <div className='self-center  '>
-                                                {building.production}
+                                                {abbreviateNumber(building.production)+'/s'}
                                             </div>
                                         </div>
                                         <div className='flex flex-row w-6/12 space-x-2'>
@@ -41,14 +43,14 @@ export default function BuildingsMenu(props) {
                                                 <RiCoinFill className='w-6 h-6' />
                                             </div>
                                             <div className='self-center '>
-                                                {building.cost}
+                                                {abbreviateNumber(building.cost)}
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div className='flex w-2/12 items-center justify-center'>
                                     <div className='text-accent-blue font-medium text-2xl'>
-                                        {building.amount}
+                                        {abbreviateNumber(building.amount)}
                                     </div>
                                 </div>
                             </div>

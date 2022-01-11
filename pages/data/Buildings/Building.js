@@ -1,4 +1,3 @@
-import { abbreviateNumber } from "../../components/Logic/logic";
 
 
 export default class Building {
@@ -14,11 +13,11 @@ export default class Building {
     }
 
     get production() {
-        return (abbreviateNumber(this.baseProduction*this.productionMultiplier*this.amount))+'/s';
+        return (this.baseProduction*this.productionMultiplier*this.amount);
     }
 
     get cost(){
-        return abbreviateNumber(this.initialCost * Math.pow(1.15, this.amount));
+        return this.initialCost * Math.pow(1.15, this.amount);
     }
 
 

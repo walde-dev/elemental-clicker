@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import Coins from "../../public/icons/coins.svg"
 import Clock from "../../public/icons/clock.svg"
@@ -18,7 +18,7 @@ import { abbreviateNumber } from './Logic/logic'
 export default function Header(props) {
 
     /* Mock Data */
-    const [coinAmount, setCoinAmount] = useState(3000)
+
 
     return (
         <div className='flex flex-row w-full sm:h-[75px] rounded-2xl px-7 bg-secondary-blue text-grey items-center'>
@@ -28,21 +28,21 @@ export default function Header(props) {
                     <div className='flex flex-row space-x-1.5'>
                         <Coins className='self-center sm:w-10 sm:h-10 w-7 h-7' />
                         <div className='self-center '>
-                            {abbreviateNumber(props.coins)}
+                            {abbreviateNumber(props.player.coins)}
                         </div>
                     </div>
 
                     <div className='flex flex-row space-x-1.5'>
                         <Clock className='self-center w-7 h-7' />
                         <div className='self-center '>
-                            {abbreviateNumber(props.coinsPerSecond)}
+                            {abbreviateNumber(props.player.coinsPerSecond)}
                         </div>
                     </div>
 
                     <div className='flex flex-row space-x-1.5'>
                         <Finger className='self-center w-7 h-7' />
                         <div className='self-center'>
-                            {abbreviateNumber(props.coinsPerClick)}
+                            {abbreviateNumber(props.player.coinsPerClick)}
                         </div>
                     </div>
                 </div>
@@ -51,7 +51,7 @@ export default function Header(props) {
                     <div className='flex flex-row self-center space-x-1.5'>
                         <Mana className='self-center w-7 h-7' />
                         <div className='self-center'>
-                            {abbreviateNumber(props.mana)}
+                            {abbreviateNumber(props.player.mana)}
                         </div>
                     </div>
 
