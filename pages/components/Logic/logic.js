@@ -23,6 +23,7 @@ export function abbreviateNumber(value) {
         suffixNum++;
     }
 
+    
     newValue = newValue.toFixed(precision);
 
 
