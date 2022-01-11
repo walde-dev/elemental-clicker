@@ -7,10 +7,10 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'main-background-blue' : '#0A0F22',
+        'main-background-blue' : '#111827',
         'secondary-blue' : '#1D2334',
         'accent-blue' : '#005B9A',
-        'hover-grey' : '#2F364A',
+        'hover-grey' : '#202637',
         'selected-grey' : '#252F4A',
         'grey' : '#BAC7CC',
         'white' : '#F0F4F8',
