@@ -8,10 +8,16 @@ export function abbreviateNumber(value) {
     console.log(value)
     let newValue = value;
     let precision = 0;
-    if(newValue >= 1000){
+    if (newValue >= 1000) {
         precision = 2;
     }
-    const suffixes = ["", "K", "M", "B", "T"];
+    const suffixes = [
+        "", "K", "M", "B", "T",
+        "Qa", "Qi", "Sx", "Sp",
+        "Oc", "No", "Dc", "Ud",
+        "Dd", "Td", "Qad", "Qid",
+        "Sxd", "Spd", "Ocd", "Nod"
+    ];
     let suffixNum = 0;
     while (newValue >= 1000) {
         newValue /= 1000;
@@ -20,7 +26,7 @@ export function abbreviateNumber(value) {
     }
 
     newValue = newValue.toFixed(precision);
-    
+
 
     newValue += suffixes[suffixNum];
     console.log(newValue)
