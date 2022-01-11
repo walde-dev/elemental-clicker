@@ -4,7 +4,6 @@ export default function SideBarButton(props) {
             className='flex justify-center items-center w-[81px] h-[69px]  hover:bg-hover-grey rounded-2xl cursor-pointer '
             onClick={() => {
                 props.setIsSideBarOpen(!props.isSideBarOpen);
-                console.log(props.panel)
                 props.setCurrentPanel(props.panel);
             }}
         >
