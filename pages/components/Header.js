@@ -17,8 +17,6 @@ import { abbreviateNumber } from './Logic/logic'
 
 export default function Header(props) {
 
-    let formatter = Intl.NumberFormat('en', { notation: 'compact' })
-
     /* Mock Data */
     const [coinAmount, setCoinAmount] = useState(3000)
 
