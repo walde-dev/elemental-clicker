@@ -14,11 +14,11 @@ export default function BuildingsMenu(props) {
     const dispatch = useDispatch();
     let showPreview = true;
 
-    console.log(buildings)
-
-    if (player.coins >= 100 && !buildings.blacksmith.isUnlocked) {
-        dispatch(unlockBuilding(buildings.blacksmith, buildings.blacksmith.name))
-    }
+    Object.entries(buildings).map(building => {
+        if ((player.coins >= building[1].baseCost) && !building[1].isUnlocked) {
+            dispatch(unlockBuilding(building[1], building[1]));
+        }
+    })
 
 
 
@@ -75,14 +75,17 @@ export default function BuildingsMenu(props) {
                                                     {abbreviateNumber(getCost(building[1]))}
                                                 </div>
                                             </div>
-                                            <div className='flex flex-row space-x-2 '>
-                                                <div className='self-center'>
-                                                    <CgSandClock className='w-3 h-3' />
+                                            {building[1].amount > 0 && (
+                                                <div className='flex flex-row space-x-2 '>
+                                                    <div className='self-center'>
+                                                        <CgSandClock className='w-3 h-3' />
+                                                    </div>
+                                                    <div className='self-center text-sm'>
+                                                        {((getProduction(building[1]) / getTotalProduction(buildings)) * 100).toFixed(2)}% 
+                                                        {/*({abbreviateNumber(getProduction(building[1])) + '/s'}) */}
+                                                    </div>
                                                 </div>
-                                                <div className='self-center  text-sm'>
-                                                    {abbreviateNumber(getProduction(building[1])) + '/s'}
-                                                </div>
-                                            </div>
+                                            )}
 
                                         </div>
                                         <div className='flex w-2/12 items-center justify-center'>

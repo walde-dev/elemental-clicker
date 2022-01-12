@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
 
-    coins: 99,
+    coins: 1799,
     coinsPerSecond: 0,
     coinsPerClick: 1,
     mana: 1000,
@@ -30,7 +30,6 @@ export const playerSlice = createSlice({
             state.coins += state.coinsPerSecond;
         },
         updateCoinsPerSecond: (state, action) => {
-            console.log('PENIS')
             state.coinsPerSecond = action.payload;
         },
         setCoins: (state, action) => {
