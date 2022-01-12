@@ -21,7 +21,7 @@ export default function MainMenu(props) {
                     <hr className='w-full mt-3 border-selected-grey  border-1' />
                 </div>
 
-                <div className='w-full mt-6'>
+                <div className='w-full mt-2'>
                     <BuildingsMenu {...props} />
                 </div>
 

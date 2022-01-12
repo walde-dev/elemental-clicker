@@ -43,7 +43,7 @@ const initialState = {
         baseProduction: 65,
         productionMultiplier: 1,
         amount: 0,
-        isUnlocked: true,
+        isUnlocked: false,
     },
     cathedral: {
         name: 'Cathedral',
@@ -52,7 +52,7 @@ const initialState = {
         baseProduction: 200,
         productionMultiplier: 1,
         amount: 0,
-        isUnlocked: true,
+        isUnlocked: false,
     },
     temple: {
         name: 'Temple',
@@ -61,7 +61,7 @@ const initialState = {
         baseProduction: 650,
         productionMultiplier: 1,
         amount: 0,
-        isUnlocked: true,
+        isUnlocked: false,
     },
     castle: {
         name: 'Castle',
@@ -70,7 +70,7 @@ const initialState = {
         baseProduction: 2000,
         productionMultiplier: 1,
         amount: 0,
-        isUnlocked: true,
+        isUnlocked: false,
     },
 
 }
@@ -82,22 +82,25 @@ export const buildingsSlice = createSlice({
     reducers: {
         buyAmount: (state, action) => {
             const { name } = action.payload
-            return Object.entries(state).map((building) => {
+            Object.entries(state).map((building) => {
                 if (building[1].name !== name) return building[1]
-                return {
-                    ...building[1],
-                    amount: building[1].amount+1,
-                }
-                
+                building[1].amount += 1;
+
             })
-        
         },
-    
+        unlockBuilding: (state, action) => {
+            const { name } = action.payload
+            Object.entries(state).map((building) => {
+                if (building[1].name !== name) return building[1]
+                building[1].isUnlocked = true;
+            })
+        },
+
     },
 })
 
 // Action creators are generated for each case reducer function
-export const { buyAmount, updateTotalProduction } = buildingsSlice.actions
+export const { buyAmount, unlockBuilding } = buildingsSlice.actions
 
 export default buildingsSlice.reducer
 
@@ -110,11 +113,11 @@ export function getProduction(state) {
     return state.baseProduction * state.amount * state.productionMultiplier;
 }
 
-export function getTotalProduction(state){
+export function getTotalProduction(state) {
     let sum = 0;
     Object.entries(state).map((building) => {
         sum += getProduction(building[1]);
-        
+
     })
     return sum;
 }
