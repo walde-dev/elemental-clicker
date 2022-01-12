@@ -26,13 +26,13 @@ export default function BuildingsMenu(props) {
 
 
     dispatch(updateCoinsPerSecond(getTotalProduction(buildings)));
-
+    dispatch(checkAll(buildings));
 
     function buyBuilding(state, action) {
         if (player.coins >= getCost(state)) {
             dispatch(buyAmount(state, action));
             dispatch(setCoins(player.coins - getCost(state)));
-            dispatch(checkAll(buildings));
+            
         }
     }
 
