@@ -3,6 +3,7 @@ import { FaWarehouse } from 'react-icons/fa';
 import { current } from '@reduxjs/toolkit';
 import { createReducer } from '@reduxjs/toolkit';
 import { updateCoinsPerSecond } from './player';
+import { GiBlacksmith, GiCastle, GiChurch, GiEgyptianTemple, GiGoldMine, GiWindmill } from 'react-icons/gi';
 
 
 
@@ -19,13 +20,58 @@ const initialState = {
     },
     mine: {
         name: 'Mine',
-        icon: <FaWarehouse className='building-icon' />,
+        icon: <GiGoldMine className='building-icon' />,
         baseCost: 125,
         baseProduction: 6,
         productionMultiplier: 1,
         amount: 0,
         isUnlocked: true,
-    }
+    },
+    mill: {
+        name: 'Mill',
+        icon: <GiWindmill className='building-icon' />,
+        baseCost: 600,
+        baseProduction: 20,
+        productionMultiplier: 1,
+        amount: 0,
+        isUnlocked: true,
+    },
+    blacksmith: {
+        name: 'Blacksmith',
+        icon: <GiBlacksmith className='building-icon' />,
+        baseCost: 1800,
+        baseProduction: 65,
+        productionMultiplier: 1,
+        amount: 0,
+        isUnlocked: true,
+    },
+    cathedral: {
+        name: 'Cathedral',
+        icon: <GiChurch className='building-icon' />,
+        baseCost: 5600,
+        baseProduction: 200,
+        productionMultiplier: 1,
+        amount: 0,
+        isUnlocked: true,
+    },
+    temple: {
+        name: 'Temple',
+        icon: <GiEgyptianTemple className='building-icon' />,
+        baseCost: 38000,
+        baseProduction: 650,
+        productionMultiplier: 1,
+        amount: 0,
+        isUnlocked: true,
+    },
+    castle: {
+        name: 'Castle',
+        icon: <GiCastle className='building-icon' />,
+        baseCost: 442000,
+        baseProduction: 2000,
+        productionMultiplier: 1,
+        amount: 0,
+        isUnlocked: true,
+    },
 
 }
 

@@ -58,7 +58,7 @@ export default function BuildingsMenu(props) {
                                                 <CgSandClock className='w-6 h-6' />
                                             </div>
                                             <div className='self-center  '>
-                                                {abbreviateNumber(getProduction(building[1]))}
+                                                {abbreviateNumber(getProduction(building[1]))+'/s'}
                                             </div>
                                         </div>
                                         <div className='flex flex-row w-6/12 space-x-2'>
