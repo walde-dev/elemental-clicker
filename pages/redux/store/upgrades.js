@@ -15,6 +15,7 @@ const initialState = {
         isBought: false,
         isUnlocked: false,
         effectText: 'Increase Farm production by 100%',
+        multiplier: 2,
     },
 
 }
@@ -24,8 +25,7 @@ export const upgradesSlice = createSlice({
     initialState,
     reducers: {
         checkAll: (state, action) => {
-            const  buildings  = action.payload;
-            console.log(current(state))
+            const buildings = action.payload;
 
             Object.entries(state).map((achievement) => {
                 switch (achievement[1].type) {
@@ -37,7 +37,7 @@ export const upgradesSlice = createSlice({
                                 if (building[1].name.toLowerCase() !== achievement[1].building) return;
                                 if (building[1].amount < achievement[1].amount) return;
                                 achievement[1].isUnlocked = true;
-
+                                console.log('Upgrade unlocked!')
                             })
                         }
                         break;
