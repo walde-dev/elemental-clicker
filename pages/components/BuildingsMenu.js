@@ -5,12 +5,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { abbreviateNumber } from "../components/Logic/logic";
 import { buyAmount, getCost, getProduction, getTotalProduction, isBuildingUnlocked, unlockBuilding, updateTotalProduction } from "../redux/store/buildings";
 import { setCoins, updateCoinsPerSecond } from "../redux/store/player";
+import { checkAll } from "../redux/store/upgrades";
 
 
 export default function BuildingsMenu(props) {
 
     const buildings = useSelector(state => state.buildings)
     const player = useSelector(state => state.player);
+    const upgrades = useSelector(state => state.upgrades);
     const dispatch = useDispatch();
     let showPreview = true;
 
@@ -30,6 +32,7 @@ export default function BuildingsMenu(props) {
         if (player.coins >= getCost(state)) {
             dispatch(buyAmount(state, action));
             dispatch(setCoins(player.coins - getCost(state)));
+            dispatch(checkAll(buildings));
         }
     }
 
