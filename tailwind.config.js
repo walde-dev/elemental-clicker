@@ -10,6 +10,8 @@ module.exports = {
         'main-background-blue' : '#111827',
         'secondary-blue' : '#1D2334',
         'accent-blue' : '#005B9A',
+        'accent-green' : '#2A8373',
+        'accent-green-secondary' : '#EFFCF9',
         'hover-grey' : '#202637',
         'selected-grey' : '#252F4A',
         'grey' : '#BAC7CC',

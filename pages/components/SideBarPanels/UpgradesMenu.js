@@ -23,7 +23,7 @@ export default function UpgradesMenu(props) {
                 Available Upgrades
             </div>
 
-            <ul role='list' className='mt-4 grid gap-x-4 gap-y-9 grid-cols-6  w-full'>
+            <ul role='list' className='mt-4 grid gap-x-2 gap-y-9 grid-cols-6  w-full'>
                 {(upgrades) && Object.entries(upgrades).filter(upgrade => upgrade[1].isUnlocked).map(upgrade => (
 
                     <li
