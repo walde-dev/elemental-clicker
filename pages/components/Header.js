@@ -32,7 +32,7 @@ export default function Header(props) {
                     <div className='flex flex-row space-x-1.5'>
                         <Clock className='self-center w-7 h-7' />
                         <div className='self-center '>
-                            {abbreviateNumber(coinsPerSecond)}
+                            {abbreviateNumber(coinsPerSecond)}/s
                         </div>
                     </div>
 
