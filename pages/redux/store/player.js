@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
 
-    coins: 1799,
+    coins: 0,
     coinsPerSecond: 0,
     coinsPerClick: 1,
     mana: 1000,
