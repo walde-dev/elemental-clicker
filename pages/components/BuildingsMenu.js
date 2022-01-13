@@ -32,7 +32,7 @@ export default function BuildingsMenu(props) {
         if (player.coins >= getCost(state)) {
             dispatch(buyAmount(state, action));
             dispatch(setCoins(player.coins - getCost(state)));
-            
+
         }
     }
 
@@ -83,9 +83,13 @@ export default function BuildingsMenu(props) {
                                                     <div className='self-center'>
                                                         <CgSandClock className='w-3 h-3' />
                                                     </div>
-                                                    <div className='self-center text-sm'>
-                                                        {((getProduction(building[1]) / getTotalProduction(buildings)) * 100).toFixed(2)}% 
-                                                        {/*({abbreviateNumber(getProduction(building[1])) + '/s'}) */}
+                                                    <div className='flex flex-row space-x-1 self-center text-sm'>
+                                                        <div>
+                                                            {((getProduction(building[1]) / getTotalProduction(buildings)) * 100).toFixed(2)}%
+                                                        </div>
+                                                        <div className='text-xs self-center'>
+                                                            ({abbreviateNumber(getProduction(building[1])) + '/s'})
+                                                        </div>
                                                     </div>
                                                 </div>
                                             )}
