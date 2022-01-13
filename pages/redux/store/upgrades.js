@@ -7,6 +7,143 @@ const initialState = {
     '0': {
         id: 0,
         type: 'buildingTier',
+        tier: 1,
+        icon: 0,
+        cost: 200,
+        building: 'farm',
+        amount: 5,
+        name: 'Farm Upgrade I',
+        unlockText: 'Build 5 Farms',
+        isBought: false,
+        isUnlocked: false,
+        effectText: 'Increase Farm production by 100%',
+        multiplier: 2,
+    },
+    '1': {
+        id: 0,
+        type: 'buildingTier',
+        tier: 1,
+        icon: 0,
+        cost: 200,
+        building: 'farm',
+        amount: 5,
+        name: 'Farm Upgrade I',
+        unlockText: 'Build 5 Farms',
+        isBought: false,
+        isUnlocked: false,
+        effectText: 'Increase Farm production by 100%',
+        multiplier: 2,
+    },
+    '2': {
+        id: 0,
+        type: 'buildingTier',
+        tier: 1,
+        icon: 0,
+        cost: 200,
+        building: 'farm',
+        amount: 5,
+        name: 'Farm Upgrade I',
+        unlockText: 'Build 5 Farms',
+        isBought: false,
+        isUnlocked: false,
+        effectText: 'Increase Farm production by 100%',
+        multiplier: 2,
+    },
+    '3': {
+        id: 0,
+        type: 'buildingTier',
+        tier: 1,
+        icon: 0,
+        cost: 200,
+        building: 'farm',
+        amount: 5,
+        name: 'Farm Upgrade I',
+        unlockText: 'Build 5 Farms',
+        isBought: false,
+        isUnlocked: false,
+        effectText: 'Increase Farm production by 100%',
+        multiplier: 2,
+    },
+    '4': {
+        id: 0,
+        type: 'buildingTier',
+        tier: 1,
+        icon: 0,
+        cost: 200,
+        building: 'farm',
+        amount: 5,
+        name: 'Farm Upgrade I',
+        unlockText: 'Build 5 Farms',
+        isBought: false,
+        isUnlocked: false,
+        effectText: 'Increase Farm production by 100%',
+        multiplier: 2,
+    },
+    '5': {
+        id: 0,
+        type: 'buildingTier',
+        tier: 1,
+        icon: 0,
+        cost: 200,
+        building: 'farm',
+        amount: 5,
+        name: 'Farm Upgrade I',
+        unlockText: 'Build 5 Farms',
+        isBought: false,
+        isUnlocked: false,
+        effectText: 'Increase Farm production by 100%',
+        multiplier: 2,
+    },
+    '6': {
+        id: 0,
+        type: 'buildingTier',
+        tier: 1,
+        icon: 0,
+        cost: 200,
+        building: 'farm',
+        amount: 5,
+        name: 'Farm Upgrade I',
+        unlockText: 'Build 5 Farms',
+        isBought: false,
+        isUnlocked: false,
+        effectText: 'Increase Farm production by 100%',
+        multiplier: 2,
+    },
+    '7': {
+        id: 0,
+        type: 'buildingTier',
+        tier: 1,
+        icon: 0,
+        cost: 200,
+        building: 'farm',
+        amount: 5,
+        name: 'Farm Upgrade I',
+        unlockText: 'Build 5 Farms',
+        isBought: false,
+        isUnlocked: false,
+        effectText: 'Increase Farm production by 100%',
+        multiplier: 2,
+    },
+    '8': {
+        id: 0,
+        type: 'buildingTier',
+        tier: 1,
+        icon: 0,
+        cost: 200,
+        building: 'farm',
+        amount: 5,
+        name: 'Farm Upgrade I',
+        unlockText: 'Build 5 Farms',
+        isBought: false,
+        isUnlocked: false,
+        effectText: 'Increase Farm production by 100%',
+        multiplier: 2,
+    },
+    '9': {
+        id: 0,
+        type: 'buildingTier',
+        tier: 1,
+        icon: 0,
         cost: 200,
         building: 'farm',
         amount: 5,
@@ -26,17 +163,19 @@ export const upgradesSlice = createSlice({
     reducers: {
         checkAll: (state, action) => {
             const buildings = action.payload;
+            console.log(current(state))
 
-            Object.entries(state).map((achievement) => {
-                switch (achievement[1].type) {
+            Object.entries(state).map((upgrade) => {
+                switch (upgrade[1].type) {
 
                     /* Building Tiers */
                     case 'buildingTier':
-                        if (!achievement[1].isUnlocked) {
+                        if (!upgrade[1].isUnlocked) {
                             Object.entries(buildings).map(building => {
-                                if (building[1].name.toLowerCase() !== achievement[1].building) return;
-                                if (building[1].amount < achievement[1].amount) return;
-                                achievement[1].isUnlocked = true;
+                                if (building[1].name.toLowerCase() !== upgrade[1].building) return;
+                                upgrade[1].icon = building[1].icon;
+                                if (building[1].amount < upgrade[1].amount) return;
+                                upgrade[1].isUnlocked = true;
                                 console.log('Upgrade unlocked!')
                             })
                         }
@@ -47,8 +186,13 @@ export const upgradesSlice = createSlice({
                 }
             })
         },
-        tick: (state) => {
-            state.coins += state.coinsPerSecond;
+        buyUpgrade: (state, action) => {
+            console.log('buying')
+            const upgradeToUnlock = action.payload;
+            Object.entries(state).map(upgrade => {
+                if (upgrade[1].id !== upgradeToUnlock.id) return;
+                upgrade[1].isBought = true;
+            })
         },
         updateCoinsPerSecond: (state, action) => {
             state.coinsPerSecond = action.payload;
@@ -60,7 +204,7 @@ export const upgradesSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { checkAll } = upgradesSlice.actions
+export const { checkAll, buyUpgrade } = upgradesSlice.actions
 
 export default upgradesSlice.reducer
 

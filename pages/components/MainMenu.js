@@ -5,7 +5,7 @@ import { AiFillShopping } from 'react-icons/ai';
 
 import MainMenuButton from "./Buttons/MainMenuButton";
 import SideBarButton from "./Buttons/SideBarButton";
-import Upgrades from "./SideBarPanels/Upgrades";
+import Upgrades from "./SideBarPanels/UpgradesMenu";
 import BuildingsMenu from "./BuildingsMenu";
 
 export default function MainMenu(props) {
