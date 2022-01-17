@@ -14,6 +14,7 @@ module.exports = {
         'accent-green-secondary' : '#EFFCF9',
         'hover-grey' : '#202637',
         'selected-grey' : '#252F4A',
+        'gold-yellow': '#F9C50D',
         'grey' : '#BAC7CC',
         'white' : '#F0F4F8',
       },

@@ -71,7 +71,7 @@ export default function BuildingsMenu(props) {
                                                 </div>
                                             </div>
                                             <div className='flex flex-row space-x-2'>
-                                                <div className='self-center text-[#F9C50D]'>
+                                                <div className='self-center text-gold-yellow'>
                                                     <RiCoinFill className='w-3 h-3' />
                                                 </div>
                                                 <div className='self-center text-sm'>

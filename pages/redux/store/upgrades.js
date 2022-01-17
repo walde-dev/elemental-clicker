@@ -163,7 +163,6 @@ export const upgradesSlice = createSlice({
     reducers: {
         checkAll: (state, action) => {
             const buildings = action.payload;
-            console.log(current(state))
 
             Object.entries(state).map((upgrade) => {
                 switch (upgrade[1].type) {
@@ -176,7 +175,6 @@ export const upgradesSlice = createSlice({
                                 upgrade[1].icon = building[1].icon;
                                 if (building[1].amount < upgrade[1].amount) return;
                                 upgrade[1].isUnlocked = true;
-                                console.log('Upgrade unlocked!')
                             })
                         }
                         break;

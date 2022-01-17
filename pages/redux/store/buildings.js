@@ -96,12 +96,20 @@ export const buildingsSlice = createSlice({
                 building[1].isUnlocked = true;
             })
         },
+        addToMultiplier: (state, action) => {
+            const { name } = action.payload;
+            const { amount } = action.payload;
+            Object.entries(state).map((building) => {
+                if (building[1].name !== name) return building[1]
+                building[1].productionMultiplier *= amount;
+            })
+        },
 
     },
 })
 
 // Action creators are generated for each case reducer function
-export const { buyAmount, unlockBuilding } = buildingsSlice.actions
+export const { buyAmount, unlockBuilding, addToMultiplier } = buildingsSlice.actions
 
 export default buildingsSlice.reducer
 
