@@ -6,7 +6,10 @@ export default function UpgradesMenu(props) {
 
     const upgrades = useSelector(state => state.upgrades)
 
-    console.log(upgrades)
+    let upgradesAmount = Object.entries(upgrades).length;
+    let upgradesUnlocked = Object.entries(upgrades).filter(upgrade => upgrade[1].isBought).length;
+
+    console.log(upgradesUnlocked)
 
 
 
@@ -15,11 +18,14 @@ export default function UpgradesMenu(props) {
     }
 
     return (
-        <div className='flex flex-col relative items-center px-2 py-2'>
-            <div className='flex mt-4 justify-center items-center text-white font-normal text-2xl bg-selected-grey rounded-md w-[237px] h-[60px]'>
+        <div className='flex flex-col relative items-center px-2 py-2 text-white'>
+            <div className='flex mt-4 justify-center items-center  font-normal text-2xl bg-selected-grey rounded-md w-[237px] h-[60px]'>
                 Upgrades
             </div>
-            <div className='flex mt-10 justify-center items-center text-white text-md bg-selected-grey rounded-2xl w-[237px] h-[30px]'>
+            <div className='mt-4'>
+                Unlocked Upgrades: {upgradesUnlocked}/{upgradesAmount} ({(upgradesUnlocked/upgradesAmount * 100).toPrecision(1)}%)
+            </div>
+            <div className='flex mt-4 justify-center items-center text-md bg-selected-grey rounded-2xl w-[237px] h-[30px]'>
                 Available Upgrades
             </div>
 
@@ -39,7 +45,7 @@ export default function UpgradesMenu(props) {
                 )}
             </ul>
 
-            <div className='flex mt-5 justify-center items-center text-white text-md bg-selected-grey rounded-2xl w-[237px] h-[30px]'>
+            <div className='flex mt-5 justify-center items-center  text-md bg-selected-grey rounded-2xl w-[237px] h-[30px]'>
                 Purchased Upgrades
             </div>
 

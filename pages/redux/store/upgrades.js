@@ -736,10 +736,3 @@ export const upgradesSlice = createSlice({
 export const { checkAll, buyUpgrade, setChecked } = upgradesSlice.actions
 
 export default upgradesSlice.reducer
-
-
-export function checkBuildingTierUpgrade(building, amount) {
-    if (state.amount >= amount) {
-
-    }
-}
