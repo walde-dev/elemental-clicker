@@ -31,7 +31,13 @@ export const playerSlice = createSlice({
             state.coinsPerSecond = action.payload;
         },
         updateCoinsPerClick: (state, action) => {
-            state.coinsPerClick = action.payload;
+            const {value} = action.payload;
+            const {type} = action.payload;
+            if(type === 'additive'){
+                state.coinsPerClick += value;
+            }else{
+                state.coinsPerClick *= value;
+            }
         },
         setCoins: (state, action) => {
             state.coins = action.payload;

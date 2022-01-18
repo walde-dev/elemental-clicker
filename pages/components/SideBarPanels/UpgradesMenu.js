@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { addToMultiplier } from "../../redux/store/buildings";
 import { setCoins, updateCoinsPerClick } from "../../redux/store/player";
 import { buyUpgrade } from "../../redux/store/upgrades";
 import Upgrade from "../Buttons/Upgrade";
@@ -19,9 +20,10 @@ export default function UpgradesMenu(props) {
 
     function buyAll(){
         Object.entries(upgrades).map(upgrade => {
-            if(player.coins < upgrade[1].cost || !upgrade[1].isUnlocked || upgrade[1].isBought) return;
-
+            if(!upgrade[1].isUnlocked || upgrade[1].isBought) return;
+            buy(upgrade[1]);
         });
+        
     }
 
     function buy(upgrade) {
@@ -40,9 +42,10 @@ export default function UpgradesMenu(props) {
                 break;
 
             case 'clicks':
-                if(upgrade.bonusType === 'additive'){
-                    dispatch(updateCoinsPerClick(player.coinsPerClick + upgrade.multiplier));
-                }
+                dispatch(updateCoinsPerClick({
+                    type: upgrade.bonusType,
+                    value: upgrade.multiplier,
+                }))
 
             default:
                 break;
@@ -62,7 +65,7 @@ export default function UpgradesMenu(props) {
                 Upgrades
             </div>
             <div className='mt-4'>
-                Unlocked Upgrades: {upgradesUnlocked}/{upgradesAmount} ({(upgradesUnlocked / upgradesAmount * 100).toPrecision(1)}%)
+                Unlocked Upgrades: {upgradesUnlocked}/{upgradesAmount} ({(upgradesUnlocked / upgradesAmount * 100).toFixed(0)}%)
             </div>
             <div className='flex mt-4 justify-center items-center text-md bg-selected-grey rounded-2xl w-[237px] h-[30px]'>
                 Available Upgrades
@@ -93,7 +96,7 @@ export default function UpgradesMenu(props) {
                 Purchased Upgrades
             </div>
 
-            <ul role='list' className='mt-2 grid h-[250px] grid-cols-6  w-full overflow-auto'>
+            <ul role='list' className='mt-2 grid h-[200px] grid-cols-6  w-full overflow-auto'>
                 {(upgrades) && Object.entries(upgrades).filter(
                     upgrade => upgrade[1].isBought
                 ).map(

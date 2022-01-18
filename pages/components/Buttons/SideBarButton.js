@@ -12,7 +12,7 @@ export default function SideBarButton(props) {
         
         case 'upgrades':
             Object.entries(upgrades).map(upgrade => {
-                if(!upgrade[1].isChecked && upgrade[1].isUnlocked){
+                if(!upgrade[1].isChecked && upgrade[1].isUnlocked && !upgrade[1].isBought){
                     counter += 1;
                 }
             });

@@ -725,8 +725,7 @@ export const upgradesSlice = createSlice({
         checkAll: (state, action) => {
             const { buildings } = action.payload;
             const { player } = action.payload;
-            console.log(buildings, player)
-            console.log('Starting CheckAll');
+        
 
             Object.entries(state).map((upgrade) => {
                 switch (upgrade[1].type) {
@@ -756,7 +755,6 @@ export const upgradesSlice = createSlice({
                         break;
                 }
             })
-            console.log('Finished Check All')
         },
         buyUpgrade: (state, action) => {
             const upgradeToUnlock = action.payload;
