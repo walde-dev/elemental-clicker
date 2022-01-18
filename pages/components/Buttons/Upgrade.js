@@ -78,7 +78,7 @@ export default function Upgrade(props) {
                     {props.upgrade.icon}
                 </div>
                 {!props.upgrade.isBought && (
-                    <div className='absolute ml-5 -mt-2 text-white rounded-full px-0.5 py-0.5 bg-accent-blue'>
+                    <div className='absolute -ml-2 -mt-2 text-white rounded-full px-0.5 py-0.5 bg-accent-blue'>
                         <MdUpgrade />
                     </div>
                 )}
@@ -88,7 +88,7 @@ export default function Upgrade(props) {
                     </div>
                 )}
                 {!props.upgrade.isChecked && (
-                    <div className='absolute -mt-1 -ml-1 rounded-full'>
+                    <div className='absolute -mt-1 ml-6 rounded-full'>
                         <BsCircleFill className='w-3 h-3 text-red-700' />
                     </div>
                 )}
@@ -97,7 +97,7 @@ export default function Upgrade(props) {
                 </div>
 
 
-                <div className='flex scale-0 group-hover:scale-100 justify-center absolute -mt-20 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-xs w-10 min-w-max font-normal text-white rounded-md px-4 py-2 bg-zinc-700 border-accent-blue border-4'>
+                <div className='flex scale-0 group-hover:scale-100 justify-center absolute -mt-20 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-xs w-10 min-w-max font-normal text-white rounded-md px-4 py-2 bg-accent-blue border-grey border-2'>
                     <div className='flex flex-col items-center'>
                         <div className='font-semibold'>
                             {props.upgrade.name}
