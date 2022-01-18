@@ -105,9 +105,6 @@ export default function Upgrade(props) {
                         <div className='font-semibold'>
                             {props.upgrade.name}
                         </div>
-                        <div className='mt-2'>
-                            {props.upgrade.effectText}
-                        </div>
                         {!props.upgrade.isBought && (
                             <div className='mt-1'>
                                 <div className='flex flex-row space-x-1 items-center'>
@@ -123,6 +120,10 @@ export default function Upgrade(props) {
                                 </div>
                             </div>
                         )}
+                        <div className='mt-2'>
+                            {props.upgrade.effectText}
+                        </div>
+                        
                     </div>
                 </div>
             </div>
