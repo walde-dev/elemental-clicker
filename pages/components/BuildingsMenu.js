@@ -52,10 +52,9 @@ export default function BuildingsMenu(props) {
                         {(building[1].isUnlocked) && (
                             <div>
                                 <div
-                                    className='w-full h-[60px] font-light hover:bg-hover-grey text-grey px-4 '
+                                    className={`w-full h-[60px] font-light hover:bg-hover-grey  text-grey px-4 ${player.coins < getCost(building[1]) ? 'opacity-30' : ''}`}
                                     onClick={() => buyBuilding(building[1])}
                                 >
-
                                     <div className='flex flex-row  h-full'>
                                         <div className='self-center w-2/12'>
                                             {building[1].icon && (
@@ -87,7 +86,7 @@ export default function BuildingsMenu(props) {
                                                         <div>
                                                             {((getProduction(building[1]) / getTotalProduction(buildings)) * 100).toFixed(2)}%
                                                         </div>
-                                                        <div className='text-xs self-center'>
+                                                        <div className={`text-xs self-center opacity-100`}>
                                                             ({abbreviateNumber(getProduction(building[1])) + '/s'})
                                                         </div>
                                                     </div>
