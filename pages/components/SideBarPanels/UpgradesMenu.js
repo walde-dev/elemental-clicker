@@ -1,15 +1,54 @@
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setCoins, updateCoinsPerClick } from "../../redux/store/player";
+import { buyUpgrade } from "../../redux/store/upgrades";
 import Upgrade from "../Buttons/Upgrade";
 
 export default function UpgradesMenu(props) {
 
-    const upgrades = useSelector(state => state.upgrades)
+    const upgrades = useSelector(state => state.upgrades);
+    const player = useSelector(state => state.player);
+    const buildings = useSelector(state => state.buildings);
+    const dispatch = useDispatch();
+
 
     let upgradesAmount = Object.entries(upgrades).length;
     let upgradesUnlocked = Object.entries(upgrades).filter(upgrade => upgrade[1].isBought).length;
 
     console.log(upgradesUnlocked)
+
+    function buyAll(){
+        Object.entries(upgrades).map(upgrade => {
+            if(player.coins < upgrade[1].cost || !upgrade[1].isUnlocked || upgrade[1].isBought) return;
+
+        });
+    }
+
+    function buy(upgrade) {
+        if (player.coins < upgrade.cost) return;
+        dispatch(setCoins(player.coins - upgrade.cost))
+        dispatch(buyUpgrade(upgrade))
+
+        switch (upgrade.type) {
+
+            /* Building Tiers */
+            case 'buildingTier':
+                Object.entries(buildings).map(building => {
+                    if (building[1].name.toLowerCase() !== upgrade.building) return;
+                    dispatch(addToMultiplier({ name: building[1].name, amount: upgrade.multiplier }));
+                })
+                break;
+
+            case 'clicks':
+                if(upgrade.bonusType === 'additive'){
+                    dispatch(updateCoinsPerClick(player.coinsPerClick + upgrade.multiplier));
+                }
+
+            default:
+                break;
+        }
+
+    }
 
 
 
@@ -23,13 +62,18 @@ export default function UpgradesMenu(props) {
                 Upgrades
             </div>
             <div className='mt-4'>
-                Unlocked Upgrades: {upgradesUnlocked}/{upgradesAmount} ({(upgradesUnlocked/upgradesAmount * 100).toPrecision(1)}%)
+                Unlocked Upgrades: {upgradesUnlocked}/{upgradesAmount} ({(upgradesUnlocked / upgradesAmount * 100).toPrecision(1)}%)
             </div>
             <div className='flex mt-4 justify-center items-center text-md bg-selected-grey rounded-2xl w-[237px] h-[30px]'>
                 Available Upgrades
             </div>
+            <button onClick={() => buyAll()}>
+                <div className='mt-2 rounded-md bg-accent-blue px-2 py-0.5'>
+                    BUY ALL
+                </div>
+            </button>
 
-            <ul role='list' className='mt-4 grid h-[250px] grid-cols-6  w-full '>
+            <ul role='list' className='mt-2 grid h-[250px] grid-cols-6  w-full '>
                 {(upgrades) && Object.entries(upgrades).filter(
                     upgrade => upgrade[1].isUnlocked && !upgrade[1].isBought
                 ).map(
@@ -39,7 +83,7 @@ export default function UpgradesMenu(props) {
                             key={upgrade[1].id}
                             className='max-w-min'
                         >
-                            <Upgrade upgrade={upgrade[1]} />
+                            <Upgrade upgrade={upgrade[1]} buy={buy}/>
                         </li>
                     )
                 )}

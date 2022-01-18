@@ -2,7 +2,7 @@ import { useState } from "react";
 import { MdUpgrade } from "react-icons/md";
 import { AiFillCheckSquare } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
-import { setCoins } from "../../redux/store/player";
+import { setCoins, updateCoinsPerClick } from "../../redux/store/player";
 import { buyUpgrade, checkAll, setChecked } from "../../redux/store/upgrades";
 import { RiCoinFill } from "react-icons/ri";
 import { addToMultiplier } from "../../redux/store/buildings";
@@ -53,6 +53,11 @@ export default function Upgrade(props) {
                 })
                 break;
 
+            case 'clicks':
+                if(props.upgrade.bonusType === 'additive'){
+                    dispatch(updateCoinsPerClick(player.coinsPerClick + props.upgrade.multiplier));
+                }
+
             default:
                 break;
         }
@@ -68,7 +73,7 @@ export default function Upgrade(props) {
         <div
             className='flex justify-center group px-4 pt-3 pb-6 items-center hover:bg-selected-grey rounded-2xl'
             onClick={() => {
-                if (!props.upgrade.isBought) buy();
+                if (!props.upgrade.isBought && props.buy) props.buy(props.upgrade);
             }}
             onMouseEnter={() => {
                 if (!props.upgrade.isChecked) check()
@@ -80,7 +85,7 @@ export default function Upgrade(props) {
                         {props.upgrade.icon}
                     </div>
                     {!props.upgrade.isBought && (
-                        <div className='absolute -ml-2 -mt-2 text-white rounded-full px-0.5 py-0.5 bg-accent-blue'>
+                        <div className='absolute -ml-2 -mt-4 text-white rounded-full px-0.5 py-0.5 bg-accent-blue'>
                             <MdUpgrade />
                         </div>
                     )}
@@ -89,7 +94,7 @@ export default function Upgrade(props) {
                             <AiFillCheckSquare className='w-5 h-5' />
                         </div>
                     )}
-                    {!props.upgrade.isChecked && (
+                    {(!props.upgrade.isChecked && !props.upgrade.isBought) && (
                         <div className='absolute -mt-1 ml-6 rounded-full'>
                             <BsCircleFill className='w-3 h-3 text-red-700' />
                         </div>
