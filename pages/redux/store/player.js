@@ -9,7 +9,8 @@ const initialState = {
     manaPerSecond: 1,
     statistics: {
         manualClicks: {
-            name:  'Manual Clicks',
+            name: 'manualClicks',
+            desc: 'Manual Clicks',
             value: 0,
         }
     },
@@ -36,13 +37,10 @@ export const playerSlice = createSlice({
             const { type } = action.payload;
             const { value } = action.payload;
 
-            switch (type) {
-                case 'manualClicks':
-                    state.statistics.manualClicks.value += value
-                    break;
-                default:
-                    break;
-            }
+            Object.entries(state.statistics).map(stat => {
+                if(stat[1].name !== type)  return;
+                stat[1].value += value; 
+            });
             console.log(state.statistics.manualClicks.value)
         },
 

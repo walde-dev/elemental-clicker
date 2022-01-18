@@ -238,14 +238,14 @@ const initialState = {
         type: 'buildingTier',
         tier: 4,
         icon: 0,
-        cost: 5.09e11,
-        building: 'farm',
+        cost: 6.363e12,
+        building: 'mine',
         amount: 100,
-        name: 'Farm Upgrade IV',
-        unlockText: 'Build 100 Farms',
+        name: 'Mine Upgrade IV',
+        unlockText: 'Build 100 Mines',
         isBought: false,
         isUnlocked: false,
-        effectText: 'Increase Farm production by 400%',
+        effectText: 'Increase Mine production by 400%',
         multiplier: 5,
         isChecked: false,
     },
@@ -254,14 +254,14 @@ const initialState = {
         type: 'buildingTier',
         tier: 5,
         icon: 0,
-        cost: 6.895e14,
-        building: 'farm',
+        cost: 8.619e15,
+        building: 'mine',
         amount: 150,
-        name: 'Farm Upgrade V',
-        unlockText: 'Build 150 Farms',
+        name: 'Mine Upgrade V',
+        unlockText: 'Build 150 Mines',
         isBought: false,
         isUnlocked: false,
-        effectText: 'Increase Farm production by 500%',
+        effectText: 'Increase Mine production by 500%',
         multiplier: 6,
         isChecked: false,
     },
@@ -270,14 +270,14 @@ const initialState = {
         type: 'buildingTier',
         tier: 6,
         icon: 0,
-        cost: 9.716e20,
-        building: 'farm',
+        cost: 1.215e22,
+        building: 'mine',
         amount: 200,
-        name: 'Farm Upgrade VI',
-        unlockText: 'Build 200 Farms',
+        name: 'Mine Upgrade VI',
+        unlockText: 'Build 200 Mines',
         isBought: false,
         isUnlocked: false,
-        effectText: 'Increase Farm production by 400%',
+        effectText: 'Increase Mine production by 400%',
         multiplier: 5,
         isChecked: false,
     },
@@ -362,6 +362,25 @@ const initialState = {
         isChecked: false,
     },
 
+
+
+    /* Clicks */
+    '': {
+        id: 1,
+        type: 'clicks',
+        tier: 1,
+        icon: 0,
+        cost: 100,
+        amount: 100,
+        isBought: false,
+        isUnlocked: false,
+        name: 'Clicks Upgrade I',
+        unlockText: 'Click 100 times',
+        effectText: 'Increase Click reward by 100%',
+        multiplier: 2,
+        isChecked: false,
+    }
+
 }
 
 export const upgradesSlice = createSlice({
@@ -385,6 +404,19 @@ export const upgradesSlice = createSlice({
                             })
                         }
                         break;
+
+                    /* Clicks */
+                    case 'clicks':
+                        if (!upgrade[1].isUnlocked) {
+                            Object.entries(buildings).map(building => {
+                                if (building[1].name.toLowerCase() !== upgrade[1].building) return;
+                                upgrade[1].icon = building[1].icon;
+                                if (building[1].amount < upgrade[1].amount) return;
+                                upgrade[1].isUnlocked = true;
+                            })
+                        }
+                        break;
+
 
                     default:
                         break;
