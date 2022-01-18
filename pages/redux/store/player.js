@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
 
-    coins: 20000,
+    coins: 342,
     coinsPerSecond: 0,
     coinsPerClick: 1,
     mana: 1000,
@@ -30,6 +30,9 @@ export const playerSlice = createSlice({
         updateCoinsPerSecond: (state, action) => {
             state.coinsPerSecond = action.payload;
         },
+        updateCoinsPerClick: (state, action) => {
+            state.coinsPerClick = action.payload;
+        },
         setCoins: (state, action) => {
             state.coins = action.payload;
         },
@@ -48,6 +51,6 @@ export const playerSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { click, tick, updateCoinsPerSecond, setCoins, setStatistics } = playerSlice.actions
+export const { click, tick, updateCoinsPerSecond, updateCoinsPerClick, setCoins, setStatistics } = playerSlice.actions
 
 export default playerSlice.reducer

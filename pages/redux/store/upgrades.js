@@ -6,7 +6,7 @@ const initialState = {
 
     /* Building Tiers */
     /* Farm */
-    '0': {
+    'farm_tier_1': {
         type: 'buildingTier',
         tier: 1,
         icon: 0,
@@ -21,7 +21,7 @@ const initialState = {
         multiplier: 2,
         isChecked: false,
     },
-    '1': {
+    'farm_tier_2': {
         type: 'buildingTier',
         tier: 2,
         icon: 0,
@@ -36,7 +36,7 @@ const initialState = {
         multiplier: 3,
         isChecked: false,
     },
-    '2': {
+    'farm_tier_3': {
         type: 'buildingTier',
         tier: 3,
         icon: 0,
@@ -51,7 +51,7 @@ const initialState = {
         multiplier: 4,
         isChecked: false,
     },
-    '3': {
+    'farm_tier_4': {
         type: 'buildingTier',
         tier: 4,
         icon: 0,
@@ -66,7 +66,7 @@ const initialState = {
         multiplier: 5,
         isChecked: false,
     },
-    '4': {
+    'farm_tier_5': {
         type: 'buildingTier',
         tier: 5,
         icon: 0,
@@ -81,7 +81,7 @@ const initialState = {
         multiplier: 6,
         isChecked: false,
     },
-    '5': {
+    'farm_tier_6': {
         type: 'buildingTier',
         tier: 6,
         icon: 0,
@@ -96,7 +96,7 @@ const initialState = {
         multiplier: 5,
         isChecked: false,
     },
-    '6': {
+    'farm_tier_7': {
         type: 'buildingTier',
         tier: 7,
         icon: 0,
@@ -111,7 +111,7 @@ const initialState = {
         multiplier: 4,
         isChecked: false,
     },
-    '7': {
+    'farm_tier_8': {
         type: 'buildingTier',
         tier: 8,
         icon: 0,
@@ -126,7 +126,7 @@ const initialState = {
         multiplier: 3,
         isChecked: false,
     },
-    '8': {
+    'farm_tier_9': {
         type: 'buildingTier',
         tier: 9,
         icon: 0,
@@ -141,7 +141,7 @@ const initialState = {
         multiplier: 2,
         isChecked: false,
     },
-    '9': {
+    'farm_tier_10': {
         type: 'buildingTier',
         tier: 10,
         icon: 0,
@@ -156,7 +156,7 @@ const initialState = {
         multiplier: 3,
         isChecked: false,
     },
-    '10': {
+    'farm_tier_11': {
         type: 'buildingTier',
         tier: 11,
         icon: 0,
@@ -174,7 +174,7 @@ const initialState = {
 
     /* Mine */
 
-    '11': {
+    'mine_tier_1': {
         type: 'buildingTier',
         tier: 1,
         icon: 0,
@@ -189,7 +189,7 @@ const initialState = {
         multiplier: 2,
         isChecked: false,
     },
-    '12': {
+    'mine_tier_2': {
         type: 'buildingTier',
         tier: 2,
         icon: 0,
@@ -204,7 +204,7 @@ const initialState = {
         multiplier: 3,
         isChecked: false,
     },
-    '13': {
+    'mine_tier_3': {
         type: 'buildingTier',
         tier: 3,
         icon: 0,
@@ -219,7 +219,7 @@ const initialState = {
         multiplier: 4,
         isChecked: false,
     },
-    '3': {
+    'mine_tier_4': {
         type: 'buildingTier',
         tier: 4,
         icon: 0,
@@ -234,7 +234,7 @@ const initialState = {
         multiplier: 5,
         isChecked: false,
     },
-    '4': {
+    'mine_tier_5': {
         type: 'buildingTier',
         tier: 5,
         icon: 0,
@@ -249,7 +249,7 @@ const initialState = {
         multiplier: 6,
         isChecked: false,
     },
-    '5': {
+    'mine_tier_6': {
         type: 'buildingTier',
         tier: 6,
         icon: 0,
@@ -264,7 +264,7 @@ const initialState = {
         multiplier: 5,
         isChecked: false,
     },
-    '6': {
+    'mine_tier_7': {
         type: 'buildingTier',
         tier: 7,
         icon: 0,
@@ -279,7 +279,7 @@ const initialState = {
         multiplier: 4,
         isChecked: false,
     },
-    '7': {
+    'mine_tier_8': {
         type: 'buildingTier',
         tier: 8,
         icon: 0,
@@ -294,7 +294,7 @@ const initialState = {
         multiplier: 3,
         isChecked: false,
     },
-    '8': {
+    'mine_tier_9': {
         type: 'buildingTier',
         tier: 9,
         icon: 0,
@@ -309,7 +309,7 @@ const initialState = {
         multiplier: 2,
         isChecked: false,
     },
-    '9': {
+    'mine_tier_10': {
         type: 'buildingTier',
         tier: 10,
         icon: 0,
@@ -324,7 +324,7 @@ const initialState = {
         multiplier: 3,
         isChecked: false,
     },
-    '10': {
+    'mine_tier_11': {
         type: 'buildingTier',
         tier: 11,
         icon: 0,
@@ -341,7 +341,7 @@ const initialState = {
     },
 
     /* Mill */
-    '0': {
+    'mill_tier_1': {
         type: 'buildingTier',
         tier: 1,
         icon: 0,
@@ -356,7 +356,7 @@ const initialState = {
         multiplier: 2,
         isChecked: false,
     },
-    '1': {
+    'mill_tier_2': {
         type: 'buildingTier',
         tier: 2,
         icon: 0,
@@ -371,7 +371,7 @@ const initialState = {
         multiplier: 3,
         isChecked: false,
     },
-    '2': {
+    'mill_tier_3': {
         type: 'buildingTier',
         tier: 3,
         icon: 0,
@@ -386,7 +386,7 @@ const initialState = {
         multiplier: 4,
         isChecked: false,
     },
-    '3': {
+    'mill_tier_4': {
         type: 'buildingTier',
         tier: 4,
         icon: 0,
@@ -403,7 +403,7 @@ const initialState = {
     },
 
     /* Blacksmith */
-    '0': {
+    'blacksmith_tier_1': {
         type: 'buildingTier',
         tier: 1,
         icon: 0,
@@ -418,7 +418,7 @@ const initialState = {
         multiplier: 2,
         isChecked: false,
     },
-    '1': {
+    'blacksmith_tier_2': {
         type: 'buildingTier',
         tier: 2,
         icon: 0,
@@ -433,7 +433,7 @@ const initialState = {
         multiplier: 3,
         isChecked: false,
     },
-    '2': {
+    'blacksmith_tier_3': {
         type: 'buildingTier',
         tier: 3,
         icon: 0,
@@ -448,7 +448,7 @@ const initialState = {
         multiplier: 4,
         isChecked: false,
     },
-    '3': {
+    'blacksmith_tier_4': {
         type: 'buildingTier',
         tier: 4,
         icon: 0,
@@ -465,7 +465,7 @@ const initialState = {
     },
 
     /* Cathedral */
-    '0': {
+    'cathedral_tier_1': {
         type: 'buildingTier',
         tier: 1,
         icon: 0,
@@ -480,7 +480,7 @@ const initialState = {
         multiplier: 2,
         isChecked: false,
     },
-    '1': {
+    'cathedral_tier_2': {
         type: 'buildingTier',
         tier: 2,
         icon: 0,
@@ -495,7 +495,7 @@ const initialState = {
         multiplier: 3,
         isChecked: false,
     },
-    '2': {
+    'cathedral_tier_3': {
         type: 'buildingTier',
         tier: 3,
         icon: 0,
@@ -510,7 +510,7 @@ const initialState = {
         multiplier: 4,
         isChecked: false,
     },
-    '3': {
+    'cathedral_tier_4': {
         type: 'buildingTier',
         tier: 4,
         icon: 0,
@@ -527,7 +527,7 @@ const initialState = {
     },
 
     /* Temple */
-    '0': {
+    'temple_tier_1': {
         type: 'buildingTier',
         tier: 1,
         icon: 0,
@@ -542,7 +542,7 @@ const initialState = {
         multiplier: 2,
         isChecked: false,
     },
-    '1': {
+    'temple_tier_2': {
         type: 'buildingTier',
         tier: 2,
         icon: 0,
@@ -557,7 +557,7 @@ const initialState = {
         multiplier: 3,
         isChecked: false,
     },
-    '2': {
+    'temple_tier_3': {
         type: 'buildingTier',
         tier: 3,
         icon: 0,
@@ -572,7 +572,7 @@ const initialState = {
         multiplier: 4,
         isChecked: false,
     },
-    '3': {
+    'temple_tier_4': {
         type: 'buildingTier',
         tier: 4,
         icon: 0,
@@ -589,7 +589,7 @@ const initialState = {
     },
 
     /* Castle */
-    '0': {
+    'castle_tier_1': {
         type: 'buildingTier',
         tier: 1,
         icon: 0,
@@ -604,7 +604,7 @@ const initialState = {
         multiplier: 2,
         isChecked: false,
     },
-    '1': {
+    'castle_tier_2': {
         type: 'buildingTier',
         tier: 2,
         icon: 0,
@@ -619,7 +619,7 @@ const initialState = {
         multiplier: 3,
         isChecked: false,
     },
-    '2': {
+    'castle_tier_3': {
         type: 'buildingTier',
         tier: 3,
         icon: 0,
@@ -634,7 +634,7 @@ const initialState = {
         multiplier: 4,
         isChecked: false,
     },
-    '3': {
+    'castle_tier_4': {
         type: 'buildingTier',
         tier: 4,
         icon: 0,
@@ -676,6 +676,7 @@ export const upgradesSlice = createSlice({
     reducers: {
         checkAll: (state, action) => {
             const buildings = action.payload;
+            console.log('Starting CheckAll');
 
             Object.entries(state).map((upgrade) => {
                 switch (upgrade[1].type) {
@@ -709,6 +710,7 @@ export const upgradesSlice = createSlice({
                         break;
                 }
             })
+            console.log('Finished Check All')
         },
         buyUpgrade: (state, action) => {
             const upgradeToUnlock = action.payload;

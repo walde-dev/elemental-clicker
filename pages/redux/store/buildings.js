@@ -90,7 +90,6 @@ export const buildingsSlice = createSlice({
         },
         unlockBuilding: (state, action) => {
             const { name } = action.payload
-            console.log(action)
             Object.entries(state).map((building) => {
                 if (building[1].name !== name) return building[1]
                 building[1].isUnlocked = true;
