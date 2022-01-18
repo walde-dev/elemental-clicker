@@ -23,16 +23,40 @@ export default function UpgradesMenu(props) {
                 Available Upgrades
             </div>
 
-            <ul role='list' className='mt-4 grid  grid-cols-6  w-full'>
-                {(upgrades) && Object.entries(upgrades).filter(upgrade => upgrade[1].isUnlocked).map(upgrade => (
+            <ul role='list' className='mt-4 grid h-[250px] grid-cols-6  w-full '>
+                {(upgrades) && Object.entries(upgrades).filter(
+                    upgrade => upgrade[1].isUnlocked && !upgrade[1].isBought
+                ).map(
+                    upgrade => (
 
-                    <li
-                        key={upgrade[1].id}
-                        className='max-w-min'
-                    >
-                        <Upgrade upgrade={upgrade[1]}/>
-                    </li>
-                ))}
+                        <li
+                            key={upgrade[1].id}
+                            className='max-w-min'
+                        >
+                            <Upgrade upgrade={upgrade[1]} />
+                        </li>
+                    )
+                )}
+            </ul>
+
+            <div className='flex mt-5 justify-center items-center text-white text-md bg-selected-grey rounded-2xl w-[237px] h-[30px]'>
+                Purchased Upgrades
+            </div>
+
+            <ul role='list' className='mt-2 grid h-[250px] grid-cols-6  w-full '>
+                {(upgrades) && Object.entries(upgrades).filter(
+                    upgrade => upgrade[1].isBought
+                ).map(
+                    upgrade => (
+
+                        <li
+                            key={upgrade[1].id}
+                            className='max-w-min'
+                        >
+                            <Upgrade upgrade={upgrade[1]} />
+                        </li>
+                    )
+                )}
             </ul>
         </div>
     );

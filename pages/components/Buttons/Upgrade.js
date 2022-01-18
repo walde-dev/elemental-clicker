@@ -3,9 +3,10 @@ import { MdUpgrade } from "react-icons/md";
 import { AiFillCheckSquare } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { setCoins } from "../../redux/store/player";
-import { buyUpgrade, checkAll } from "../../redux/store/upgrades";
+import { buyUpgrade, checkAll, setChecked } from "../../redux/store/upgrades";
 import { RiCoinFill } from "react-icons/ri";
 import { addToMultiplier } from "../../redux/store/buildings";
+import { BsCircle, BsCircleFill } from "react-icons/bs";
 
 export default function Upgrade(props) {
 
@@ -42,17 +43,23 @@ export default function Upgrade(props) {
         dispatch(buyUpgrade(props.upgrade))
 
         switch (props.upgrade.type) {
+
+            /* Building Tiers */
             case 'buildingTier':
                 Object.entries(buildings).map(building => {
                     if (building[1].name.toLowerCase() !== props.upgrade.building) return;
-                    dispatch(addToMultiplier({name: building[1].name, amount: props.upgrade.multiplier}));
+                    dispatch(addToMultiplier({ name: building[1].name, amount: props.upgrade.multiplier }));
                 })
                 break;
-        
+
             default:
                 break;
         }
 
+    }
+
+    function check(){
+        dispatch(setChecked(props.upgrade));
     }
 
     return (
@@ -62,9 +69,12 @@ export default function Upgrade(props) {
             onClick={() => {
                 if (!props.upgrade.isBought) buy();
             }}
+            onMouseEnter={() => {
+                if (!props.upgrade.isChecked) check()
+            }}
         >
-            <div className={`flex flex-row  relative rounded-lg px-1 py-1  ${props.upgrade.isBought ? 'bg-accent-green ' : ''}`}>
-                <div className={`self-center text-white ${props.upgrade.isBought ? 'text-accent-green-secondary' : ''} `}>
+            <div className={`flex flex-row  relative rounded-lg px-1 py-1  ${props.upgrade.isBought ? '' : ''}`}>
+                <div className={`self-center text-white ${props.upgrade.isBought ? '' : ''} `}>
                     {props.upgrade.icon}
                 </div>
                 {!props.upgrade.isBought && (
@@ -77,11 +87,17 @@ export default function Upgrade(props) {
                         <AiFillCheckSquare className='w-5 h-5' />
                     </div>
                 )}
+                {!props.upgrade.isChecked && (
+                    <div className='absolute -mt-1 -ml-1 rounded-full'>
+                        <BsCircleFill className='w-3 h-3 text-red-700' />
+                    </div>
+                )}
                 <div className='flex justify-center absolute mt-6 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-[10px] w-10 min-w-max font-semibold text-white rounded-full px-0.5 py-0.5 bg-accent-blue'>
                     Tier {romanize(props.upgrade.tier)}
                 </div>
 
-                <div className='flex scale-0 group-hover:scale-100 justify-center absolute -mt-20 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-xs w-10 min-w-max font-normal text-white rounded-md px-4 py-2 bg-selected-grey'>
+
+                <div className='flex scale-0 group-hover:scale-100 justify-center absolute -mt-20 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-xs w-10 min-w-max font-normal text-white rounded-md px-4 py-2 bg-zinc-700 border-accent-blue border-4'>
                     <div className='flex flex-col items-center'>
                         <div className='font-semibold'>
                             {props.upgrade.name}
