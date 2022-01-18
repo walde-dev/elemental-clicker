@@ -30,7 +30,7 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <Provider store={store}>
-      <div className='flex flex-col font-roboto font-light md:px-16 py-7 bg-main-background-blue w-screen max-w-full h-screen'>
+      <div className='flex flex-col font-roboto select-none font-light md:px-16 py-7 bg-main-background-blue w-screen max-w-full h-screen'>
         <Header coins={coins} player={player} />
 
         <div className='flex flex-row h-full'>
