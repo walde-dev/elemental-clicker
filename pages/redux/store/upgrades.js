@@ -1,6 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { current } from '@reduxjs/toolkit';
 
+import { HiCursorClick } from 'react-icons/hi'
+
 
 const initialState = {
 
@@ -653,20 +655,66 @@ const initialState = {
 
 
     /* Clicks */
-    '': {
+    'manual_clicks_1': {
         type: 'clicks',
         tier: 1,
-        icon: 0,
-        cost: 100,
+        icon: <HiCursorClick className='w-8 h-8'/>,
+        cost: 500,
         amount: 100,
         isBought: false,
         isUnlocked: false,
         name: 'Clicks Upgrade I',
         unlockText: 'Click 100 times',
-        effectText: 'Increase Click reward by 100%',
-        multiplier: 2,
+        effectText: 'Increase base clicking reward by 4',
+        bonusType: 'additive',
+        multiplier: 4,
         isChecked: false,
-    }
+    },
+    'manual_clicks_2': {
+        type: 'clicks',
+        tier: 2,
+        icon: <HiCursorClick className='w-8 h-8'/>,
+        cost: 5000,
+        amount: 500,
+        isBought: false,
+        isUnlocked: false,
+        name: 'Clicks Upgrade II',
+        unlockText: 'Click 500 times',
+        effectText: 'Increase base clicking reward by 45',
+        bonusType: 'additive',
+        multiplier: 45,
+        isChecked: false,
+    },
+    'manual_clicks_3': {
+        type: 'clicks',
+        tier: 3,
+        icon: <HiCursorClick className='w-8 h-8'/>,
+        cost: 5e6,
+        amount: 2500,
+        isBought: false,
+        isUnlocked: false,
+        name: 'Clicks Upgrade III',
+        unlockText: 'Click 2500 times',
+        effectText: 'Increase base clicking reward by 4950',
+        bonusType: 'additive',
+        multiplier: 4950,
+        isChecked: false,
+    },
+    'manual_clicks_4': {
+        type: 'clicks',
+        tier: 4,
+        icon: <HiCursorClick className='w-8 h-8'/>,
+        cost: 5e9,
+        amount: 10000,
+        isBought: false,
+        isUnlocked: false,
+        name: 'Clicks Upgrade IV',
+        unlockText: 'Click 10000 times',
+        effectText: 'Increase base clicking reward by 500,000',
+        bonusType: 'additive',
+        multiplier: 500000,
+        isChecked: false,
+    },
 
 }
 
@@ -675,7 +723,9 @@ export const upgradesSlice = createSlice({
     initialState,
     reducers: {
         checkAll: (state, action) => {
-            const buildings = action.payload;
+            const { buildings } = action.payload;
+            const { player } = action.payload;
+            console.log(buildings, player)
             console.log('Starting CheckAll');
 
             Object.entries(state).map((upgrade) => {
@@ -683,7 +733,7 @@ export const upgradesSlice = createSlice({
 
                     /* Building Tiers */
                     case 'buildingTier':
-                        if (!upgrade[1].isUnlocked) {
+                        if (!upgrade[1].isUnlocked && buildings) {
                             Object.entries(buildings).map(building => {
                                 if (building[1].name.toLowerCase() !== upgrade[1].building) return;
                                 upgrade[1].icon = building[1].icon;
@@ -695,13 +745,9 @@ export const upgradesSlice = createSlice({
 
                     /* Clicks */
                     case 'clicks':
-                        if (!upgrade[1].isUnlocked) {
-                            Object.entries(buildings).map(building => {
-                                if (building[1].name.toLowerCase() !== upgrade[1].building) return;
-                                upgrade[1].icon = building[1].icon;
-                                if (building[1].amount < upgrade[1].amount) return;
-                                upgrade[1].isUnlocked = true;
-                            })
+                        if (!upgrade[1].isUnlocked && player) {
+                            if(upgrade[1].amount > player.statistics.manualClicks.value) return;
+                            upgrade[1].isUnlocked = true;
                         }
                         break;
 
