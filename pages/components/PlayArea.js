@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import useInterval from "./Logic/Hooks/useInterval";
-import {tick, click} from "../redux/store/player";
+import { tick, click, setStatistics } from "../redux/store/player";
 
 
 export default function PlayArea(props) {
@@ -9,12 +9,17 @@ export default function PlayArea(props) {
 
     useInterval(() => {
         dispatch(tick())
-      }, 1000);
+    }, 1000);
+
+    function clickLocal(){
+        dispatch(click())
+        dispatch(setStatistics({ type: 'manualClicks', value: 1 }))
+    }
 
     return (
         <div
             className='w-full h-full'
-            onClick={() => dispatch(click())}
+            onClick={() => clickLocal()}
         >
         </div>
     );

@@ -7,15 +7,12 @@ const initialState = {
     coinsPerClick: 1,
     mana: 1000,
     manaPerSecond: 1,
-    buildings: {
-        farm: 0,
-        mine: 0,
-        mill: 0,
-        blacksmith: 0,
-        cathedral: 0,
-        temple: 0,
-        castle: 0,
-    }
+    statistics: {
+        manualClicks: {
+            name:  'Manual Clicks',
+            value: 0,
+        }
+    },
 
 }
 
@@ -35,10 +32,24 @@ export const playerSlice = createSlice({
         setCoins: (state, action) => {
             state.coins = action.payload;
         },
+        setStatistics: (state, action) => {
+            const { type } = action.payload;
+            const { value } = action.payload;
+
+            switch (type) {
+                case 'manualClicks':
+                    state.statistics.manualClicks.value += value
+                    break;
+                default:
+                    break;
+            }
+            console.log(state.statistics.manualClicks.value)
+        },
+
     },
 })
 
 // Action creators are generated for each case reducer function
-export const { click, tick, updateCoinsPerSecond, setCoins } = playerSlice.actions
+export const { click, tick, updateCoinsPerSecond, setCoins, setStatistics } = playerSlice.actions
 
 export default playerSlice.reducer
