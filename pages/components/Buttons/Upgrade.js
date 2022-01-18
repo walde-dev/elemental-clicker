@@ -7,6 +7,7 @@ import { buyUpgrade, checkAll, setChecked } from "../../redux/store/upgrades";
 import { RiCoinFill } from "react-icons/ri";
 import { addToMultiplier } from "../../redux/store/buildings";
 import { BsCircle, BsCircleFill } from "react-icons/bs";
+import { abbreviateNumber } from "../Logic/logic";
 
 export default function Upgrade(props) {
 
@@ -73,7 +74,7 @@ export default function Upgrade(props) {
                 if (!props.upgrade.isChecked) check()
             }}
         >
-            <div className={`flex flex-row  relative rounded-lg px-1 py-1  ${props.upgrade.isBought ? '' : ''}`}>
+            <div className={`flex flex-row relative rounded-lg px-1 py-1  ${props.upgrade.isBought ? '' : ''}`}>
                 <div className={`self-center text-white ${props.upgrade.isBought ? '' : ''} `}>
                     {props.upgrade.icon}
                 </div>
@@ -96,8 +97,8 @@ export default function Upgrade(props) {
                     Tier {romanize(props.upgrade.tier)}
                 </div>
 
-
-                <div className='flex scale-0 group-hover:scale-100 justify-center absolute -mt-20 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-xs w-10 min-w-max font-normal text-white rounded-md px-4 py-2 bg-accent-blue border-grey border-2'>
+                    
+                <div className='flex z-50 scale-0 group-hover:scale-100 justify-center fixed -mt-20 -ml-24  text-xs w-10 min-w-max font-normal text-white rounded-md px-4 py-2 bg-accent-blue border-grey border-2'>
                     <div className='flex flex-col items-center'>
                         <div className='font-semibold'>
                             {props.upgrade.name}
@@ -112,7 +113,7 @@ export default function Upgrade(props) {
                                         Cost:
                                     </div>
                                     <div className='font-semibold'>
-                                        {props.upgrade.cost}
+                                        {abbreviateNumber(props.upgrade.cost)}
                                     </div>
                                     <div>
                                         <RiCoinFill className='text-gold-yellow' />

@@ -15,7 +15,7 @@ export default function UpgradesMenu(props) {
     }
 
     return (
-        <div className='flex flex-col items-center px-2 py-2'>
+        <div className='flex flex-col relative items-center px-2 py-2'>
             <div className='flex mt-4 justify-center items-center text-white font-normal text-2xl bg-selected-grey rounded-md w-[237px] h-[60px]'>
                 Upgrades
             </div>
@@ -43,7 +43,7 @@ export default function UpgradesMenu(props) {
                 Purchased Upgrades
             </div>
 
-            <ul role='list' className='mt-2 grid h-[250px] grid-cols-6  w-full '>
+            <ul role='list' className='mt-2 grid h-[250px] grid-cols-6  w-full overflow-auto'>
                 {(upgrades) && Object.entries(upgrades).filter(
                     upgrade => upgrade[1].isBought
                 ).map(
