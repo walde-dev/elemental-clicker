@@ -3,7 +3,7 @@ import { CgSandClock } from "react-icons/cg";
 import { RiCoinFill } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
 import { abbreviateNumber } from "../components/Logic/logic";
-import { buyAmount, getCost, getProduction, getTotalProduction, isBuildingUnlocked, unlockBuilding, updateTotalProduction } from "../redux/store/buildings";
+import { buyAmount, buyBuildingAmount, getCost, getProduction, getTotalProduction, isBuildingUnlocked, unlockBuilding, updateTotalProduction } from "../redux/store/buildings";
 import { setCoins, updateCoinsPerSecond } from "../redux/store/player";
 import { checkAll } from "../redux/store/upgrades";
 
@@ -15,6 +15,8 @@ export default function BuildingsMenu(props) {
     const upgrades = useSelector(state => state.upgrades);
     const dispatch = useDispatch();
     let showPreview = true;
+
+    const [buyAmount, setBuyAmount] = useState(1);
 
     Object.entries(buildings).map(building => {
         if ((player.coins >= building[1].baseCost) && !building[1].isUnlocked) {
@@ -31,12 +33,69 @@ export default function BuildingsMenu(props) {
         player: player,
     }));
 
-    function buyBuilding(state, action) {
-        if (player.coins >= getCost(state)) {
-            dispatch(buyAmount(state, action));
-            dispatch(setCoins(player.coins - getCost(state)));
+    function buyBuilding(state) {
+        if (player.coins >= getLocalCost(state).cost) {
+            dispatch(buyBuildingAmount({
+                name: state.name,
+                amount: getLocalCost(state).amount,
+            }));
+            dispatch(setCoins(player.coins - getLocalCost(state).cost));
 
         }
+    }
+
+    function getLocalCost(state) {
+        let amountToBuy = buyAmount === 'MAX' ? 0 : buyAmount;
+        let cost = 0;
+        let coins = player.coins;
+        let buildingAmount = state.amount;
+        
+        if (buyAmount === 1) {
+            return {
+                amount: amountToBuy,
+                cost: getCost(state),
+            }
+        }
+
+
+        let tempAmount = amountToBuy;
+        
+        while(tempAmount > 0){
+            cost += state.baseCost * Math.pow(1.15, buildingAmount)
+            buildingAmount += 1;
+            tempAmount -= 1;
+        }
+
+        if(amountToBuy === 0){
+            let counter = 0;
+            while(true){
+                if(cost + state.baseCost * Math.pow(1.15, buildingAmount) > player.coins){        
+                    break;
+                }
+                cost += state.baseCost * Math.pow(1.15, buildingAmount)
+                buildingAmount += 1;
+                counter += 1;
+            }
+            if(cost === 0){
+                cost = getCost(state);
+            }
+            if(counter === 0){
+                counter = 1;
+            }
+            return {
+                amount: counter,
+                cost: cost,
+            
+            }
+        }
+
+
+
+        return {
+            amount: amountToBuy,
+            cost: cost,
+        }
+
     }
 
 
@@ -55,7 +114,7 @@ export default function BuildingsMenu(props) {
                         {(building[1].isUnlocked) && (
                             <div>
                                 <div
-                                    className={`w-full h-[60px] font-light hover:bg-hover-grey  text-grey px-4 ${player.coins < getCost(building[1]) ? 'opacity-30' : ''}`}
+                                    className={`w-full h-[60px] font-light hover:bg-hover-grey  text-grey px-4 ${player.coins < getLocalCost(building[1]).cost ? 'opacity-30' : ''}`}
                                     onClick={() => buyBuilding(building[1])}
                                 >
                                     <div className='flex flex-row  h-full'>
@@ -76,8 +135,15 @@ export default function BuildingsMenu(props) {
                                                 <div className='self-center text-gold-yellow'>
                                                     <RiCoinFill className='w-3 h-3' />
                                                 </div>
-                                                <div className='self-center text-sm'>
-                                                    {abbreviateNumber(getCost(building[1]))}
+                                                <div className='flex flex-row space-x-1 self-center text-sm'>
+                                                    {(getLocalCost(building[1]).amount !== 1 || buyAmount === 'MAX') && (
+                                                        <div>
+                                                            x{getLocalCost(building[1]).amount}
+                                                        </div>
+                                                    )}
+                                                    <div>
+                                                        {abbreviateNumber(getLocalCost(building[1]).cost)}
+                                                    </div>
                                                 </div>
                                             </div>
                                             {building[1].amount > 0 && (
@@ -160,20 +226,45 @@ export default function BuildingsMenu(props) {
                     <hr className='w-full border-selected-grey  border-1' />
                 </div>
                 <div className='flex flex-row mt-3 space-x-3 self-center'>
-                    <div className='text-lg text-white font-normal bg-accent-blue px-2 py-1 rounded-xl'>
+                    <div className='text-lg text-white font-normal bg-selected-grey px-2 py-1 rounded-xl'>
                         BUY AMOUNT
                     </div>
-                    <div className='text-lg bg-grey px-2 py-1 rounded-xl'>
+                    <div
+                        className={`${buyAmount === 1 ? 'bg-accent-blue text-white' : 'bg-grey hover:bg-accent-blue hover:opacity-70 hover:text-white'} text-lg  px-2 py-1 rounded-xl`}
+                        onClick={() => {
+                            if (buyAmount !== 1) {
+                                setBuyAmount(1);
+                            }
+                        }}
+                    >
                         x1
                     </div>
-                    <div className='text-lg bg-grey px-2 py-1 rounded-xl'>
-                        x10
+                    <div
+                        className={`${buyAmount === 10 ? 'bg-accent-blue text-white' : 'bg-grey hover:bg-accent-blue hover:opacity-70 hover:text-white'} text-lg  px-2 py-1 rounded-xl`}
+                        onClick={() => {
+                            if (buyAmount !== 10) {
+                                setBuyAmount(10);
+                            }
+                        }}
+                    >                        x10
                     </div>
-                    <div className='text-lg bg-grey px-2 py-1 rounded-xl'>
-                        x100
+                    <div
+                        className={`${buyAmount === 100 ? 'bg-accent-blue text-white' : 'bg-grey hover:bg-accent-blue hover:opacity-70 hover:text-white'} text-lg  px-2 py-1 rounded-xl`}
+                        onClick={() => {
+                            if (buyAmount !== 100) {
+                                setBuyAmount(100);
+                            }
+                        }}
+                    >                        x100
                     </div>
-                    <div className='text-lg bg-grey px-2 py-1 rounded-xl'>
-                        MAX
+                    <div
+                        className={`${buyAmount === 'MAX' ? 'bg-accent-blue text-white' : 'bg-grey hover:bg-accent-blue hover:opacity-70 hover:text-white'} text-lg  px-2 py-1 rounded-xl`}
+                        onClick={() => {
+                            if (buyAmount !== 'MAX') {
+                                setBuyAmount('MAX');
+                            }
+                        }}
+                    >                        MAX
                     </div>
                 </div>
             </div>

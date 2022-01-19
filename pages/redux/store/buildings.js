@@ -80,11 +80,12 @@ export const buildingsSlice = createSlice({
     name: 'buildings',
     initialState,
     reducers: {
-        buyAmount: (state, action) => {
-            const { name } = action.payload
+        buyBuildingAmount: (state, action) => {
+            const { name } = action.payload;
+            const { amount } = action.payload;
             Object.entries(state).map((building) => {
                 if (building[1].name !== name) return building[1]
-                building[1].amount += 1;
+                building[1].amount += amount;
 
             })
         },
@@ -108,7 +109,7 @@ export const buildingsSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { buyAmount, unlockBuilding, addToMultiplier } = buildingsSlice.actions
+export const { buyBuildingAmount, unlockBuilding, addToMultiplier } = buildingsSlice.actions
 
 export default buildingsSlice.reducer
 
