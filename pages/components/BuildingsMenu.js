@@ -44,7 +44,7 @@ export default function BuildingsMenu(props) {
 
 
     return (
-        <div>
+        <div className='flex flex-col  h-full justify-between'>
             <ul role='list' className=' grid gap-0 grid-rows-1 sm:grid-rows-1 md:grid-rows-1 lg:grid-rows-1 xl:grid-rows-1 '>
                 {(buildings) && Object.entries(buildings).map(building => (
 
@@ -154,6 +154,29 @@ export default function BuildingsMenu(props) {
                     </li>
                 ))}
             </ul>
+
+            <div className='flex flex-col px-4 items-center'>
+                <div className='w-full '>
+                    <hr className='w-full border-selected-grey  border-1' />
+                </div>
+                <div className='flex flex-row mt-3 space-x-3 self-center'>
+                    <div className='text-lg text-white font-normal bg-accent-blue px-2 py-1 rounded-xl'>
+                        BUY AMOUNT
+                    </div>
+                    <div className='text-lg bg-grey px-2 py-1 rounded-xl'>
+                        x1
+                    </div>
+                    <div className='text-lg bg-grey px-2 py-1 rounded-xl'>
+                        x10
+                    </div>
+                    <div className='text-lg bg-grey px-2 py-1 rounded-xl'>
+                        x100
+                    </div>
+                    <div className='text-lg bg-grey px-2 py-1 rounded-xl'>
+                        MAX
+                    </div>
+                </div>
+            </div>
 
         </div>
 

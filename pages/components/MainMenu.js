@@ -11,7 +11,7 @@ import BuildingsMenu from "./BuildingsMenu";
 export default function MainMenu(props) {
     return (
         <div className={`w-full h-full bg-secondary-blue py-4  rounded-2xl`}>
-            <div className='flex flex-col  items-center'>
+            <div className='flex flex-col h-full items-center'>
                 <div className='flex flex-row space-x-2 px-4'>
                     <MainMenuButton icon={BsFillHouseDoorFill} />
                     <MainMenuButton icon={FaMagic} />
@@ -21,7 +21,7 @@ export default function MainMenu(props) {
                     <hr className='w-full mt-3 border-selected-grey  border-1' />
                 </div>
 
-                <div className='w-full'>
+                <div className='w-full h-full '>
                     <BuildingsMenu {...props} />
                 </div>
 
