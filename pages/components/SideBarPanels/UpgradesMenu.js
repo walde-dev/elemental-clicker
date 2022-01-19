@@ -115,7 +115,7 @@ export default function UpgradesMenu(props) {
                 Upgrades
             </div>
             <div className='mt-4'>
-                Unlocked Upgrades: {upgradesUnlocked}/{upgradesAmount} ({(upgradesUnlocked / upgradesAmount * 100).toFixed(0)}%)
+                Purchased Upgrades: {upgradesUnlocked}/{upgradesAmount} ({(upgradesUnlocked / upgradesAmount * 100).toFixed(0)}%)
             </div>
             <div className='flex mt-4 justify-center items-center text-md bg-selected-grey rounded-2xl w-[237px] h-[30px]'>
                 Available Upgrades

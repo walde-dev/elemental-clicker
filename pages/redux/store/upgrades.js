@@ -722,7 +722,7 @@ const initialState = {
     'coins_by_clicking_1': {
         type: 'coinsByClicking',
         tier: 1,
-        icon: <CoinsByClickingIcon className='w-8 h-8' />,
+        icon: <CoinsByClickingIcon tier={1} className='w-8 h-8' />,
         cost: 10000,
         amount: 5000,
         isBought: false,
