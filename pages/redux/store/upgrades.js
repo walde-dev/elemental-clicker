@@ -3,6 +3,7 @@ import { current } from '@reduxjs/toolkit';
 import { GiOpenTreasureChest } from 'react-icons/gi';
 
 import { HiCursorClick } from 'react-icons/hi'
+import { CoinsByClickingIcon, CoinsEarnedIcon } from '../../../public/icons/svg_components/icons';
 
 
 const initialState = {
@@ -721,7 +722,7 @@ const initialState = {
     'coins_by_clicking_1': {
         type: 'coinsByClicking',
         tier: 1,
-        icon: <HiCursorClick className='w-8 h-8' />,
+        icon: <CoinsByClickingIcon className='w-8 h-8' />,
         cost: 10000,
         amount: 5000,
         isBought: false,
@@ -736,7 +737,7 @@ const initialState = {
     'coins_by_clicking_2': {
         type: 'coinsByClicking',
         tier: 2,
-        icon: <HiCursorClick className='w-8 h-8' />,
+        icon: <CoinsByClickingIcon className='w-8 h-8' />,
         cost: 5e6,
         amount: 500000,
         isBought: false,
@@ -751,7 +752,7 @@ const initialState = {
     'coins_by_clicking_3': {
         type: 'coinsByClicking',
         tier: 3,
-        icon: <HiCursorClick className='w-8 h-8' />,
+        icon: <CoinsByClickingIcon className='w-8 h-8' />,
         cost: 500e6,
         amount: 5e6,
         isBought: false,
@@ -766,7 +767,7 @@ const initialState = {
     'coins_by_clicking_4': {
         type: 'coinsByClicking',
         tier: 4,
-        icon: <HiCursorClick className='w-8 h-8' />,
+        icon: <CoinsByClickingIcon className='w-8 h-8' />,
         cost: 1e11,
         amount: 5e9,
         isBought: false,
@@ -783,7 +784,7 @@ const initialState = {
     'coins_earned_1': {
         type: 'coinsEarned',
         tier: 1,
-        icon: <GiOpenTreasureChest className='w-8 h-8' />,
+        icon: <CoinsEarnedIcon className='w-8 h-8' />,
         cost: 50000,
         amount: 10000,
         isBought: false,
@@ -799,7 +800,7 @@ const initialState = {
     'coins_earned_2': {
         type: 'coinsEarned',
         tier: 2,
-        icon: <GiOpenTreasureChest className='w-8 h-8' />,
+        icon: <CoinsEarnedIcon className='w-8 h-8' />,
         cost: 50e6,
         amount: 100e6,
         isBought: false,
@@ -815,7 +816,7 @@ const initialState = {
     'coins_earned_3': {
         type: 'coinsEarned',
         tier: 3,
-        icon: <GiOpenTreasureChest className='w-8 h-8' />,
+        icon: <CoinsEarnedIcon className='w-8 h-8' />,
         cost: 50e9,
         amount: 100e9,
         isBought: false,
@@ -831,7 +832,7 @@ const initialState = {
     'coins_earned_4': {
         type: 'coinsEarned',
         tier: 3,
-        icon: <GiOpenTreasureChest className='w-8 h-8' />,
+        icon: <CoinsEarnedIcon className='w-8 h-8' />,
         cost: 50e12,
         amount: 100e12,
         isBought: false,

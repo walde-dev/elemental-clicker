@@ -1,7 +1,7 @@
 module.exports = {
   mode: "jit",
   purge: [
-    "./pages/**/*.{js,ts,jsx,tsx}",
+    "./pages/**/*.{js,ts,jsx,tsx}", "./public/icons/svg_components/**/*.{js,ts,jsx,tsx}",
   ],
   darkMode: false, // or 'media' or 'class'
   theme: {
