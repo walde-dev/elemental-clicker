@@ -3,7 +3,7 @@ import { MdUpgrade } from "react-icons/md";
 import { AiFillCheckSquare } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { setCoins, updateCoinsPerClick } from "../../redux/store/player";
-import { buyUpgrade, checkAll, setChecked } from "../../redux/store/upgrades";
+import { buyUpgrade, checkAll, checkAllUpgrades, setChecked } from "../../redux/store/upgrades";
 import { RiCoinFill } from "react-icons/ri";
 import { addToMultiplier } from "../../redux/store/buildings";
 import { BsCircle, BsCircleFill } from "react-icons/bs";
@@ -17,12 +17,8 @@ export default function Upgrade(props) {
     const player = useSelector(state => state.player);
     const buildings = useSelector(state => state.buildings);
 
-    dispatch(checkAll(buildings));
+    dispatch(checkAllUpgrades(buildings));
 
-
-    let upgradeColors = [
-        'text-gray-400',
-    ]
 
     function romanize(num) {
         if (isNaN(num))
@@ -38,31 +34,6 @@ export default function Upgrade(props) {
         return Array(+digits.join("") + 1).join("M") + roman;
     }
 
-    function buy() {
-        if (player.coins < props.upgrade.cost) return;
-        dispatch(setCoins(player.coins - props.upgrade.cost))
-        dispatch(buyUpgrade(props.upgrade))
-
-        switch (props.upgrade.type) {
-
-            /* Building Tiers */
-            case 'buildingTier':
-                Object.entries(buildings).map(building => {
-                    if (building[1].name.toLowerCase() !== props.upgrade.building) return;
-                    dispatch(addToMultiplier({ name: building[1].name, amount: props.upgrade.multiplier }));
-                })
-                break;
-
-            case 'clicks':
-                if(props.upgrade.bonusType === 'additive'){
-                    dispatch(updateCoinsPerClick(player.coinsPerClick + props.upgrade.multiplier));
-                }
-
-            default:
-                break;
-        }
-
-    }
 
     function check() {
         dispatch(setChecked(props.upgrade));

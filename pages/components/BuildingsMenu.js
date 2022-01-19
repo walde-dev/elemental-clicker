@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { abbreviateNumber } from "../components/Logic/logic";
 import { buyAmount, buyBuildingAmount, getCost, getProduction, getTotalProduction, isBuildingUnlocked, unlockBuilding, updateTotalProduction } from "../redux/store/buildings";
 import { setCoins, updateCoinsPerSecond } from "../redux/store/player";
-import { checkAll } from "../redux/store/upgrades";
+import { checkAll, checkAllUpgrades } from "../redux/store/upgrades";
 
 
 export default function BuildingsMenu(props) {
@@ -28,7 +28,7 @@ export default function BuildingsMenu(props) {
 
 
     dispatch(updateCoinsPerSecond(getTotalProduction(buildings)));
-    dispatch(checkAll({
+    dispatch(checkAllUpgrades({
         buildings: buildings,
         player: player,
     }));

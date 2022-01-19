@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToMultiplier } from "../../redux/store/buildings";
-import { setCoins, updateCoinsPerClick } from "../../redux/store/player";
+import { setCoins, updateCoinsPerClick, updateCoinsPerSecond } from "../../redux/store/player";
 import { buyUpgrade } from "../../redux/store/upgrades";
 import Upgrade from "../Buttons/Upgrade";
 
@@ -18,12 +18,12 @@ export default function UpgradesMenu(props) {
 
     console.log(upgradesUnlocked)
 
-    function buyAll(){
+    function buyAll() {
         Object.entries(upgrades).map(upgrade => {
-            if(!upgrade[1].isUnlocked || upgrade[1].isBought) return;
+            if (!upgrade[1].isUnlocked || upgrade[1].isBought) return;
             buy(upgrade[1]);
         });
-        
+
     }
 
     function buy(upgrade) {
@@ -41,11 +41,21 @@ export default function UpgradesMenu(props) {
                 })
                 break;
 
-            case 'clicks':
+            /* Manual Clicks */
+            case 'manualClicks':
                 dispatch(updateCoinsPerClick({
                     type: upgrade.bonusType,
                     value: upgrade.multiplier,
                 }))
+                break;
+
+            /* Coins By Clicking */
+            case 'coinsByClicking':
+                dispatch(updateCoinsPerClick({
+                    type: upgrade.bonusType,
+                    value: upgrade.multiplier,
+                }));
+                break;
 
             default:
                 break;
@@ -86,7 +96,7 @@ export default function UpgradesMenu(props) {
                             key={upgrade[1].id}
                             className='max-w-min'
                         >
-                            <Upgrade upgrade={upgrade[1]} buy={buy}/>
+                            <Upgrade upgrade={upgrade[1]} buy={buy} />
                         </li>
                     )
                 )}
