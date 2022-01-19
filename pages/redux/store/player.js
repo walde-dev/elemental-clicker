@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
 
-    coins: 3420000000,
+    coins: 0,
     coinsPerSecond: 0,
     coinsPerClick: 1,
     mana: 1000,
@@ -11,7 +11,7 @@ const initialState = {
         manualClicks: {
             name: 'manualClicks',
             desc: 'Manual Clicks',
-            value: 10000,
+            value: 0,
         }
     },
 

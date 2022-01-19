@@ -76,7 +76,7 @@ export default function UpgradesMenu(props) {
                 </div>
             </button>
 
-            <ul role='list' className='mt-2 grid h-[250px] grid-cols-6  w-full '>
+            <ul role='list' className='mt-2 grid h-[200px] grid-cols-6  w-full '>
                 {(upgrades) && Object.entries(upgrades).filter(
                     upgrade => upgrade[1].isUnlocked && !upgrade[1].isBought
                 ).map(
@@ -92,7 +92,7 @@ export default function UpgradesMenu(props) {
                 )}
             </ul>
 
-            <div className='flex mt-5 justify-center items-center  text-md bg-selected-grey rounded-2xl w-[237px] h-[30px]'>
+            <div className='flex mt-2 justify-center items-center  text-md bg-selected-grey rounded-2xl w-[237px] h-[30px]'>
                 Purchased Upgrades
             </div>
 
