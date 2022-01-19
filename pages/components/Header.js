@@ -7,15 +7,13 @@ import { CogIcon, InformationCircleIcon, UserIcon, UsersIcon } from '@heroicons/
 import TopMenuButton from './Buttons/TopMenuButton'
 import { abbreviateNumber } from './Logic/logic'
 import { useSelector } from 'react-redux'
+import { getCoinsPerClick } from '../redux/store/player'
 
 
 
 export default function Header(props) {
 
-    const coins  = useSelector(state => state.player.coins);
-    const coinsPerSecond = useSelector(state => state.player.coinsPerSecond);
-    const coinsPerClick = useSelector(state => state.player.coinsPerClick);
-    const mana = useSelector(state => state.player.mana);
+    const player  = useSelector(state => state.player);
 
     return (
         <div className='flex flex-row w-full sm:h-[75px] rounded-2xl px-7 bg-secondary-blue text-grey items-center'>
@@ -25,21 +23,21 @@ export default function Header(props) {
                     <div className='flex flex-row space-x-1.5'>
                         <Coins className='self-center sm:w-10 sm:h-10 w-7 h-7' />
                         <div className='self-center '>
-                            {abbreviateNumber(coins)}
+                            {abbreviateNumber(player.coins)}
                         </div>
                     </div>
 
                     <div className='flex flex-row space-x-1.5'>
                         <Clock className='self-center w-7 h-7' />
                         <div className='self-center '>
-                            {abbreviateNumber(coinsPerSecond)}/s
+                            {abbreviateNumber(player.coinsPerSecond)}/s
                         </div>
                     </div>
 
                     <div className='flex flex-row space-x-1.5'>
                         <Finger className='self-center w-7 h-7' />
                         <div className='self-center'>
-                            {abbreviateNumber(coinsPerClick)}
+                            {abbreviateNumber(getCoinsPerClick(player))}
                         </div>
                     </div>
                 </div>
@@ -48,7 +46,7 @@ export default function Header(props) {
                     <div className='flex flex-row self-center space-x-1.5'>
                         <Mana className='self-center w-7 h-7' />
                         <div className='self-center'>
-                            {abbreviateNumber(mana)}
+                            {abbreviateNumber(player.mana)}
                         </div>
                     </div>
 
