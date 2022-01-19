@@ -21,7 +21,7 @@ const initialState = {
         isUnlocked: false,
         effectText: 'Increase Farm production by 100%',
         multiplier: 2,
-        isChecked: false,
+        isChecked: false
     },
     'farm_tier_2': {
         type: 'buildingTier',
@@ -654,65 +654,127 @@ const initialState = {
 
 
 
-    /* Clicks */
+    /* Manual Clicks */
     'manual_clicks_1': {
-        type: 'clicks',
+        type: 'manualClicks',
         tier: 1,
         icon: <HiCursorClick className='w-8 h-8'/>,
         cost: 500,
         amount: 100,
         isBought: false,
         isUnlocked: false,
-        name: 'Clicks Upgrade I',
+        name: 'Baby Clicker',
         unlockText: 'Click 100 times',
         effectText: 'Increase base clicking reward by 4',
-        bonusType: 'additive',
+        bonusType: 'add',
         multiplier: 4,
         isChecked: false,
     },
     'manual_clicks_2': {
-        type: 'clicks',
+        type: 'manualClicks',
         tier: 2,
         icon: <HiCursorClick className='w-8 h-8'/>,
         cost: 5000,
         amount: 500,
         isBought: false,
         isUnlocked: false,
-        name: 'Clicks Upgrade II',
+        name: 'A Clicking Start',
         unlockText: 'Click 500 times',
         effectText: 'Increase base clicking reward by 45',
-        bonusType: 'additive',
+        bonusType: 'add',
         multiplier: 45,
         isChecked: false,
     },
     'manual_clicks_3': {
-        type: 'clicks',
+        type: 'manualClicks',
         tier: 3,
         icon: <HiCursorClick className='w-8 h-8'/>,
         cost: 5e6,
         amount: 2500,
         isBought: false,
         isUnlocked: false,
-        name: 'Clicks Upgrade III',
+        name: 'Advanced Clicking',
         unlockText: 'Click 2500 times',
         effectText: 'Increase base clicking reward by 4950',
-        bonusType: 'additive',
+        bonusType: 'add',
         multiplier: 4950,
         isChecked: false,
     },
     'manual_clicks_4': {
-        type: 'clicks',
+        type: 'manualClicks',
         tier: 4,
         icon: <HiCursorClick className='w-8 h-8'/>,
         cost: 5e9,
         amount: 10000,
         isBought: false,
         isUnlocked: false,
-        name: 'Clicks Upgrade IV',
+        name: 'Expert Clicking',
         unlockText: 'Click 10000 times',
         effectText: 'Increase base clicking reward by 500,000',
-        bonusType: 'additive',
+        bonusType: 'add',
         multiplier: 500000,
+        isChecked: false,
+    },
+
+    /* Coins By Clicking */
+    'coins_by_clicking_1': {
+        type: 'coinsByClicking',
+        tier: 1,
+        icon: <HiCursorClick className='w-8 h-8'/>,
+        cost: 10000,
+        amount: 5000,
+        isBought: false,
+        isUnlocked: false,
+        name: 'A Tiny Treasure',
+        unlockText: 'Gain 5000 Coins by clicking in a single game',
+        effectText: 'Increase clicking reward by 50%',
+        bonusType: 'mul',
+        multiplier: 1.5,
+        isChecked: false,
+    },
+    'coins_by_clicking_2': {
+        type: 'coinsByClicking',
+        tier: 2,
+        icon: <HiCursorClick className='w-8 h-8'/>,
+        cost: 5e6,
+        amount: 500000,
+        isBought: false,
+        isUnlocked: false,
+        name: 'A Small Treasure',
+        unlockText: 'Gain 500000 Coins by clicking in a single game',
+        effectText: 'Increase clicking reward by 50%',
+        bonusType: 'mul',
+        multiplier: 1.5,
+        isChecked: false,
+    },
+    'coins_by_clicking_3': {
+        type: 'coinsByClicking',
+        tier: 3,
+        icon: <HiCursorClick className='w-8 h-8'/>,
+        cost: 500e6,
+        amount: 5e6,
+        isBought: false,
+        isUnlocked: false,
+        name: 'A Bigger Treasure',
+        unlockText: 'Gain 5M Coins by clicking in a single game',
+        effectText: 'Increase clicking reward by 100%',
+        bonusType: 'mul',
+        multiplier: 2,
+        isChecked: false,
+    },
+    'coins_by_clicking_4': {
+        type: 'coinsByClicking',
+        tier: 4,
+        icon: <HiCursorClick className='w-8 h-8'/>,
+        cost: 1e11,
+        amount: 5e9,
+        isBought: false,
+        isUnlocked: false,
+        name: 'A Huge Treasure',
+        unlockText: 'Gain 5B Coins by clicking in a single game',
+        effectText: 'Increase clicking reward by 50%',
+        bonusType: 'mul',
+        multiplier: 1.5,
         isChecked: false,
     },
 
@@ -722,7 +784,7 @@ export const upgradesSlice = createSlice({
     name: 'upgrades',
     initialState,
     reducers: {
-        checkAll: (state, action) => {
+        checkAllUpgrades: (state, action) => {
             const { buildings } = action.payload;
             const { player } = action.payload;
         
@@ -742,10 +804,18 @@ export const upgradesSlice = createSlice({
                         }
                         break;
 
-                    /* Clicks */
-                    case 'clicks':
+                    /* Manual Clicks */
+                    case 'manualClicks':
                         if (!upgrade[1].isUnlocked && player) {
                             if(upgrade[1].amount > player.statistics.manualClicks.value) return;
+                            upgrade[1].isUnlocked = true;
+                        }
+                        break;
+
+                    /* Coins By Clicking */
+                    case 'coinsByClicking':
+                        if (!upgrade[1].isUnlocked && player) {
+                            if(upgrade[1].amount > player.statistics.coinsByClicking.value) return;
                             upgrade[1].isUnlocked = true;
                         }
                         break;
@@ -777,6 +847,6 @@ export const upgradesSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { checkAll, buyUpgrade, setChecked } = upgradesSlice.actions
+export const { checkAllUpgrades, buyUpgrade, setChecked } = upgradesSlice.actions
 
 export default upgradesSlice.reducer
