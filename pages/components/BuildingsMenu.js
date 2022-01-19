@@ -127,7 +127,7 @@ export default function BuildingsMenu(props) {
                                         </div>
                                         <div className='flex flex-col  w-8/12 '>
                                             <div className='flex flex-row '>
-                                                <div className='text-sm '>
+                                                <div className='text-sm font-normal'>
                                                     {building[1].name}
                                                 </div>
                                             </div>
@@ -137,7 +137,7 @@ export default function BuildingsMenu(props) {
                                                 </div>
                                                 <div className='flex flex-row space-x-1 self-center text-sm'>
                                                     {(getLocalCost(building[1]).amount !== 1 || buyAmount === 'MAX') && (
-                                                        <div>
+                                                        <div className='text-xs self-center '>
                                                             x{getLocalCost(building[1]).amount}
                                                         </div>
                                                     )}
