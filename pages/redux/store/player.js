@@ -1,4 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { current } from '@reduxjs/toolkit';
+
 
 const initialState = {
 
@@ -7,6 +9,7 @@ const initialState = {
     coinsPerSecondMultiplier: 1,
     coinsPerClick: 1,
     coinsPerClickMultiplier: 1,
+    coinsPerClickUpgrades: [],
     mana: 1000,
     manaPerSecond: 1,
     statistics: {
@@ -19,7 +22,12 @@ const initialState = {
             name: 'coinsByClicking',
             desc: 'Coins By Clicking',
             value: 324234234,
-        }
+        },
+        coinsEarned: {
+            name: 'coinsEarned',
+            desc: 'Coins Earned',
+            value: 0,
+        },
     },
     progress: {
         value: 0,
@@ -32,7 +40,6 @@ export const playerSlice = createSlice({
     initialState,
     reducers: {
         click: (state) => {
-            console.log(state.coinsPerClickMultiplier)
             state.coins += getCoinsPerClick(state);
         },
         tick: (state) => {
@@ -46,7 +53,7 @@ export const playerSlice = createSlice({
             const { type } = action.payload;
             if (type === 'add') {
                 state.coinsPerClick += value;
-            } else if(type === 'mul'){
+            } else if (type === 'mul') {
                 state.coinsPerClickMultiplier *= value;
             }
         },
@@ -63,15 +70,47 @@ export const playerSlice = createSlice({
             });
             console.log(state.statistics.manualClicks.value)
         },
+        addCoinsPerClickUpgrade: (state, action) => {
+            const { upgrade } = action.payload;
+            const { value } = action.payload;
+            state.coinsPerClickUpgrades.push({
+                upgrade: upgrade,
+                value: value,
+            });
+        },
+        updateCoinsPerClickUpgrade: (state, action) => {
+            const { upgrade } = action.payload;
+            const { value } = action.payload;
+            state.coinsPerClickUpgrades.map(upgradeToUpdate => {
+                if(!upgradeToUpdate) return;
+                console.log(current(upgradeToUpdate))
+                if(upgradeToUpdate.upgrade?.name !== upgrade.name) return;
+                upgradeToUpdate.value = value;
+            });
+
+            
+        }
 
     },
 })
 
 // Action creators are generated for each case reducer function
-export const { click, tick, updateCoinsPerSecond, updateCoinsPerClick, setCoins, setStatistics } = playerSlice.actions
+export const { click, tick, addCoinsPerClickUpgrade, updateCoinsPerClickUpgrade, updateCoinsPerSecond, updateCoinsPerClick, setCoins, setStatistics } = playerSlice.actions
 
 export default playerSlice.reducer
 
-export function getCoinsPerClick(state){
-    return state.coinsPerClick * state.coinsPerClickMultiplier;
+export function getCoinsPerClick(state) {
+    let sumAdd = 0;
+    let sumMul = 1;
+    state.coinsPerClickUpgrades.map(upgrade => {
+        if(!upgrade) return;
+        if(upgrade.upgrade.bonusType === 'mul'){
+            sumMul *= upgrade.value;
+        }else if(upgrade.upgrade.bonusType === 'add'){
+            sumAdd += upgrade.value;
+        }
+    });
+
+    
+    return (state.coinsPerClick + sumAdd) * state.coinsPerClickMultiplier * sumMul;
 }

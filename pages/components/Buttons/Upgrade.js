@@ -99,7 +99,22 @@ export default function Upgrade(props) {
                         <div className='mt-2'>
                             {props.upgrade.effectText}
                         </div>
-                        
+
+                        {props.upgrade.effectValue && (
+                            <div className='mt-2'>
+                                {props.upgrade.bonusType === 'add' && (
+                                    <div>
+                                        (+{abbreviateNumber(props.upgrade.effectValue)})
+                                    </div>
+                                )}
+                                {props.upgrade.bonusType === 'mul' && (
+                                    <div>
+                                        ({abbreviateNumber(props.upgrade.effectValue)}%)
+                                    </div>
+                                )}
+                            </div>
+                        )}
+
                     </div>
                 </div>
             </div>

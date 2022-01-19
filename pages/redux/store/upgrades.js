@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { current } from '@reduxjs/toolkit';
+import { GiOpenTreasureChest } from 'react-icons/gi';
 
 import { HiCursorClick } from 'react-icons/hi'
 
@@ -658,7 +659,7 @@ const initialState = {
     'manual_clicks_1': {
         type: 'manualClicks',
         tier: 1,
-        icon: <HiCursorClick className='w-8 h-8'/>,
+        icon: <HiCursorClick className='w-8 h-8' />,
         cost: 500,
         amount: 100,
         isBought: false,
@@ -673,7 +674,7 @@ const initialState = {
     'manual_clicks_2': {
         type: 'manualClicks',
         tier: 2,
-        icon: <HiCursorClick className='w-8 h-8'/>,
+        icon: <HiCursorClick className='w-8 h-8' />,
         cost: 5000,
         amount: 500,
         isBought: false,
@@ -688,7 +689,7 @@ const initialState = {
     'manual_clicks_3': {
         type: 'manualClicks',
         tier: 3,
-        icon: <HiCursorClick className='w-8 h-8'/>,
+        icon: <HiCursorClick className='w-8 h-8' />,
         cost: 5e6,
         amount: 2500,
         isBought: false,
@@ -703,7 +704,7 @@ const initialState = {
     'manual_clicks_4': {
         type: 'manualClicks',
         tier: 4,
-        icon: <HiCursorClick className='w-8 h-8'/>,
+        icon: <HiCursorClick className='w-8 h-8' />,
         cost: 5e9,
         amount: 10000,
         isBought: false,
@@ -720,7 +721,7 @@ const initialState = {
     'coins_by_clicking_1': {
         type: 'coinsByClicking',
         tier: 1,
-        icon: <HiCursorClick className='w-8 h-8'/>,
+        icon: <HiCursorClick className='w-8 h-8' />,
         cost: 10000,
         amount: 5000,
         isBought: false,
@@ -735,7 +736,7 @@ const initialState = {
     'coins_by_clicking_2': {
         type: 'coinsByClicking',
         tier: 2,
-        icon: <HiCursorClick className='w-8 h-8'/>,
+        icon: <HiCursorClick className='w-8 h-8' />,
         cost: 5e6,
         amount: 500000,
         isBought: false,
@@ -750,7 +751,7 @@ const initialState = {
     'coins_by_clicking_3': {
         type: 'coinsByClicking',
         tier: 3,
-        icon: <HiCursorClick className='w-8 h-8'/>,
+        icon: <HiCursorClick className='w-8 h-8' />,
         cost: 500e6,
         amount: 5e6,
         isBought: false,
@@ -765,7 +766,7 @@ const initialState = {
     'coins_by_clicking_4': {
         type: 'coinsByClicking',
         tier: 4,
-        icon: <HiCursorClick className='w-8 h-8'/>,
+        icon: <HiCursorClick className='w-8 h-8' />,
         cost: 1e11,
         amount: 5e9,
         isBought: false,
@@ -778,6 +779,24 @@ const initialState = {
         isChecked: false,
     },
 
+    /* Coins Earned */
+    'coins_earned_1': {
+        type: 'coinsEarned',
+        tier: 1,
+        icon: <GiOpenTreasureChest className='w-8 h-8' />,
+        cost: 50000,
+        amount: 10000,
+        isBought: false,
+        isUnlocked: false,
+        name: 'Coin Collector',
+        unlockText: 'Earn 100,000 Coins',
+        effectText: 'Increase base clicking reward by 1% of production',
+        effectValue: 0,
+        bonusType: 'add',
+        multiplier: 0.01,
+        isChecked: false,
+    },
+
 }
 
 export const upgradesSlice = createSlice({
@@ -787,7 +806,7 @@ export const upgradesSlice = createSlice({
         checkAllUpgrades: (state, action) => {
             const { buildings } = action.payload;
             const { player } = action.payload;
-        
+
 
             Object.entries(state).map((upgrade) => {
                 switch (upgrade[1].type) {
@@ -807,7 +826,7 @@ export const upgradesSlice = createSlice({
                     /* Manual Clicks */
                     case 'manualClicks':
                         if (!upgrade[1].isUnlocked && player) {
-                            if(upgrade[1].amount > player.statistics.manualClicks.value) return;
+                            if (upgrade[1].amount > player.statistics.manualClicks.value) return;
                             upgrade[1].isUnlocked = true;
                         }
                         break;
@@ -815,7 +834,15 @@ export const upgradesSlice = createSlice({
                     /* Coins By Clicking */
                     case 'coinsByClicking':
                         if (!upgrade[1].isUnlocked && player) {
-                            if(upgrade[1].amount > player.statistics.coinsByClicking.value) return;
+                            if (upgrade[1].amount > player.statistics.coinsByClicking.value) return;
+                            upgrade[1].isUnlocked = true;
+                        }
+                        break;
+
+                    /* Coins Earned */
+                    case 'coinsEarned':
+                        if (!upgrade[1].isUnlocked && player) {
+                            if (upgrade[1].amount > player.statistics.coinsEarned.value) return;
                             upgrade[1].isUnlocked = true;
                         }
                         break;
@@ -843,10 +870,20 @@ export const upgradesSlice = createSlice({
         setCoins: (state, action) => {
             state.coins = action.payload;
         },
+        updateEffectValue: (state, action) => {
+            const { upgradeToCheck } = action.payload;
+            const { value } = action.payload
+            console.log('Updating Effect Value', value)
+            Object.entries(state).map(upgrade => {
+                if (upgrade[1].name !== upgradeToCheck.name) return;
+                upgrade[1].effectValue = value;
+            })
+        },
+
     },
 })
 
 // Action creators are generated for each case reducer function
-export const { checkAllUpgrades, buyUpgrade, setChecked } = upgradesSlice.actions
+export const { checkAllUpgrades, updateEffectValue, buyUpgrade, setChecked } = upgradesSlice.actions
 
 export default upgradesSlice.reducer

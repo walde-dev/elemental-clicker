@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import useInterval from "./Logic/Hooks/useInterval";
-import player, { tick, click, setStatistics } from "../redux/store/player";
+import player, { tick, click, setStatistics, getCoinsPerClick } from "../redux/store/player";
 import { useReducer, useState } from "react";
 import { RiCoinFill } from "react-icons/ri";
 
@@ -10,16 +10,24 @@ export default function PlayArea(props) {
     const dispatch = useDispatch();
     const player = useSelector(state => state.player);
 
+    console.log(player.statistics.coinsEarned.value)
+
     useInterval(() => {
         dispatch(tick())
+        dispatch(setStatistics({
+            type: 'coinsEarned',
+            value: player.coinsPerSecond,
+        }));
     }, 1000);
 
     function clickLocal() {
         dispatch(click())
         dispatch(setStatistics({ type: 'manualClicks', value: 1 }))
-        dispatch(setStatistics({ type: 'coinsByClicking', value: player.coinsPerClick }))
-
-        
+        dispatch(setStatistics({ type: 'coinsByClicking', value: player.coinsPerClick }))   
+        dispatch(setStatistics({
+            type: 'coinsEarned',
+            value: getCoinsPerClick(player),
+        }));
     }
 
     return (

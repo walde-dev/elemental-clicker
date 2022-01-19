@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToMultiplier } from "../../redux/store/buildings";
-import { setCoins, updateCoinsPerClick, updateCoinsPerSecond } from "../../redux/store/player";
-import { buyUpgrade } from "../../redux/store/upgrades";
+import { addCoinsPerClickUpgrade, setCoins, updateCoinsPerClick, updateCoinsPerClickUpgrade, updateCoinsPerSecond } from "../../redux/store/player";
+import { buyUpgrade, updateEffectValue } from "../../redux/store/upgrades";
 import Upgrade from "../Buttons/Upgrade";
 
 export default function UpgradesMenu(props) {
@@ -16,7 +16,7 @@ export default function UpgradesMenu(props) {
     let upgradesAmount = Object.entries(upgrades).length;
     let upgradesUnlocked = Object.entries(upgrades).filter(upgrade => upgrade[1].isBought).length;
 
-    console.log(upgradesUnlocked)
+    updateUpgradeValues();
 
     function buyAll() {
         Object.entries(upgrades).map(upgrade => {
@@ -57,12 +57,52 @@ export default function UpgradesMenu(props) {
                 }));
                 break;
 
+            /* Coins Earned */
+            case 'coinsEarned':
+                dispatch(addCoinsPerClickUpgrade({
+                    upgrade: upgrade,
+                    value: upgrade.multiplier*player.coinsPerSecond,
+                }));
+                break;
+
             default:
                 break;
         }
 
     }
 
+
+    function updateUpgradeValues() {
+        Object.entries(upgrades).map(upgrade => {
+
+            
+            switch (upgrade[1].type) {
+                
+        
+                
+                /* Coins Earned */
+                case 'coinsEarned':
+                    console.log('checking ',upgrade[1].name)
+                    dispatch(updateEffectValue({
+                        upgradeToCheck: upgrade[1],
+                        value: upgrade[1].multiplier*player.coinsPerSecond,
+                    }));
+                    if(!upgrade[1].isBought) break;
+                    dispatch(updateCoinsPerClickUpgrade({
+                        upgrade: upgrade[1],
+                        value: upgrade[1].multiplier*player.coinsPerSecond,
+                    }));
+                    break;
+
+            
+
+                default:
+                    break;
+            }
+
+
+        });
+    }
 
 
     if (props.isSideBarOpen) {
