@@ -1,6 +1,6 @@
 import { HiCursorClick } from 'react-icons/hi'
 import { FaCoins } from 'react-icons/fa'
-import { GiOpenTreasureChest } from 'react-icons/gi';
+import { GiOpenTreasureChest, GiScales } from 'react-icons/gi';
 
 const tierColors = {
     1: 'bg-gradient-to-br from-slate-200 via-slate-400 to-slate-600',
@@ -10,6 +10,13 @@ const tierColors = {
     5: '',
 }
 
+export function JoinOrderIcon(props){
+    return  (
+        <div className='flex justify-center  rounded-md w-8 h-8 bg-gradient-to-br from-sky-200 to-sky-600'>
+            <GiScales  className='w-8 h-8 '/>
+        </div>
+    );
+}
 
 
 export function CoinsByClickingIcon(props) {

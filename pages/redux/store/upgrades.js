@@ -3,10 +3,38 @@ import { current } from '@reduxjs/toolkit';
 import { GiOpenTreasureChest } from 'react-icons/gi';
 
 import { HiCursorClick } from 'react-icons/hi'
-import { CoinsByClickingIcon, CoinsEarnedIcon } from '../../../public/icons/svg_components/icons';
+import { CoinsByClickingIcon, CoinsEarnedIcon, JoinOrderIcon } from '../../../public/icons/svg_components/icons';
 
 
 const initialState = {
+
+    /* Factions */
+    'join_order': {
+        type: 'factionJoin',
+        skipBuyAll: true,
+        icon: <JoinOrderIcon />,
+        cost: 200,
+        name: 'Proof of Order',
+        isBought: false,
+        isUnlocked: true,
+        effectText: 'The Order faction values high principles and stability, aligning yourself with the Order faction will greatly reward active gameplay and stability.',
+        tooltipText: 'Faction Join',
+        multiplier: 2,
+        isChecked: false
+    },
+    'join_chaos': {
+        type: 'factionJoin',
+        skipBuyAll: true,
+        icon: <JoinOrderIcon />,
+        cost: 200,
+        name: 'Proof of Chaos',
+        isBought: false,
+        isUnlocked: true,
+        effectText: 'The Order faction values high principles and stability, aligning yourself with the Order faction will greatly reward active gameplay and stability.',
+        tooltipText: 'Faction Join',
+        multiplier: 2,
+        isChecked: false
+    },
 
     /* Building Tiers */
     /* Farm */
