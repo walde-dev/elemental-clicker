@@ -26,7 +26,7 @@ const initialState = {
         coinsEarned: {
             name: 'coinsEarned',
             desc: 'Coins Earned',
-            value: 0,
+            value: 100e15,
         },
     },
     progress: {

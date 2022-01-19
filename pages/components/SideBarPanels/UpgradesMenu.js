@@ -126,7 +126,7 @@ export default function UpgradesMenu(props) {
                 </div>
             </button>
 
-            <ul role='list' className='mt-2 grid h-[200px] grid-cols-6  w-full '>
+            <ul role='list' className='mt-2 grid h-[200px] grid-cols-6  w-full overflow-auto'>
                 {(upgrades) && Object.entries(upgrades).filter(
                     upgrade => upgrade[1].isUnlocked && !upgrade[1].isBought
                 ).map(
