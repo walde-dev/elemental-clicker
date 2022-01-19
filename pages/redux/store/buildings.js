@@ -15,6 +15,7 @@ const initialState = {
         baseCost: 10,
         baseProduction: 2,
         productionMultiplier: 1,
+        upgrades: [],
         amount: 0,
         isUnlocked: true,
     },
@@ -24,6 +25,7 @@ const initialState = {
         baseCost: 125,
         baseProduction: 6,
         productionMultiplier: 1,
+        upgrades: [],
         amount: 0,
         isUnlocked: true,
     },
@@ -33,6 +35,7 @@ const initialState = {
         baseCost: 600,
         baseProduction: 20,
         productionMultiplier: 1,
+        upgrades: [],
         amount: 0,
         isUnlocked: true,
     },
@@ -42,6 +45,7 @@ const initialState = {
         baseCost: 1800,
         baseProduction: 65,
         productionMultiplier: 1,
+        upgrades: [],
         amount: 0,
         isUnlocked: false,
     },
@@ -51,6 +55,7 @@ const initialState = {
         baseCost: 5600,
         baseProduction: 200,
         productionMultiplier: 1,
+        upgrades: [],
         amount: 0,
         isUnlocked: false,
     },
@@ -60,6 +65,7 @@ const initialState = {
         baseCost: 38000,
         baseProduction: 650,
         productionMultiplier: 1,
+        upgrades: [],
         amount: 0,
         isUnlocked: false,
     },
@@ -69,6 +75,7 @@ const initialState = {
         baseCost: 442000,
         baseProduction: 2000,
         productionMultiplier: 1,
+        upgrades: [],
         amount: 0,
         isUnlocked: false,
     },
@@ -104,6 +111,16 @@ export const buildingsSlice = createSlice({
                 building[1].productionMultiplier *= amount;
             })
         },
+        addUpgrade: (state, action) => {
+            const { upgrade } = action.payload;
+            const { name } = action.payload;
+            Object.entries(state).map(building => {
+                if (building[1].name !== name) return building[1]
+                building[1].upgrades.push(upgrade);
+
+            });
+            
+        }
 
     },
 })
@@ -119,7 +136,12 @@ export function getCost(state) {
 }
 
 export function getProduction(state) {
-    return state.baseProduction * state.amount * state.productionMultiplier;
+    let production = state.baseProduction * state.amount * state.productionMultiplier;
+    if(!state.upgrades || state.upgrades.length == 0) return production;
+    state.upgrades.map(upgrade => {
+        production *= upgrade.multiplier;
+    });
+    return production;
 }
 
 export function getTotalProduction(state) {
