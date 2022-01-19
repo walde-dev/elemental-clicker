@@ -55,7 +55,7 @@ export default function Upgrade(props) {
                     <div className={`self-center text-white ${props.upgrade.isBought ? '' : ''} `}>
                         {props.upgrade.icon}
                     </div>
-                    {!props.upgrade.isBought && (
+                    {!props.upgrade.isBought && !props.upgrade.skipBuyAll && (
                         <div className='absolute -ml-2 -mt-4 text-white rounded-full px-0.5 py-0.5 bg-accent-blue'>
                             <MdUpgrade />
                         </div>
@@ -70,13 +70,24 @@ export default function Upgrade(props) {
                             <BsCircleFill className='w-3 h-3 text-red-700' />
                         </div>
                     )}
-                    <div className='flex justify-center absolute mt-6 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-[10px] w-10 min-w-max font-semibold text-white rounded-full px-0.5 py-0.5 bg-accent-blue'>
-                        Tier {romanize(props.upgrade.tier)}
+
+                    <div className='flex justify-center absolute mt-6 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-[10px] w-10 min-w-max font-semibold text-white rounded-full px-1 py-0.5 bg-accent-blue'>
+                        {props.upgrade.tier && (
+                            <div>
+                                Tier {romanize(props.upgrade.tier)}
+                            </div>
+                        )}
+                        {!props.upgrade.tier && (
+                            <div>
+                                {props.upgrade.tooltipText}
+                            </div>
+                        )}
                     </div>
+
                 </div>
 
 
-                <div className='flex z-50 opacity-100 scale-0 group-hover:scale-100 justify-center fixed -mt-20 -ml-24  text-xs w-10 min-w-max font-normal text-white rounded-md px-4 py-2 bg-accent-blue border-grey border-2'>
+                <div className='flex z-50 opacity-100 scale-0 group-hover:scale-100 justify-center fixed transform -translate-y-full -mt-6 -ml-24  text-xs w-10 min-w-max font-normal text-white rounded-md px-4 py-2 bg-accent-blue border-grey border-2'>
                     <div className='flex flex-col items-center'>
                         <div className='font-semibold'>
                             {props.upgrade.name}
@@ -96,24 +107,26 @@ export default function Upgrade(props) {
                                 </div>
                             </div>
                         )}
-                        <div className='mt-2'>
+                        <div className='w-56 mt-2 break-normal text-center'>
                             {props.upgrade.effectText}
+
+                            {props.upgrade.effectValue && (
+                                <div className='mt-2'>
+                                    {props.upgrade.bonusType === 'add' && (
+                                        <div>
+                                            (+{abbreviateNumber(props.upgrade.effectValue)})
+                                        </div>
+                                    )}
+                                    {props.upgrade.bonusType === 'mul' && (
+                                        <div>
+                                            ({abbreviateNumber(props.upgrade.effectValue)}%)
+                                        </div>
+                                    )}
+                                </div>
+                            )}
                         </div>
 
-                        {props.upgrade.effectValue && (
-                            <div className='mt-2'>
-                                {props.upgrade.bonusType === 'add' && (
-                                    <div>
-                                        (+{abbreviateNumber(props.upgrade.effectValue)})
-                                    </div>
-                                )}
-                                {props.upgrade.bonusType === 'mul' && (
-                                    <div>
-                                        ({abbreviateNumber(props.upgrade.effectValue)}%)
-                                    </div>
-                                )}
-                            </div>
-                        )}
+
 
                     </div>
                 </div>
