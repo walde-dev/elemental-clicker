@@ -82,7 +82,6 @@ export default function UpgradesMenu(props) {
                 
                 /* Coins Earned */
                 case 'coinsEarned':
-                    console.log('checking ',upgrade[1].name)
                     dispatch(updateEffectValue({
                         upgradeToCheck: upgrade[1],
                         value: upgrade[1].multiplier*player.coinsPerSecond,

@@ -42,7 +42,7 @@ export default function Upgrade(props) {
     return (
 
         <div
-            className='flex justify-center group px-4 pt-3 pb-6 items-center hover:bg-selected-grey rounded-2xl'
+            className='flex justify-center group px-4 pt-3  items-center hover:bg-selected-grey rounded-2xl'
             onClick={() => {
                 if (!props.upgrade.isBought && props.buy) props.buy(props.upgrade);
             }}
@@ -71,19 +71,13 @@ export default function Upgrade(props) {
                         </div>
                     )}
 
-                    <div className='flex justify-center absolute mt-6 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-[10px] w-10 min-w-max font-semibold text-white rounded-full px-1 py-0.5 bg-accent-blue'>
-                        {props.upgrade.tier && (
+                    {props.upgrade.tier && (
+                        <div className='flex justify-center absolute mt-6 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-[10px] w-10 min-w-max font-semibold text-white rounded-full px-1 py-0.5 bg-accent-blue'>
                             <div>
                                 Tier {romanize(props.upgrade.tier)}
                             </div>
-                        )}
-                        {!props.upgrade.tier && (
-                            <div>
-                                {props.upgrade.tooltipText}
-                            </div>
-                        )}
-                    </div>
-
+                        </div>
+                    )}
                 </div>
 
 

@@ -3,7 +3,7 @@ import { current } from '@reduxjs/toolkit';
 import { GiOpenTreasureChest } from 'react-icons/gi';
 
 import { HiCursorClick } from 'react-icons/hi'
-import { CoinsByClickingIcon, CoinsEarnedIcon, JoinOrderIcon } from '../../../public/icons/svg_components/icons';
+import { CoinsByClickingIcon, CoinsEarnedIcon, JoinChaosIcon, JoinOrderIcon } from '../../../public/icons/svg_components/icons';
 
 
 const initialState = {
@@ -17,7 +17,7 @@ const initialState = {
         name: 'Proof of Order',
         isBought: false,
         isUnlocked: true,
-        effectText: 'The Order faction values high principles and stability, aligning yourself with the Order faction will greatly reward active gameplay and stability.',
+        effectText: 'The Order faction values high principles and stability, aligning yourself with the Order faction will greatly reward active gameplay and stability while also boosting magic efficiency.',
         tooltipText: 'Faction Join',
         multiplier: 2,
         isChecked: false
@@ -25,12 +25,12 @@ const initialState = {
     'join_chaos': {
         type: 'factionJoin',
         skipBuyAll: true,
-        icon: <JoinOrderIcon />,
+        icon: <JoinChaosIcon />,
         cost: 200,
         name: 'Proof of Chaos',
         isBought: false,
         isUnlocked: true,
-        effectText: 'The Order faction values high principles and stability, aligning yourself with the Order faction will greatly reward active gameplay and stability.',
+        effectText: 'The Chaos faction embraces the total entropy of the universe, aligning yourself with the Chaos faction will greatly reward idle gameplay and benefit from random burst of fortune',
         tooltipText: 'Faction Join',
         multiplier: 2,
         isChecked: false
@@ -950,11 +950,12 @@ export const upgradesSlice = createSlice({
         updateEffectValue: (state, action) => {
             const { upgradeToCheck } = action.payload;
             const { value } = action.payload
-            console.log('Updating Effect Value', value)
             Object.entries(state).map(upgrade => {
                 if (upgrade[1].name !== upgradeToCheck.name) return;
+                if (upgrade[1].effectValue === value && upgrade[1].effectValue !== 0) return;
                 upgrade[1].effectValue = value;
             })
+
         },
 
     },

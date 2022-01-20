@@ -18,20 +18,12 @@ function MyApp({ Component, pageProps }) {
   const player = initializePlayer();
   const buildings = initializeBuildings();
 
-  const [coins, setCoins] = useState(player.coins);
-
-  
-
-  useEffect(() => {
-    console.log('USEEFFECT')
-    setCoins(player.coins);
-  }, [player.coins])
 
 
   return (
     <Provider store={store}>
       <div className='flex flex-col font-roboto select-none font-light md:px-16 py-7 bg-main-background-blue w-screen max-w-full h-screen'>
-        <Header coins={coins} player={player} />
+        <Header player={player} />
 
         <div className='flex flex-row h-full'>
           <div className='flex flex-row mt-7 absolute md:left-16 left-0 h-[80vh]'>

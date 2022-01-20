@@ -68,7 +68,6 @@ export const playerSlice = createSlice({
                 if (stat[1].name !== type) return;
                 stat[1].value += value;
             });
-            console.log(state.statistics.manualClicks.value)
         },
         addCoinsPerClickUpgrade: (state, action) => {
             const { upgrade } = action.payload;
@@ -83,12 +82,11 @@ export const playerSlice = createSlice({
             const { value } = action.payload;
             state.coinsPerClickUpgrades.map(upgradeToUpdate => {
                 if(!upgradeToUpdate) return;
-                console.log(current(upgradeToUpdate))
                 if(upgradeToUpdate.upgrade?.name !== upgrade.name) return;
+                if(upgradeToUpdate.upgrade?.value ===  value) return;
                 upgradeToUpdate.value = value;
             });
-
-            
+            console.log(state.coinsPerSecond)
         }
 
     },

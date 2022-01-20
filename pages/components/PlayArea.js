@@ -10,7 +10,6 @@ export default function PlayArea(props) {
     const dispatch = useDispatch();
     const player = useSelector(state => state.player);
 
-    console.log(player.statistics.coinsEarned.value)
 
     useInterval(() => {
         dispatch(tick())
