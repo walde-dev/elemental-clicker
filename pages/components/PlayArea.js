@@ -3,12 +3,16 @@ import useInterval from "./Logic/Hooks/useInterval";
 import player, { tick, click, setStatistics, getCoinsPerClick, getCoinsPerSecond } from "../redux/store/player";
 import { useReducer, useState } from "react";
 import { RiCoinFill } from "react-icons/ri";
+import { useSnackbar } from "notistack";
+import { checkAllAchievements } from "../redux/store/achievements";
 
 
 export default function PlayArea(props) {
 
     const dispatch = useDispatch();
     const player = useSelector(state => state.player);
+    const achievements = useSelector(state => state.achievements)
+    const { enqueueSnackbar } = useSnackbar();
 
 
     useInterval(() => {
@@ -17,24 +21,29 @@ export default function PlayArea(props) {
             type: 'coinsEarned',
             value: getCoinsPerSecond(player),
         }));
+        dispatch(checkAllAchievements({
+            player: player,
+            enqueueSnackbar: enqueueSnackbar,
+        }));
     }, 1000);
 
     function clickLocal() {
         dispatch(click())
         dispatch(setStatistics({ type: 'manualClicks', value: 1 }))
-        dispatch(setStatistics({ type: 'coinsByClicking', value: player.coinsPerClick }))   
+        dispatch(setStatistics({ type: 'coinsByClicking', value: player.coinsPerClick }))
         dispatch(setStatistics({
             type: 'coinsEarned',
             value: getCoinsPerClick(player),
         }));
     }
 
+
     return (
         <div
             className='w-full h-full'
             onClick={() => clickLocal()}
         >
-            
+
         </div>
     );
 }
@@ -45,7 +54,7 @@ function CoinPopup() {
     const player = useSelector(state => state.player);
 
     setTimeout(() => {
-        setIsVisible(false);    
+        setIsVisible(false);
     }, 1000);
 
 
