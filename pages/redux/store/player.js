@@ -26,7 +26,7 @@ const initialState = {
         coinsByClicking: {
             name: 'coinsByClicking',
             desc: 'Coins By Clicking',
-            value: 324234234,
+            value: 99,
         },
         coinsEarned: {
             name: 'coinsEarned',

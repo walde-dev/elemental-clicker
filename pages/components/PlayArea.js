@@ -27,6 +27,13 @@ export default function PlayArea(props) {
         }));
     }, 1000);
 
+    useInterval(() => {
+        dispatch(checkAllAchievements({
+            player: player,
+            enqueueSnackbar: enqueueSnackbar,
+        }));
+    }, 100);
+
     function clickLocal() {
         dispatch(click())
         dispatch(setStatistics({ type: 'manualClicks', value: 1 }))
