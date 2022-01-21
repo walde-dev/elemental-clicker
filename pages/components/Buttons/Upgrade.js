@@ -60,7 +60,7 @@ export default function Upgrade(props) {
                             <MdUpgrade className='w-4 h-4 self-center'/>
                         </div>
                     )}
-                    {props.upgrade.isBought && (
+                    {(props.upgrade.isBought && props.upgrade.tier) && (
                         <div className='absolute  ml-6 -mt-4  rounded-full text-green-600'>
                             <AiFillCheckSquare className='w-5 h-5' />
                         </div>

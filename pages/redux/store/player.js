@@ -31,8 +31,9 @@ const initialState = {
         coinsEarned: {
             name: 'coinsEarned',
             desc: 'Coins Earned',
-            value: 100e15,
+            value: 999,
         },
+        
     },
 
 }
@@ -42,10 +43,12 @@ export const playerSlice = createSlice({
     initialState,
     reducers: {
         click: (state) => {
-            state.coins += getCoinsPerClick(state);
+            let cpc = getCoinsPerClick(state)
+            state.coins += cpc;
         },
         tick: (state) => {
-            state.coins += state.coinsPerSecond;
+            let cpt = getCoinsPerSecond(state);
+            state.coins += cpt;
         },
         updateCoinsPerSecond: (state, action) => {
             state.coinsPerSecond = action.payload;
