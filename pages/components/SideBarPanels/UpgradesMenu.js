@@ -119,16 +119,13 @@ export default function UpgradesMenu(props) {
             <div className='mt-4'>
                 Purchased Upgrades: {upgradesUnlocked}/{upgradesAmount} ({(upgradesUnlocked / upgradesAmount * 100).toFixed(0)}%)
             </div>
-            <div className='flex mt-4 justify-center items-center text-md bg-selected-grey rounded-2xl w-[237px] h-[30px]'>
-                Available Upgrades
-            </div>
             <button onClick={() => buyAll()}>
                 <div className='mt-2 rounded-md bg-accent-blue px-2 py-0.5'>
                     BUY ALL
                 </div>
             </button>
 
-            <ul role='list' className='mt-2 grid h-[200px] gap-y-2 grid-cols-6  w-full overflow-auto'>
+            <ul role='list' className='mt-2 grid h-[200px]  grid-cols-6 grid-rows-3  w-full overflow-auto'>
                 {(upgrades) && Object.entries(upgrades).filter(
                     upgrade => upgrade[1].isUnlocked && !upgrade[1].isBought
                 ).map(
