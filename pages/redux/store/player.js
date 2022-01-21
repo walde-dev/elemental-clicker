@@ -131,6 +131,7 @@ export function getCoinsPerClick(state) {
     state.coinsPerClickUpgrades.map(upgrade => {
         if(!upgrade) return;
         if(upgrade.upgrade.bonusType === 'mul'){
+            if(upgrade.value = 0) return;
             sumMul *= upgrade.value;
         }else if(upgrade.upgrade.bonusType === 'add'){
             sumAdd += upgrade.value;
@@ -150,6 +151,7 @@ export function getCoinsPerSecond(state){
         if(!upgrade) return;
 
         if(upgrade.upgrade.bonusType === 'mul'){
+            if(upgrade.value = 0) return;
             sumMul *= upgrade.value;
         }else if(upgrade.upgrade.bonusType === 'add'){
             sumAdd += upgrade.value;

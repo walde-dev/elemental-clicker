@@ -42,7 +42,7 @@ export default function Upgrade(props) {
     return (
 
         <div
-            className='flex justify-center group px-4 pt-3  items-center hover:bg-selected-grey rounded-2xl'
+            className='flex justify-center group px-4 w-16 h-16  items-center hover:bg-selected-grey rounded-2xl'
             onClick={() => {
                 if (!props.upgrade.isBought && props.buy) props.buy(props.upgrade);
             }}
@@ -56,8 +56,8 @@ export default function Upgrade(props) {
                         {props.upgrade.icon}
                     </div>
                     {!props.upgrade.isBought && !props.upgrade.skipBuyAll && (
-                        <div className='absolute -ml-2 -mt-4 text-white rounded-full px-0.5 py-0.5 bg-accent-blue'>
-                            <MdUpgrade />
+                        <div className='flex justify-center items-center absolute -ml-2 -mt-2 text-white rounded-full w-4 h-4 px-0.5 py-0.5 bg-accent-blue'>
+                            <MdUpgrade className='w-4 h-4 self-center'/>
                         </div>
                     )}
                     {props.upgrade.isBought && (
@@ -103,9 +103,10 @@ export default function Upgrade(props) {
                         )}
                         <div className='w-56 mt-2 break-normal text-center'>
                             {props.upgrade.effectText}
-
-                            {props.upgrade.effectValue && (
+    
+                            {(props.upgrade.effectValue || props.upgrade.effectValue === 0) && (
                                 <div className='mt-2'>
+                                    
                                     {props.upgrade.bonusType === 'add' && (
                                         <div>
                                             (+{abbreviateNumber(props.upgrade.effectValue)})
@@ -118,6 +119,7 @@ export default function Upgrade(props) {
                                     )}
                                 </div>
                             )}
+                            
                         </div>
 
 
