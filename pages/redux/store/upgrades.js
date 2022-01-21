@@ -937,7 +937,7 @@ export const upgradesSlice = createSlice({
                 upgrade[1].isBought = true;
             })
         },
-        setChecked: (state, action) => {
+        setUpgradeChecked: (state, action) => {
             const upgradeToCheck = action.payload;
             Object.entries(state).map(upgrade => {
                 if (upgrade[1].name !== upgradeToCheck.name) return;
@@ -962,6 +962,6 @@ export const upgradesSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { checkAllUpgrades, updateEffectValue, buyUpgrade, setChecked } = upgradesSlice.actions
+export const { checkAllUpgrades, updateEffectValue, buyUpgrade, setUpgradeChecked } = upgradesSlice.actions
 
 export default upgradesSlice.reducer

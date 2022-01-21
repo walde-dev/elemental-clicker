@@ -1,4 +1,10 @@
+import { useSelector } from "react-redux";
+import Achievement from "../Buttons/Achievement";
+
 export default function AchievementsMenu(props) {
+
+    const achievements = useSelector(state => state.achievements)
+
     if (props.isSideBarOpen) {
         return <></>
     }
@@ -9,9 +15,19 @@ export default function AchievementsMenu(props) {
                 Achievements
             </div>
 
-            123
-            123
-            123
+            <ul role='list' className='mt-4 grid h-[200px]  grid-cols-6 grid-rows-3  w-full overflow-auto'>
+                {(achievements) && Object.entries(achievements).map(
+                    achievement => (
+
+                        <li
+                            key={achievement[1].name}
+                            className='max-w-min'
+                        >
+                            <Achievement achievement={achievement[1]} />
+                        </li>
+                    )
+                )}
+            </ul>
         </div>
     );
 }

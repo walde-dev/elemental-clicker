@@ -3,7 +3,7 @@ import { MdUpgrade } from "react-icons/md";
 import { AiFillCheckSquare } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { setCoins, updateCoinsPerClick } from "../../redux/store/player";
-import { buyUpgrade, checkAll, checkAllUpgrades, setChecked } from "../../redux/store/upgrades";
+import { buyUpgrade, checkAll, checkAllUpgrades, setUpgradeChecked } from "../../redux/store/upgrades";
 import { RiCoinFill } from "react-icons/ri";
 import { addToMultiplier } from "../../redux/store/buildings";
 import { BsCircle, BsCircleFill } from "react-icons/bs";
@@ -36,7 +36,7 @@ export default function Upgrade(props) {
 
 
     function check() {
-        dispatch(setChecked(props.upgrade));
+        dispatch(setUpgradeChecked(props.upgrade));
     }
 
     return (
