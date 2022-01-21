@@ -6,22 +6,37 @@ export default function SideBarButton(props) {
 
     const [newItems, setNewItems] = useState(false);
     const upgrades = useSelector(state => state.upgrades)
+    const achievements = useSelector(state => state.achievements)
 
     let counter = 0;
     switch (props.itemsToCheck) {
-        
+
         case 'upgrades':
             Object.entries(upgrades).map(upgrade => {
-                if(!upgrade[1].isChecked && upgrade[1].isUnlocked && !upgrade[1].isBought){
+                if (!upgrade[1].isChecked && upgrade[1].isUnlocked && !upgrade[1].isBought) {
                     counter += 1;
                 }
             });
-            if(counter > 0 && !newItems){
+            if (counter > 0 && !newItems) {
                 setNewItems(true);
-            }else if(counter === 0 && newItems){
+            } else if (counter === 0 && newItems) {
                 setNewItems(false);
             }
-    
+            break;
+
+        case 'upgrades':
+            Object.entries(achievements).map(achievement => {
+                if (!achievement[1].isChecked && achievement[1].isUnlocked) {
+                    counter += 1;
+                }
+            });
+            if (counter > 0 && !newItems) {
+                setNewItems(true);
+            } else if (counter === 0 && newItems) {
+                setNewItems(false);
+            }
+            break;
+
         default:
             break;
     }
@@ -32,6 +47,7 @@ export default function SideBarButton(props) {
             onClick={() => {
                 props.setIsSideBarOpen(!props.isSideBarOpen);
                 props.setCurrentPanel(props.panel);
+                
             }}
         >
             <props.icon

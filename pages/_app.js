@@ -13,7 +13,10 @@ import PlayArea from "./components/PlayArea";
 function MyApp({ Component, pageProps }) {
 
   const [isSideBarOpen, setIsSideBarOpen] = useState(false);
-  const [currentPanel, setCurrentPanel] = useState();
+  const [currentPanel, setCurrentPanel] = useState({
+    window: <> </>,
+    name: 'none'
+  });
 
   const player = initializePlayer();
   const buildings = initializeBuildings();
@@ -31,6 +34,7 @@ function MyApp({ Component, pageProps }) {
               isSideBarOpen={isSideBarOpen}
               setIsSideBarOpen={setIsSideBarOpen}
               setCurrentPanel={setCurrentPanel}
+              currentPanel={currentPanel}
             />
             <SideBarPanel
               isSideBarOpen={isSideBarOpen}
