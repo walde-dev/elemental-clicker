@@ -1,9 +1,10 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToMultiplier } from "../../redux/store/buildings";
-import { addCoinsPerClickUpgrade, setCoins, updateCoinsPerClick, updateCoinsPerClickUpgrade, updateCoinsPerSecond } from "../../redux/store/player";
+import { addCoinsPerClickUpgrade, addCoinsPerSecondUpgrade, getCoinsPerClick, getCoinsPerSecond, setCoins, updateCoinsPerClick, updateCoinsPerClickUpgrade, updateCoinsPerSecond, updateCoinsPerSecondUpgrade } from "../../redux/store/player";
 import { buyUpgrade, updateEffectValue } from "../../redux/store/upgrades";
 import Upgrade from "../Buttons/Upgrade";
+import useInterval from "../Logic/Hooks/useInterval";
 
 export default function UpgradesMenu(props) {
 
@@ -16,11 +17,14 @@ export default function UpgradesMenu(props) {
     let upgradesAmount = Object.entries(upgrades).length;
     let upgradesUnlocked = Object.entries(upgrades).filter(upgrade => upgrade[1].isBought).length;
 
-    updateUpgradeValues();
+    useInterval(() => {
+        updateUpgradeValues();
+    }, 100);
+    
 
     function buyAll() {
         Object.entries(upgrades).map(upgrade => {
-            if (!upgrade[1].isUnlocked || upgrade[1].isBought) return;
+            if (!upgrade[1].isUnlocked || upgrade[1].isBought || upgrade[1].skipBuyAll) return;
             buy(upgrade[1]);
         });
 
@@ -61,7 +65,7 @@ export default function UpgradesMenu(props) {
             case 'coinsEarned':
                 dispatch(addCoinsPerClickUpgrade({
                     upgrade: upgrade,
-                    value: upgrade.multiplier*player.coinsPerSecond,
+                    value: upgrade.multiplier*getCoinsPerSecond(player),
                 }));
                 break;
 
@@ -73,9 +77,8 @@ export default function UpgradesMenu(props) {
 
 
     function updateUpgradeValues() {
-        Object.entries(upgrades).map(upgrade => {
+        Object.entries(upgrades).filter(upgrade => upgrade[1].isUnlocked).map(upgrade => {
 
-            
             switch (upgrade[1].type) {
                 
         
@@ -84,12 +87,12 @@ export default function UpgradesMenu(props) {
                 case 'coinsEarned':
                     dispatch(updateEffectValue({
                         upgradeToCheck: upgrade[1],
-                        value: upgrade[1].multiplier*player.coinsPerSecond,
+                        value: upgrade[1].multiplier*getCoinsPerSecond(player),
                     }));
                     if(!upgrade[1].isBought) break;
                     dispatch(updateCoinsPerClickUpgrade({
                         upgrade: upgrade[1],
-                        value: upgrade[1].multiplier*player.coinsPerSecond,
+                        value: upgrade[1].multiplier*getCoinsPerSecond(player),
                     }));
                     break;
 

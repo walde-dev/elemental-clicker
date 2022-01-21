@@ -7,7 +7,7 @@ import { CogIcon, InformationCircleIcon, UserIcon, UsersIcon } from '@heroicons/
 import TopMenuButton from './Buttons/TopMenuButton'
 import { abbreviateNumber } from './Logic/logic'
 import { useSelector } from 'react-redux'
-import { getCoinsPerClick } from '../redux/store/player'
+import { getCoinsPerClick, getCoinsPerSecond } from '../redux/store/player'
 
 
 
@@ -30,7 +30,7 @@ export default function Header(props) {
                     <div className='flex flex-row space-x-1.5'>
                         <Clock className='self-center w-7 h-7' />
                         <div className='self-center '>
-                            {abbreviateNumber(player.coinsPerSecond)}/s
+                            {abbreviateNumber(getCoinsPerSecond(player))}/s
                         </div>
                     </div>
 
