@@ -5,7 +5,7 @@ import { GiConsoleController } from 'react-icons/gi';
 
 const initialState = {
 
-    coins: 42343242,
+    coins: 10e7,
     coinsPerSecond: 0,
     coinsPerSecondMultiplier: 1,
     coinsPerSecondUpgrades: [],
@@ -22,17 +22,17 @@ const initialState = {
         manualClicks: {
             name: 'manualClicks',
             desc: 'Manual Clicks',
-            value: 342323423,
+            value: 343434340,
         },
         coinsByClicking: {
             name: 'coinsByClicking',
             desc: 'Coins By Clicking',
-            value: 99,
+            value: 343434340,
         },
         coinsEarned: {
             name: 'coinsEarned',
             desc: 'Coins Earned',
-            value: 999,
+            value: 34343434,
         },
 
     },
@@ -143,6 +143,7 @@ export function getCoinsPerClick(state) {
     let sumAdd = 0;
     let sumMul = 1;
     state.coinsPerClickUpgrades.map(upgrade => {
+        console.log('\n', upgrade.value, upgrade.bonusType)
         if (!upgrade) return;
         if (upgrade.bonusType === 'mul') {
             if (upgrade.value == 0) return;

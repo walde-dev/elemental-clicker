@@ -51,7 +51,7 @@ export default function UpgradesMenu(props) {
                         case 1:
                             dispatch(addCoinsPerClickUpgrade({
                                 upgrade: upgrade,
-                                value: 2,
+                                value: upgrade.multiplier[0],
                                 bonusType: 'mul'
                             }));
                             dispatch(addCoinsPerClickUpgrade({
@@ -79,16 +79,18 @@ export default function UpgradesMenu(props) {
 
             /* Manual Clicks */
             case 'manualClicks':
-                dispatch(updateCoinsPerClick({
-                    type: upgrade.bonusType,
+                dispatch(addCoinsPerClickUpgrade({
+                    upgrade: upgrade,
+                    bonusType: upgrade.bonusType,
                     value: upgrade.multiplier,
                 }))
                 break;
 
             /* Coins By Clicking */
             case 'coinsByClicking':
-                dispatch(updateCoinsPerClick({
-                    type: upgrade.bonusType,
+                dispatch(addCoinsPerClickUpgrade({
+                    upgrade: upgrade,
+                    bonusType: upgrade.bonusType,
                     value: upgrade.multiplier,
                 }));
                 break;

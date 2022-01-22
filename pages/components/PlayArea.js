@@ -37,7 +37,7 @@ export default function PlayArea(props) {
     function clickLocal() {
         dispatch(click())
         dispatch(setStatistics({ type: 'manualClicks', value: 1 }))
-        dispatch(setStatistics({ type: 'coinsByClicking', value: player.coinsPerClick }))
+        dispatch(setStatistics({ type: 'coinsByClicking', value: getCoinsPerClick(player) }))
         dispatch(setStatistics({
             type: 'coinsEarned',
             value: getCoinsPerClick(player),
