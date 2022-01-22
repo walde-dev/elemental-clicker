@@ -17,7 +17,10 @@ export default function Upgrade(props) {
     const player = useSelector(state => state.player);
     const buildings = useSelector(state => state.buildings);
 
-    dispatch(checkAllUpgrades(buildings));
+    dispatch(checkAllUpgrades({
+        buildings: buildings,
+        player: player,
+    }));
 
 
     function romanize(num) {

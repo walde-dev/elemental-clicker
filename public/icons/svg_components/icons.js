@@ -26,6 +26,14 @@ export function JoinChaosIcon(props) {
     );
 }
 
+export function OrderUpgradeIcon(props){
+    return (
+        <div className='flex shape-octagon justify-center items-center rounded-md w-10 h-10 bg-gradient-to-br from-sky-200 to-sky-600'>
+            <GiScales className='w-8 h-8 ' />
+        </div>
+    );
+}
+
 
 export function CoinsByClickingIcon(props) {
     return (

@@ -5,7 +5,6 @@ import AchievementNotification from './notifications/AchievementNotification';
 const SnackMessage = forwardRef((props, ref) => {
   const type = props.message?.split(' ')[0];
   const msg = props.message?.split(' ')?.slice(1).join(' ');
-  console.log(props)
 
   switch(type) {
     case 'achievement': return <AchievementNotification id={props.id} message={msg} ref={ref} />

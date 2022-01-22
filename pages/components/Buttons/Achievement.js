@@ -38,7 +38,7 @@ export default function Achievement(props) {
 
                         {!props.achievement.isUnlocked && (
                             <div className='mt-2 font-semibold'>
-                                ({((props.achievement.valueToCheck / props.achievement.amount) * 100).toFixed(2)}%)
+                                Progress: ({((props.achievement.valueToCheck / props.achievement.amount) * 100).toFixed(2)}%)
                             </div>
                         )}
 

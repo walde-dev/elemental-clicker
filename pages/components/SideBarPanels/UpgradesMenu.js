@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToMultiplier } from "../../redux/store/buildings";
-import { addCoinsPerClickUpgrade, addCoinsPerSecondUpgrade, getCoinsPerClick, getCoinsPerSecond, setCoins, updateCoinsPerClick, updateCoinsPerClickUpgrade, updateCoinsPerSecond, updateCoinsPerSecondUpgrade } from "../../redux/store/player";
+import { addCoinsPerClickUpgrade, addCoinsPerSecondUpgrade, getCoinsPerClick, getCoinsPerSecond, setCoins, setFaction, updateCoinsPerClick, updateCoinsPerClickUpgrade, updateCoinsPerSecond, updateCoinsPerSecondUpgrade } from "../../redux/store/player";
 import { buyUpgrade, updateEffectValue } from "../../redux/store/upgrades";
 import Upgrade from "../Buttons/Upgrade";
 import useInterval from "../Logic/Hooks/useInterval";
@@ -20,7 +20,7 @@ export default function UpgradesMenu(props) {
     useInterval(() => {
         updateUpgradeValues();
     }, 100);
-    
+
 
     function buyAll() {
         Object.entries(upgrades).map(upgrade => {
@@ -30,12 +30,44 @@ export default function UpgradesMenu(props) {
 
     }
 
+
     function buy(upgrade) {
         if (player.coins < upgrade.cost) return;
         dispatch(setCoins(player.coins - upgrade.cost))
         dispatch(buyUpgrade(upgrade))
 
         switch (upgrade.type) {
+
+            /* Faction */
+            case 'factionJoin':
+                if (player.faction !== 'none') return;
+                dispatch(setFaction({ faction: upgrade.name.split(' ')[2].toLowerCase() }));
+                break;
+
+            /* Faction Upgrades */
+            case 'factionUpgrade':
+                if (upgrade.faction === 'order') {
+                    switch (upgrade.tier) {
+                        case 1:
+                            dispatch(addCoinsPerClickUpgrade({
+                                upgrade: upgrade,
+                                value: 2,
+                                bonusType: 'mul'
+                            }));
+                            dispatch(addCoinsPerClickUpgrade({
+                                upgrade: upgrade,
+                                value: upgrade.multiplier[1] * getCoinsPerSecond(player),
+                                bonusType: 'add',
+                            }));
+
+                            break;
+
+                        default:
+                            break;
+                    }
+                } else if (upgrade.faction === 'chaos') {
+
+                }
 
             /* Building Tiers */
             case 'buildingTier':
@@ -65,7 +97,8 @@ export default function UpgradesMenu(props) {
             case 'coinsEarned':
                 dispatch(addCoinsPerClickUpgrade({
                     upgrade: upgrade,
-                    value: upgrade.multiplier*getCoinsPerSecond(player),
+                    value: upgrade.multiplier * getCoinsPerSecond(player),
+                    bonusType: 'add',
                 }));
                 break;
 
@@ -80,23 +113,48 @@ export default function UpgradesMenu(props) {
         Object.entries(upgrades).filter(upgrade => upgrade[1].isUnlocked).map(upgrade => {
 
             switch (upgrade[1].type) {
-                
-        
-                
+
+
+
+                case 'factionUpgrade':
+                    if (upgrade[1].faction === 'order') {
+                        switch (upgrade[1].tier) {
+                            case 1:
+                                dispatch(updateEffectValue({
+                                    upgradeToCheck: upgrade[1],
+                                    value: upgrade[1].multiplier[1] * getCoinsPerSecond(player),
+                                }))
+                                if (!upgrade[1].isBought) break;
+                                dispatch(updateCoinsPerClickUpgrade({
+                                    upgrade: upgrade[1],
+                                    value: upgrade[1].multiplier[1] * getCoinsPerSecond(player),
+                                    bonusType: 'add',
+                                }));
+                                break;
+
+                            default:
+                                break;
+                        }
+                    } else if (upgrade.faction === 'chaos') {
+                        break;
+                    }
+                    break;
+
                 /* Coins Earned */
                 case 'coinsEarned':
                     dispatch(updateEffectValue({
                         upgradeToCheck: upgrade[1],
-                        value: upgrade[1].multiplier*getCoinsPerSecond(player),
+                        value: upgrade[1].multiplier * getCoinsPerSecond(player),
                     }));
-                    if(!upgrade[1].isBought) break;
+                    if (!upgrade[1].isBought) break;
                     dispatch(updateCoinsPerClickUpgrade({
                         upgrade: upgrade[1],
-                        value: upgrade[1].multiplier*getCoinsPerSecond(player),
+                        value: upgrade[1].multiplier * getCoinsPerSecond(player),
+                        bonusType: 'add',
                     }));
                     break;
 
-            
+
 
                 default:
                     break;

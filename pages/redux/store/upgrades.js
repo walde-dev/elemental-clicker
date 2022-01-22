@@ -3,7 +3,7 @@ import { current } from '@reduxjs/toolkit';
 import { GiOpenTreasureChest } from 'react-icons/gi';
 
 import { HiCursorClick } from 'react-icons/hi'
-import { CoinsByClickingIcon, CoinsEarnedIcon, JoinChaosIcon, JoinOrderIcon } from '../../../public/icons/svg_components/icons';
+import { CoinsByClickingIcon, CoinsEarnedIcon, JoinChaosIcon, JoinOrderIcon, OrderUpgradeIcon } from '../../../public/icons/svg_components/icons';
 
 
 const initialState = {
@@ -33,6 +33,23 @@ const initialState = {
         effectText: 'The Chaos faction embraces the total entropy of the universe, aligning yourself with the Chaos faction will greatly reward idle gameplay and benefit from random burst of fortune',
         tooltipText: 'Faction Join',
         multiplier: 2,
+        isChecked: false
+    },
+
+    /* Faction Upgrades */
+    'order_upgrade_1': {
+        type: 'factionUpgrade',
+        faction: 'order',
+        tier: 1,
+        icon: <OrderUpgradeIcon />,
+        cost: 200,
+        name: 'Stable Clicking',
+        isBought: false,
+        isUnlocked: false,
+        effectText: 'Increases click reward by 100%. Additionally increases base click reward by 5% of your total production',
+        effectValue: 0,
+        multiplier: [2, 0.05],
+        bonusType: 'add',
         isChecked: false
     },
 
@@ -884,9 +901,23 @@ export const upgradesSlice = createSlice({
             const { buildings } = action.payload;
             const { player } = action.payload;
 
-
             Object.entries(state).map((upgrade) => {
                 switch (upgrade[1].type) {
+
+
+                    /* Faction */
+                    case 'factionJoin':
+                        if (player.faction !== 'none' && upgrade[1].isUnlocked) {
+                            upgrade[1].isUnlocked = false;
+                            return;
+                        }
+                        break;
+
+                    /* Faction Upgrades */
+                    case 'factionUpgrade':
+                        if(player.faction !== upgrade[1].faction  || upgrade[1].isUnlocked) return;
+                        upgrade[1].isUnlocked = true;
+
 
                     /* Building Tiers */
                     case 'buildingTier':
