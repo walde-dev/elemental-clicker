@@ -152,3 +152,11 @@ export function getTotalProduction(state) {
     })
     return sum;
 }
+
+export function getAmountOfBuildings(state){
+    let sum = 0;
+    Object.entries(state).map(building => {
+        sum += building[1].amount
+    });
+    return sum;
+}

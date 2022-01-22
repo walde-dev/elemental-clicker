@@ -16,10 +16,12 @@ export default function Upgrade(props) {
     const dispatch = useDispatch();
     const player = useSelector(state => state.player);
     const buildings = useSelector(state => state.buildings);
+    const upgrades = useSelector(state => state.upgrades)
 
     dispatch(checkAllUpgrades({
         buildings: buildings,
         player: player,
+        upgrades: upgrades,
     }));
 
 

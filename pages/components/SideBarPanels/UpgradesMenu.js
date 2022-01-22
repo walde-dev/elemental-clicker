@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addToMultiplier } from "../../redux/store/buildings";
-import { addCoinsPerClickUpgrade, addCoinsPerSecondUpgrade, getCoinsPerClick, getCoinsPerSecond, setCoins, setFaction, updateCoinsPerClick, updateCoinsPerClickUpgrade, updateCoinsPerSecond, updateCoinsPerSecondUpgrade } from "../../redux/store/player";
+import { addToMultiplier, getAmountOfBuildings, getTotalProduction } from "../../redux/store/buildings";
+import { addCoinsPerClickUpgrade, addCoinsPerSecondUpgrade, addUpgrade, getCoinsPerClick, getCoinsPerSecond, setCoins, setFaction, updateCoinsPerClick, updateCoinsPerClickUpgrade, updateCoinsPerSecond, updateCoinsPerSecondUpgrade, updateUpgrade } from "../../redux/store/player";
 import { buyUpgrade, updateEffectValue } from "../../redux/store/upgrades";
 import Upgrade from "../Buttons/Upgrade";
 import useInterval from "../Logic/Hooks/useInterval";
@@ -49,15 +49,27 @@ export default function UpgradesMenu(props) {
                 if (upgrade.faction === 'order') {
                     switch (upgrade.tier) {
                         case 1:
-                            dispatch(addCoinsPerClickUpgrade({
+                            dispatch(addUpgrade({
                                 upgrade: upgrade,
-                                value: upgrade.multiplier[0],
-                                bonusType: 'mul'
-                            }));
-                            dispatch(addCoinsPerClickUpgrade({
-                                upgrade: upgrade,
-                                value: upgrade.multiplier[1] * getCoinsPerSecond(player),
+                                value: upgrade.multiplier[0] * getTotalProduction(buildings),
                                 bonusType: 'add',
+                                stat: 'coinsPerClick',
+                            }));
+                            dispatch(addUpgrade({
+                                upgrade: upgrade,
+                                value: upgrade.multiplier[1],
+                                bonusType: 'baseAdd',
+                                stat: 'coinsPerClick',
+                            }));
+
+                            break;
+                        
+                        case 2:
+                            dispatch(addUpgrade({
+                                upgrade: upgrade,
+                                value: 1+(6 * Math.pow(getAmountOfBuildings(buildings), 0.6))/100,
+                                bonusType: 'mul',
+                                stat: 'coinsPerSecond'
                             }));
 
                             break;
@@ -79,28 +91,31 @@ export default function UpgradesMenu(props) {
 
             /* Manual Clicks */
             case 'manualClicks':
-                dispatch(addCoinsPerClickUpgrade({
+                dispatch(addUpgrade({
                     upgrade: upgrade,
                     bonusType: upgrade.bonusType,
                     value: upgrade.multiplier,
+                    stat: 'coinsPerClick',
                 }))
                 break;
 
             /* Coins By Clicking */
             case 'coinsByClicking':
-                dispatch(addCoinsPerClickUpgrade({
+                dispatch(addUpgrade({
                     upgrade: upgrade,
                     bonusType: upgrade.bonusType,
                     value: upgrade.multiplier,
+                    stat: 'coinsPerClick',
                 }));
                 break;
 
             /* Coins Earned */
             case 'coinsEarned':
-                dispatch(addCoinsPerClickUpgrade({
+                dispatch(addUpgrade({
                     upgrade: upgrade,
                     value: upgrade.multiplier * getCoinsPerSecond(player),
                     bonusType: 'add',
+                    stat: 'coinsPerClick',
                 }));
                 break;
 
@@ -124,17 +139,34 @@ export default function UpgradesMenu(props) {
                             case 1:
                                 dispatch(updateEffectValue({
                                     upgradeToCheck: upgrade[1],
-                                    value: upgrade[1].multiplier[1] * getCoinsPerSecond(player),
+                                    value: upgrade[1].multiplier[0] * getTotalProduction(buildings),
                                 }))
                                 if (!upgrade[1].isBought) break;
-                                dispatch(updateCoinsPerClickUpgrade({
+                                dispatch(updateUpgrade({
                                     upgrade: upgrade[1],
-                                    value: upgrade[1].multiplier[1] * getCoinsPerSecond(player),
+                                    value: upgrade[1].multiplier[0] * getTotalProduction(buildings),
                                     bonusType: 'add',
+                                    stat: 'coinsPerClick',
                                 }));
                                 break;
 
-                            default:
+                            case 2:
+                                dispatch(updateEffectValue({
+                                    upgradeToCheck: upgrade[1],
+                                    value: 6 * Math.pow(getAmountOfBuildings(buildings), 0.6),
+                                }))
+                                if (!upgrade[1].isBought) break;
+                                dispatch(updateUpgrade({
+                                    upgrade: upgrade[1],
+                                    value: 1+(6 * Math.pow(getAmountOfBuildings(buildings), 0.6))/100,
+                                    bonusType: 'mul',
+                                    stat: 'coinsPerSecond',
+                                }));
+                                break;
+                                break;
+                            
+                            
+                                default:
                                 break;
                         }
                     } else if (upgrade.faction === 'chaos') {
@@ -149,10 +181,11 @@ export default function UpgradesMenu(props) {
                         value: upgrade[1].multiplier * getCoinsPerSecond(player),
                     }));
                     if (!upgrade[1].isBought) break;
-                    dispatch(updateCoinsPerClickUpgrade({
+                    dispatch(updateUpgrade({
                         upgrade: upgrade[1],
                         value: upgrade[1].multiplier * getCoinsPerSecond(player),
                         bonusType: 'add',
+                        stat: 'coinsPerClick',
                     }));
                     break;
 
@@ -185,7 +218,7 @@ export default function UpgradesMenu(props) {
                 </div>
             </button>
 
-            <ul role='list' className='mt-2 grid h-[200px]  grid-cols-6 grid-rows-3  w-full overflow-auto'>
+            <ul role='list' className='mt-2 grid h-[200px]  grid-cols-6 w-full overflow-auto'>
                 {(upgrades) && Object.entries(upgrades).filter(
                     upgrade => upgrade[1].isUnlocked && !upgrade[1].isBought
                 ).map(

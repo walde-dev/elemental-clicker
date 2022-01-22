@@ -13,7 +13,7 @@ const initialState = {
         type: 'factionJoin',
         skipBuyAll: true,
         icon: <JoinOrderIcon />,
-        cost: 200,
+        cost: 100000,
         name: 'Proof of Order',
         isBought: false,
         isUnlocked: true,
@@ -26,7 +26,7 @@ const initialState = {
         type: 'factionJoin',
         skipBuyAll: true,
         icon: <JoinChaosIcon />,
-        cost: 200,
+        cost: 100000,
         name: 'Proof of Chaos',
         isBought: false,
         isUnlocked: true,
@@ -42,14 +42,29 @@ const initialState = {
         faction: 'order',
         tier: 1,
         icon: <OrderUpgradeIcon />,
-        cost: 200,
+        cost: 50e6,
         name: 'Stable Clicking',
         isBought: false,
         isUnlocked: false,
-        effectText: 'Increases click reward by 100%. Additionally increases base click reward by 5% of your total production',
+        effectText: 'Increases click reward by 80% of your buildings production. Additionally increases base click reward by 5000',
         effectValue: 0,
-        multiplier: [2, 0.05],
+        multiplier: [0.8, 5000],
         bonusType: 'add',
+        isChecked: false
+    },
+    'order_upgrade_2': {
+        type: 'factionUpgrade',
+        faction: 'order',
+        tier: 2,
+        icon: <OrderUpgradeIcon />,
+        cost: 500e6,
+        name: 'Consistency',
+        isBought: false,
+        isUnlocked: false,
+        effectText: 'Increase the production of all buildings based on the amount of buildings you own',
+        effectValue: 0,
+        multiplier: 1,
+        bonusType: 'mul',
         isChecked: false
     },
 
@@ -713,7 +728,7 @@ const initialState = {
         name: 'Baby Clicker',
         unlockText: 'Click 100 times',
         effectText: 'Increase base clicking reward by 4',
-        bonusType: 'add',
+        bonusType: 'baseAdd',
         multiplier: 4,
         isChecked: false,
     },
@@ -728,7 +743,7 @@ const initialState = {
         name: 'A Clicking Start',
         unlockText: 'Click 500 times',
         effectText: 'Increase base clicking reward by 45',
-        bonusType: 'add',
+        bonusType: 'baseAdd',
         multiplier: 45,
         isChecked: false,
     },
@@ -743,7 +758,7 @@ const initialState = {
         name: 'Advanced Clicking',
         unlockText: 'Click 2500 times',
         effectText: 'Increase base clicking reward by 4950',
-        bonusType: 'add',
+        bonusType: 'baseAdd',
         multiplier: 4950,
         isChecked: false,
     },
@@ -758,7 +773,7 @@ const initialState = {
         name: 'Expert Clicking',
         unlockText: 'Click 10000 times',
         effectText: 'Increase base clicking reward by 500,000',
-        bonusType: 'add',
+        bonusType: 'baseAdd',
         multiplier: 500000,
         isChecked: false,
     },
@@ -900,6 +915,7 @@ export const upgradesSlice = createSlice({
         checkAllUpgrades: (state, action) => {
             const { buildings } = action.payload;
             const { player } = action.payload;
+            const { upgrades } = action.payload;
 
             Object.entries(state).map((upgrade) => {
                 switch (upgrade[1].type) {
@@ -915,8 +931,27 @@ export const upgradesSlice = createSlice({
 
                     /* Faction Upgrades */
                     case 'factionUpgrade':
-                        if(player.faction !== upgrade[1].faction  || upgrade[1].isUnlocked) return;
-                        upgrade[1].isUnlocked = true;
+                        if (player.faction !== upgrade[1].faction || upgrade[1].isUnlocked) return;
+                        if (upgrade[1].faction === 'order') {
+                            switch (upgrade[1].tier) {
+                                case 1:
+                                    upgrade[1].isUnlocked = true;
+                                    break;
+                                case 2:
+                                    /*Object.entries(state).map(factionUpgrade => {
+                                        if(factionUpgrade[1].tier !== 1 || factionUpgrade[1].faction !== 'order') return;
+                                        if(!factionUpgrade[1].isBought) return;
+                                        upgrade[1].isUnlocked = true;
+                                    });*/
+                                    upgrade[1].isUnlocked = true;
+                                    break;
+
+                                default:
+                                    break;
+                            }
+                        } else if (upgrade[1].faction === 'chaos') {
+
+                        }
 
 
                     /* Building Tiers */
