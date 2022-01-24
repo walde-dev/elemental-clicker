@@ -86,7 +86,7 @@ export default function Upgrade(props) {
                 </div>
 
 
-                <div className='flex z-50 opacity-100 scale-0 group-hover:scale-100 justify-center fixed transform -translate-y-full -mt-6 -ml-24  text-xs w-10 min-w-max font-normal text-white rounded-md px-4 py-2 bg-accent-blue border-grey border-2'>
+                <div className='flex z-50 opacity-100 scale-0 group-hover:scale-100 justify-center fixed transform -translate-y-full -mt-6 -ml-24  text-xs w-10 min-w-max font-medium text-white rounded-md px-4 py-2 bg-accent-blue border-grey border-2'>
                     <div className='flex flex-col items-center'>
                         <div className='font-semibold'>
                             {props.upgrade.name}
