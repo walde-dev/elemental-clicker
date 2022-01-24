@@ -3,7 +3,7 @@ import { CgSandClock } from "react-icons/cg";
 import { RiCoinFill } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
 import { abbreviateNumber } from "../components/Logic/logic";
-import { buyAmount, buyBuildingAmount, getCost, getProduction, getTotalProduction, isBuildingUnlocked, unlockBuilding, updateTotalProduction } from "../redux/store/buildings";
+import { buyAmount, buyBuildingAmount, getCost, getProduction, getTotalProduction, getTotalProductionFromBuildings, isBuildingUnlocked, unlockBuilding, updateTotalProduction } from "../redux/store/buildings";
 import { setCoins, updateCoinsPerSecond } from "../redux/store/player";
 import { checkAll, checkAllUpgrades } from "../redux/store/upgrades";
 
@@ -27,7 +27,7 @@ export default function BuildingsMenu(props) {
 
 
 
-    dispatch(updateCoinsPerSecond(getTotalProduction(buildings)));
+    dispatch(updateCoinsPerSecond(getTotalProductionFromBuildings(buildings)));
     dispatch(checkAllUpgrades({
         buildings: buildings,
         player: player,
@@ -153,7 +153,7 @@ export default function BuildingsMenu(props) {
                                                     </div>
                                                     <div className='flex flex-row space-x-1 self-center text-sm'>
                                                         <div>
-                                                            {((getProduction(building[1]) / getTotalProduction(buildings)) * 100).toFixed(2)}%
+                                                            {((getProduction(building[1]) / getTotalProductionFromBuildings(buildings)) * 100).toFixed(2)}%
                                                         </div>
                                                         <div className={`text-xs self-center opacity-100`}>
                                                             ({abbreviateNumber(getProduction(building[1])) + '/s'})

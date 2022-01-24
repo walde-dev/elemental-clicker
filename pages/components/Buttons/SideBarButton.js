@@ -45,9 +45,11 @@ export default function SideBarButton(props) {
         <div
             className='flex justify-center items-center w-[81px] h-[69px]  hover:bg-hover-grey rounded-2xl cursor-pointer '
             onClick={() => {
-                props.setIsSideBarOpen(!props.isSideBarOpen);
+                if((props.panel.name === props.currentPanel.name || props.currentPanel.name === 'none') || !props.isSideBarOpen){
+                    props.setIsSideBarOpen(!props.isSideBarOpen);
+                }
                 props.setCurrentPanel(props.panel);
-                
+
             }}
         >
             <props.icon

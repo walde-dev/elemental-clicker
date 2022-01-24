@@ -5,9 +5,6 @@ export default function AchievementsMenu(props) {
 
     const achievements = useSelector(state => state.achievements)
 
-    if (props.isSideBarOpen) {
-        return <></>
-    }
     
     return (
         <div className='flex flex-col relative items-center px-2 py-2 text-white'>

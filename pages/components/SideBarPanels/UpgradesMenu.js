@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addToMultiplier, getAmountOfBuildings, getTotalProduction } from "../../redux/store/buildings";
+import { addToMultiplier, getAmountOfBuildings, getTotalProduction, getTotalProductionFromBuildings } from "../../redux/store/buildings";
 import { addCoinsPerClickUpgrade, addCoinsPerSecondUpgrade, addUpgrade, getCoinsPerClick, getCoinsPerSecond, setCoins, setFaction, updateCoinsPerClick, updateCoinsPerClickUpgrade, updateCoinsPerSecond, updateCoinsPerSecondUpgrade, updateUpgrade } from "../../redux/store/player";
 import { buyUpgrade, updateEffectValue } from "../../redux/store/upgrades";
 import Upgrade from "../Buttons/Upgrade";
@@ -51,7 +51,7 @@ export default function UpgradesMenu(props) {
                         case 1:
                             dispatch(addUpgrade({
                                 upgrade: upgrade,
-                                value: upgrade.multiplier[0] * getTotalProduction(buildings),
+                                value: upgrade.multiplier[0] * getTotalProductionFromBuildings(buildings),
                                 bonusType: 'add',
                                 stat: 'coinsPerClick',
                             }));
@@ -139,12 +139,12 @@ export default function UpgradesMenu(props) {
                             case 1:
                                 dispatch(updateEffectValue({
                                     upgradeToCheck: upgrade[1],
-                                    value: upgrade[1].multiplier[0] * getTotalProduction(buildings),
+                                    value: upgrade[1].multiplier[0] * getTotalProductionFromBuildings(buildings),
                                 }))
                                 if (!upgrade[1].isBought) break;
                                 dispatch(updateUpgrade({
                                     upgrade: upgrade[1],
-                                    value: upgrade[1].multiplier[0] * getTotalProduction(buildings),
+                                    value: upgrade[1].multiplier[0] * getTotalProductionFromBuildings(buildings),
                                     bonusType: 'add',
                                     stat: 'coinsPerClick',
                                 }));
@@ -200,9 +200,7 @@ export default function UpgradesMenu(props) {
     }
 
 
-    if (props.isSideBarOpen) {
-        return <></>
-    }
+
 
     return (
         <div className='flex flex-col relative items-center px-2 py-2 text-white'>

@@ -24,7 +24,6 @@ function MyApp({ Component, pageProps }) {
   const buildings = initializeBuildings();
 
 
-
   return (
     <Provider store={store}>
       <SnackbarProvider

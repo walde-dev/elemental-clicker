@@ -5,7 +5,7 @@ import { GiConsoleController } from 'react-icons/gi';
 
 const initialState = {
 
-    coins: 1e6,
+    coins: 4e9,
     coinsPerSecond: 0,
     coinsPerSecondMultiplier: 1,
     coinsPerSecondUpgrades: [],
@@ -22,17 +22,17 @@ const initialState = {
         manualClicks: {
             name: 'manualClicks',
             desc: 'Manual Clicks',
-            value: 1e6,
+            value: 4e90,
         },
         coinsByClicking: {
             name: 'coinsByClicking',
             desc: 'Coins By Clicking',
-            value: 1e6,
+            value: 4e9,
         },
         coinsEarned: {
             name: 'coinsEarned',
             desc: 'Coins Earned',
-            value: 0,
+            value: 4e9,
         },
 
     },
@@ -154,7 +154,6 @@ export function getCoinsPerClick(state) {
     let sumAdd = 0;
     let sumMul = 1;
     state.coinsPerClickUpgrades.map(upgrade => {
-        console.log('\n', upgrade.value, upgrade.bonusType)
         if (!upgrade) return;
         if (upgrade.bonusType === 'mul') {
             if (upgrade.value == 0) return;
@@ -165,8 +164,8 @@ export function getCoinsPerClick(state) {
             sumBaseAdd += upgrade.value;
         }
     });
-    console.log('(',state.coinsPerClick, sumBaseAdd,')', state.coinsPerClickMultiplier, sumMul, sumAdd)
-    return (state.coinsPerClick + sumBaseAdd) * state.coinsPerClickMultiplier * sumMul + sumAdd;
+    //console.log('(',state.coinsPerClick, sumBaseAdd,')', state.coinsPerClickMultiplier, sumMul, sumAdd)
+    return ((state.coinsPerClick + sumBaseAdd) * state.coinsPerClickMultiplier + sumAdd)* sumMul ;
 }
 
 export function getCoinsPerSecond(state) {

@@ -61,7 +61,7 @@ const initialState = {
         name: 'Consistency',
         isBought: false,
         isUnlocked: false,
-        effectText: 'Increase the production of all buildings based on the amount of buildings you own',
+        effectText: 'Increase your production based on the amount of buildings you own',
         effectValue: 0,
         multiplier: 1,
         bonusType: 'mul',
