@@ -51,7 +51,7 @@ export default function UpgradesMenu(props) {
                         case 1:
                             dispatch(addUpgrade({
                                 upgrade: upgrade,
-                                value: upgrade.multiplier[0] * getTotalProductionFromBuildings(buildings),
+                                value: upgrade.multiplier[0] * getCoinsPerSecond(player),
                                 bonusType: 'add',
                                 stat: 'coinsPerClick',
                             }));
@@ -139,12 +139,12 @@ export default function UpgradesMenu(props) {
                             case 1:
                                 dispatch(updateEffectValue({
                                     upgradeToCheck: upgrade[1],
-                                    value: upgrade[1].multiplier[0] * getTotalProductionFromBuildings(buildings),
+                                    value: upgrade[1].multiplier[0] * getCoinsPerSecond(player),
                                 }))
                                 if (!upgrade[1].isBought) break;
                                 dispatch(updateUpgrade({
                                     upgrade: upgrade[1],
-                                    value: upgrade[1].multiplier[0] * getTotalProductionFromBuildings(buildings),
+                                    value: upgrade[1].multiplier[0] * getCoinsPerSecond(player),
                                     bonusType: 'add',
                                     stat: 'coinsPerClick',
                                 }));

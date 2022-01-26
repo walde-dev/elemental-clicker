@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { current } from '@reduxjs/toolkit';
 import { GiFastForwardButton } from 'react-icons/gi';
+import { ElementalRushIcon } from '../../../public/icons/svg_components/icons';
 
 
 const initialState = {
@@ -9,11 +10,22 @@ const initialState = {
         name: 'Time Warp',
         id: 'spell_1',
         effectText: 'Travels 30 seconds into the future, profiting from all sorts of production that happened meanwhile.',
-        icon: <GiFastForwardButton />,
+        icon: <GiFastForwardButton className='w-12 h-12 text-grey'/>,
         cost: 200,
         duration: 0,
         isUnlocked: true,
-    }
+    },
+    'elemental_rush': {
+        name: 'Elemental Rush',
+        id: 'spell_1',
+        effectText: 'Increase production of all buildings based on amount of Elemental Essence collected in this game. Lasts 20 seconds.',
+        effectValue: 0,
+        bonusType: 'mul',
+        icon: <ElementalRushIcon className='w-12 h-12 text-grey'/>,
+        cost: 500,
+        duration: 20,
+        isUnlocked: true,
+    },
 
 }
 

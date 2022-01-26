@@ -46,9 +46,9 @@ const initialState = {
         name: 'Stable Clicking',
         isBought: false,
         isUnlocked: false,
-        effectText: 'Increases click reward by 80% of your buildings production. Additionally increases base click reward by 5000',
+        effectText: 'Increases click reward by 10% of your buildings production. Additionally increases base click reward by 5000',
         effectValue: 0,
-        multiplier: [0.8, 5000],
+        multiplier: [0.1, 5000],
         bonusType: 'add',
         isChecked: false
     },

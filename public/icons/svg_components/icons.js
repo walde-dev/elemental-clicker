@@ -1,6 +1,6 @@
 import { HiCursorClick } from 'react-icons/hi'
 import { FaCoins } from 'react-icons/fa'
-import { GiAbstract053, GiOpenTreasureChest, GiScales } from 'react-icons/gi';
+import { GiAbstract053, GiOpenTreasureChest, GiScales, GiTripleYin } from 'react-icons/gi';
 
 const tierColors = {
     1: 'bg-gradient-to-br from-slate-200 via-slate-400 to-slate-600',
@@ -57,6 +57,15 @@ export function CoinsEarnedIcon(props) {
             <div className='absolute ml-5 mt-3'>
                 <HiCursorClick className='w-4 h-4 text-white' />
             </div>
+        </div>
+    );
+}
+
+
+export function ElementalRushIcon(props){
+    return (
+        <div className='w-12 h-12 bg-gradient-to-br from-red-800 via-green-700 to-sky-700 px-1.5 py-1.5 rounded-md'>
+            <GiTripleYin className='w-full h-full'/>
         </div>
     );
 }

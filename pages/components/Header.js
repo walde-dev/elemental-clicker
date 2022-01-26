@@ -8,15 +8,18 @@ import TopMenuButton from './Buttons/TopMenuButton'
 import { abbreviateNumber } from './Logic/logic'
 import { useSelector } from 'react-redux'
 import { getCoinsPerClick, getCoinsPerSecond } from '../redux/store/player'
+import CoinsPerSecondStats from './Popups/Stats/CoinsPerSecondStats'
 
 
 
 export default function Header(props) {
 
-    const player  = useSelector(state => state.player);
+    const player = useSelector(state => state.player);
+    const [isCoinsPerSecondStatOpen, setIsCoinsPerSecondStatOpen] = useState(false);
 
     return (
         <div className='flex flex-row w-full sm:h-[75px] rounded-2xl px-7 bg-secondary-blue text-grey items-center'>
+            {isCoinsPerSecondStatOpen && (<CoinsPerSecondStats isOpen={isCoinsPerSecondStatOpen} setIsOpen={setIsCoinsPerSecondStatOpen} />)}
 
             <div className='flex flex-row w-full justify-between '>
                 <div className='flex sm:flex-row flex-col justify-center sm:space-x-5 space-y-1'>
@@ -27,9 +30,12 @@ export default function Header(props) {
                         </div>
                     </div>
 
-                    <div className='flex flex-row space-x-1.5'>
+                    <div
+                        className='flex flex-row space-x-1.5 group'
+                        onClick={() => setIsCoinsPerSecondStatOpen(true)}
+                    >
                         <Clock className='self-center w-7 h-7' />
-                        <div className='self-center '>
+                        <div className='self-center group-hover:underline underline-offset-1'>
                             {abbreviateNumber(getCoinsPerSecond(player))}/s
                         </div>
                     </div>
