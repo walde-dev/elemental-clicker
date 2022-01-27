@@ -2,7 +2,7 @@ import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { getBuildingUpgrades, getProduction, getTotalProductionFromBuildings } from '../../../redux/store/buildings';
-import { getCoinsPerSecondUpgradeAmount, getCoinsPerSecondUpgrades } from '../../../redux/store/player';
+import { getCoinsPerSecond, getCoinsPerSecondUpgradeAmount, getCoinsPerSecondUpgrades } from '../../../redux/store/player';
 import { abbreviateNumber } from '../../Logic/logic';
 
 export default function CoinsPerSecondStats(props) {
@@ -13,7 +13,7 @@ export default function CoinsPerSecondStats(props) {
     const [detailedViewOpen, setDetailedViewOpen] = useState(false);
     const [selectedBuilding, setSelectedBuilding] = useState();
     let upgradesTotal = getTotalProductionFromBuildings(buildings);
-
+    let buildingTotal = 0;
     function closeModal() {
         props.setIsOpen(false)
     }
@@ -94,32 +94,42 @@ export default function CoinsPerSecondStats(props) {
 
                                             </div>
                                         </div>
-                                        <ul role='list' className='text-white mt-4 grid gap- grid-cols-1 '>
-                                            {(buildings) && Object.entries(buildings).map(building => (
+                                        <div className='flex flex-col w-full'>
+                                            <div className='self-end mr-[120px] font-semibold text-white'>
+                                                Total
+                                            </div>
+                                            <ul role='list' className='text-white mt-4 grid gap- grid-cols-1 '>
+                                                {(buildings) && Object.entries(buildings).map(building => (
 
-                                                <li
-                                                    key={building[1].name}
-                                                    className='items-center cursor-pointer hover:bg-hover-grey py-2 rounded-md font-inter col-span-1 flex flex-row text-center justify-around '
-                                                    onClick={() => {
-                                                        setSelectedBuilding(building[1]);
-                                                        setDetailedViewOpen(true);
-                                                    }}
-                                                >
-                                                    <ul role='list' className='text-white grid gap-0 grid-cols-2 w-6/12 '>
-                                                        <li className='font-semibold'>
-                                                            {building[1].name}
-                                                        </li>
-                                                        <li>
-                                                            {abbreviateNumber(getProduction(building[1]))}/s
-                                                        </li>
-                                                    </ul>
+                                                    <li
+                                                        key={building[1].name}
+                                                        className='items-center cursor-pointer hover:bg-hover-grey py-2 rounded-md font-inter col-span-1 flex flex-row text-center justify-around '
+                                                        onClick={() => {
+                                                            setSelectedBuilding(building[1]);
+                                                            setDetailedViewOpen(true);
+                                                        }}
+                                                    >
+
+                                                        <ul role='list' className='text-white grid gap-0 grid-cols-3 w-10/12 '>
+                                                            <li className='font-semibold'>
+                                                                {building[1].name}
+                                                            </li>
+                                                            <li>
+                                                                {abbreviateNumber(getProduction(building[1]))}/s
+                                                            </li>
+                                                            <li>
+                                                                {abbreviateNumber(buildingTotal += getProduction(building[1]))}/s
+                                                            </li>
+                                                        </ul>
 
 
-                                                </li>))
-                                            }
+
+                                                    </li>))
+                                                }
 
 
-                                        </ul>
+                                            </ul>
+                                        </div>
                                         <div className='w-full mt-3 px-4'>
                                             <hr className='w-full  border-selected-grey  border-1' />
                                         </div>
@@ -129,12 +139,16 @@ export default function CoinsPerSecondStats(props) {
                                                 setDetailedViewOpen(true);
                                             }}
                                         >
-                                            <ul role='list' className=' w-6/12 self-center text-center text-white grid gap-0 grid-cols-2 '>
+
+                                            <ul role='list' className=' w-10/12 self-center text-center text-white grid gap-0 grid-cols-3 '>
                                                 <li className='font-semibold'>
                                                     External Upgrades
                                                 </li>
                                                 <li>
-                                                    +{((getCoinsPerSecondUpgradeAmount(player)[2]-1)*100).toFixed(2)}%
+                                                    +{((getCoinsPerSecondUpgradeAmount(player)[2] - 1) * 100).toFixed(2)}%
+                                                </li>
+                                                <li>
+                                                    {abbreviateNumber(getCoinsPerSecond(player))}/s
                                                 </li>
                                             </ul>
                                         </div>
@@ -189,7 +203,14 @@ export default function CoinsPerSecondStats(props) {
 
                                 {detailedViewOpen && !selectedBuilding && (
                                     <div className='flex flex-col w-full'>
-                                        <div className='self-end mr-16 font-semibold text-white'>
+                                        <div className="mt-4 text-lg text-grey">
+                                            <p className="">
+                                                Here you will find a breakdown of all your external upgrades affecting production.
+
+                                            </p>
+                                            
+                                        </div>
+                                        <div className='self-end mr-[73px] font-semibold text-white'>
                                             Total
                                         </div>
                                         <div className='flex flex-row  mt-2 justify-around items-center'>
@@ -214,25 +235,25 @@ export default function CoinsPerSecondStats(props) {
                                                     {player.coinsPerSecondUpgrades.map(upgrade => (
                                                         <li
                                                             key={upgrade.upgrade.name}
-                                                            
+
                                                         >
                                                             <ul role='list' className='mt-2 items-center text-white w-full text-center  grid gap-2 grid-cols-3'>
                                                                 <li className='text-xs '>
                                                                     {upgrade.upgrade.name}
                                                                 </li>
                                                                 <li>
-                                                                    +{abbreviateNumber(upgrade.value*100-100)}%
+                                                                    +{abbreviateNumber(upgrade.value * 100 - 100)}%
                                                                 </li>
                                                                 <li>
-                                                                    {abbreviateNumber(upgradesTotal*=upgrade.value)}
+                                                                    {abbreviateNumber(upgradesTotal *= upgrade.value)}
                                                                 </li>
-                                                                
+
                                                             </ul>
                                                         </li>
-                                                                
+
                                                     ))}
-                                                    </ul>
-                                                
+                                                </ul>
+
                                             </div>
                                         </div>
                                         <div className='w-full mt-3 px-4'>
