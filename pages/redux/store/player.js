@@ -187,6 +187,7 @@ export function getCoinsPerSecond(state) {
     return (state.coinsPerSecond + sumBaseAdd) * state.coinsPerSecondMultiplier * sumMul + sumAdd;
 }
 
+
 export function getCoinsPerSecondUpgradeAmount(state){
     let sumBaseAdd = 0;
     let sumAdd = 0;

@@ -134,7 +134,7 @@ export default function CoinsPerSecondStats(props) {
                                                     External Upgrades
                                                 </li>
                                                 <li>
-                                                    +{(getCoinsPerSecondUpgradeAmount(player)[2].toFixed(2)-1)*100}%
+                                                    +{((getCoinsPerSecondUpgradeAmount(player)[2]-1)*100).toFixed(2)}%
                                                 </li>
                                             </ul>
                                         </div>
@@ -210,7 +210,7 @@ export default function CoinsPerSecondStats(props) {
 
                                                 </ul>
                                                 <ul role='list' className=' text-white w-full text-center  grid gap-2 grid-cols-1'>
-
+                                                    {console.log(player.coinsPerSecondUpgrades[0])}
                                                     {player.coinsPerSecondUpgrades.map(upgrade => (
                                                         <li
                                                             key={upgrade.upgrade.name}
@@ -221,10 +221,10 @@ export default function CoinsPerSecondStats(props) {
                                                                     {upgrade.upgrade.name}
                                                                 </li>
                                                                 <li>
-                                                                    +{abbreviateNumber(upgrade.upgrade.effectValue)}%
+                                                                    +{abbreviateNumber(upgrade.value*100-100)}%
                                                                 </li>
                                                                 <li>
-                                                                    {abbreviateNumber(upgradesTotal*=1+upgrade.upgrade.effectValue/100)}
+                                                                    {abbreviateNumber(upgradesTotal*=upgrade.value)}
                                                                 </li>
                                                                 
                                                             </ul>
