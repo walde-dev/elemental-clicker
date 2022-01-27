@@ -165,7 +165,7 @@ export function getCoinsPerClick(state) {
         }
     });
     //console.log('(',state.coinsPerClick, sumBaseAdd,')', state.coinsPerClickMultiplier, sumMul, sumAdd)
-    return ((state.coinsPerClick + sumBaseAdd) * state.coinsPerClickMultiplier + sumAdd)* sumMul ;
+    return ((state.coinsPerClick + sumBaseAdd) * state.coinsPerClickMultiplier )* sumMul + sumAdd;
 }
 
 export function getCoinsPerSecond(state) {

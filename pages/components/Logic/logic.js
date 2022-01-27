@@ -11,7 +11,7 @@ export default function Logic() {
 
 export function abbreviateNumber(value) {
     let newValue = value;
-    let precision = 0;
+    let precision = 1;
     if (newValue >= 1000) {
         precision = 2;
     }
@@ -30,6 +30,7 @@ export function abbreviateNumber(value) {
 
 
     newValue = newValue.toFixed(precision);
+    newValue = parseFloat(newValue);
 
 
     newValue += suffixes[suffixNum];
