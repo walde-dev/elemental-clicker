@@ -18,7 +18,7 @@ export default function Header(props) {
     const [isCoinsPerSecondStatOpen, setIsCoinsPerSecondStatOpen] = useState(false);
 
     return (
-        <div className='flex flex-row w-full sm:h-[75px] rounded-2xl px-7 bg-secondary-blue text-grey items-center'>
+        <div className='flex flex-row w-full sm:h-[75px] shadow-xl rounded-2xl px-7 bg-secondary-blue text-grey items-center'>
             {isCoinsPerSecondStatOpen && (<CoinsPerSecondStats isOpen={isCoinsPerSecondStatOpen} setIsOpen={setIsCoinsPerSecondStatOpen} />)}
 
             <div className='flex flex-row w-full justify-between '>

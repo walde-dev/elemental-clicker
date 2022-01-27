@@ -16,7 +16,7 @@ export default function MainMenu(props) {
     const [panelToRender, setPanelToRender] = useState(<BuildingsMenu {...props} />)
 
     return (
-        <div className={`w-full h-full bg-secondary-blue py-4  rounded-2xl`}>
+        <div className={`w-full h-full shadow-xl bg-secondary-blue py-4  rounded-2xl`}>
             <div className='flex flex-col h-full items-center'>
                 <div className='flex flex-row space-x-2 px-4'>
                     <MainMenuButton

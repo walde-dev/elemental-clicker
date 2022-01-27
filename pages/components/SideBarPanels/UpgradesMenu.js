@@ -63,11 +63,11 @@ export default function UpgradesMenu(props) {
                             }));
 
                             break;
-                        
+
                         case 2:
                             dispatch(addUpgrade({
                                 upgrade: upgrade,
-                                value: 1+(6 * Math.pow(getAmountOfBuildings(buildings), 0.6))/100,
+                                value: 1 + (6 * Math.pow(getAmountOfBuildings(buildings), 0.6)) / 100,
                                 bonusType: 'mul',
                                 stat: 'coinsPerSecond'
                             }));
@@ -158,15 +158,15 @@ export default function UpgradesMenu(props) {
                                 if (!upgrade[1].isBought) break;
                                 dispatch(updateUpgrade({
                                     upgrade: upgrade[1],
-                                    value: 1+(6 * Math.pow(getAmountOfBuildings(buildings), 0.6))/100,
+                                    value: 1 + (6 * Math.pow(getAmountOfBuildings(buildings), 0.6)) / 100,
                                     bonusType: 'mul',
                                     stat: 'coinsPerSecond',
                                 }));
                                 break;
                                 break;
-                            
-                            
-                                default:
+
+
+                            default:
                                 break;
                         }
                     } else if (upgrade.faction === 'chaos') {
@@ -210,10 +210,11 @@ export default function UpgradesMenu(props) {
             <div className='mt-4'>
                 Purchased Upgrades: {upgradesUnlocked}/{upgradesAmount} ({(upgradesUnlocked / upgradesAmount * 100).toFixed(0)}%)
             </div>
-            <button onClick={() => buyAll()}>
-                <div className='mt-2 rounded-md bg-accent-blue px-2 py-0.5'>
-                    BUY ALL
-                </div>
+            <button
+                className="mt-2 inline-flex justify-center px-2 py-1.5 text-md font-medium text-white bg-blue-400 border border-transparent rounded-md hover:bg-blue-200 hover:text-blue-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
+                onClick={() => buyAll()}
+            >
+                BUY ALL
             </button>
 
             <ul role='list' className='mt-2 grid h-[200px]  grid-cols-6 w-full overflow-auto'>
