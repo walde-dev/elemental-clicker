@@ -186,3 +186,22 @@ export function getCoinsPerSecond(state) {
     });
     return (state.coinsPerSecond + sumBaseAdd) * state.coinsPerSecondMultiplier * sumMul + sumAdd;
 }
+
+export function getCoinsPerSecondUpgradeAmount(state){
+    let sumBaseAdd = 0;
+    let sumAdd = 0;
+    let sumMul = 1;
+    state.coinsPerSecondUpgrades.map(upgrade => {
+        if (!upgrade) return;
+        if (upgrade.upgrade.bonusType === 'mul') {
+            if (upgrade.value == 0) return;
+            sumMul *= upgrade.value;
+        } else if (upgrade.upgrade.bonusType === 'add') {
+            sumAdd += upgrade.value;
+        } else if (upgrade.bonusType === 'baseAdd') {
+            sumBaseAdd += upgrade.value;
+        }
+    });
+    return [sumBaseAdd, sumAdd, sumMul];
+
+}

@@ -144,6 +144,7 @@ export function getProduction(state) {
     return production;
 }
 
+
 export function getTotalProductionFromBuildings(state) {
     let sum = 0;
     Object.entries(state).map((building) => {

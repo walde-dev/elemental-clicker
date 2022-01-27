@@ -1,15 +1,18 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { getProduction } from '../../../redux/store/buildings';
+import { getBuildingUpgrades, getProduction, getTotalProductionFromBuildings } from '../../../redux/store/buildings';
+import { getCoinsPerSecondUpgradeAmount, getCoinsPerSecondUpgrades } from '../../../redux/store/player';
 import { abbreviateNumber } from '../../Logic/logic';
 
 export default function CoinsPerSecondStats(props) {
 
-    const buildings = useSelector(state => state.buildings)
+    const buildings = useSelector(state => state.buildings);
+    const player = useSelector(state => state.player);
+
     const [detailedViewOpen, setDetailedViewOpen] = useState(false);
     const [selectedBuilding, setSelectedBuilding] = useState();
-    console.log(selectedBuilding)
+    let upgradesTotal = getTotalProductionFromBuildings(buildings);
 
     function closeModal() {
         props.setIsOpen(false)
@@ -120,18 +123,25 @@ export default function CoinsPerSecondStats(props) {
                                         <div className='w-full mt-3 px-4'>
                                             <hr className='w-full  border-selected-grey  border-1' />
                                         </div>
-                                        <ul role='list' className='mt-3 w-6/12 self-center text-center text-white grid gap-0 grid-cols-2 '>
-                                            <li className='font-semibold'>
-                                                External Upgrades
-                                            </li>
-                                            <li>
-                                                +2324%
-                                            </li>
-                                        </ul>
+                                        <div
+                                            className='flex mt-3 justify-center w-full py-2 rounded-md hover:bg-hover-grey cursor-pointer'
+                                            onClick={() => {
+                                                setDetailedViewOpen(true);
+                                            }}
+                                        >
+                                            <ul role='list' className=' w-6/12 self-center text-center text-white grid gap-0 grid-cols-2 '>
+                                                <li className='font-semibold'>
+                                                    External Upgrades
+                                                </li>
+                                                <li>
+                                                    +{(getCoinsPerSecondUpgradeAmount(player)[2].toFixed(2)-1)*100}%
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 )}
 
-                                {detailedViewOpen && (
+                                {detailedViewOpen && selectedBuilding && (
                                     <div className='flex flex-col w-full'>
                                         <div className='self-end mr-16 font-semibold text-white'>
                                             Total
@@ -145,7 +155,7 @@ export default function CoinsPerSecondStats(props) {
                                                     Base Production
                                                 </li>
                                                 <li>
-                                                    {selectedBuilding.baseProduction}
+                                                    {abbreviateNumber(selectedBuilding.baseProduction)}
                                                 </li>
                                                 <li>
                                                     {abbreviateNumber(selectedBuilding.baseProduction)}/s
@@ -177,6 +187,60 @@ export default function CoinsPerSecondStats(props) {
                                     </div>
                                 )}
 
+                                {detailedViewOpen && !selectedBuilding && (
+                                    <div className='flex flex-col w-full'>
+                                        <div className='self-end mr-16 font-semibold text-white'>
+                                            Total
+                                        </div>
+                                        <div className='flex flex-row  mt-2 justify-around items-center'>
+                                            <div className='w-3/12 text-white self-start font-semibold'>
+                                                External Upgrades
+                                            </div>
+                                            <div>
+                                                <ul role='list' className='text-white text-center  grid gap-2 grid-rows-1 grid-cols-3'>
+                                                    <li className='text-xs self-center'>
+                                                        Base Production
+                                                    </li>
+                                                    <li>
+                                                        {abbreviateNumber(getTotalProductionFromBuildings(buildings))}/s
+                                                    </li>
+                                                    <li>
+                                                        {abbreviateNumber(getTotalProductionFromBuildings(buildings))}/s
+                                                    </li>
+
+                                                </ul>
+                                                <ul role='list' className=' text-white w-full text-center  grid gap-2 grid-cols-1'>
+
+                                                    {player.coinsPerSecondUpgrades.map(upgrade => (
+                                                        <li
+                                                            key={upgrade.upgrade.name}
+                                                            
+                                                        >
+                                                            <ul role='list' className='mt-2 items-center text-white w-full text-center  grid gap-2 grid-cols-3'>
+                                                                <li className='text-xs '>
+                                                                    {upgrade.upgrade.name}
+                                                                </li>
+                                                                <li>
+                                                                    +{abbreviateNumber(upgrade.upgrade.effectValue)}%
+                                                                </li>
+                                                                <li>
+                                                                    {abbreviateNumber(upgradesTotal*=1+upgrade.upgrade.effectValue/100)}
+                                                                </li>
+                                                                
+                                                            </ul>
+                                                        </li>
+                                                                
+                                                    ))}
+                                                    </ul>
+                                                
+                                            </div>
+                                        </div>
+                                        <div className='w-full mt-3 px-4'>
+                                            <hr className='w-full  border-selected-grey  border-1' />
+                                        </div>
+                                    </div>
+                                )}
+
 
                                 <div className={`mt-12 ${detailedViewOpen ? 'flex flex-row space-x-2' : ''}`}>
                                     {detailedViewOpen && (
@@ -185,6 +249,7 @@ export default function CoinsPerSecondStats(props) {
                                             className="inline-flex justify-center px-4 py-2 text-md font-medium text-white bg-blue-400 border border-transparent rounded-md hover:bg-blue-200 hover:text-blue-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
                                             onClick={() => {
                                                 setDetailedViewOpen(false);
+                                                setSelectedBuilding();
                                             }}
                                         >
                                             Back
